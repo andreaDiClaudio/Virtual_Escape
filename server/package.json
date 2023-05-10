@@ -1,6 +1,12 @@
 {
   "type": "module",
+  "scripts": {
+    "reset-database": "node ./databases/createDatabase.js delete_mode",
+    "create-database": "node ./databases/createDatabase.js"
+  },
   "dependencies": {
-    "express": "^4.18.2"
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mysql2": "^3.3.0"
   }
 }
