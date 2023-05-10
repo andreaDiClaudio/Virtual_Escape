@@ -1,8 +1,8 @@
 {
   "type": "module",
   "scripts": {
-    "reset-database": "node ./databases/createDatabase.js delete_mode",
-    "create-database": "node ./databases/createDatabase.js"
+    "reset-database": "node ./database/createDatabase.js delete_mode",
+    "create-database": "node ./database/createDatabase.js"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
