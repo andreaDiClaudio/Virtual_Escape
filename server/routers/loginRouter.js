@@ -4,6 +4,11 @@ import db from "../database/connection.js";
 
 const router = Router();
 
+//Only for testing the backend redirection to login
+router.get("/login", (req, res) => {
+    res.status(200).json({ message: "Redirected to login page" });
+});
+
 router.post("/login", async (req, res) => {
     const { email, nickname, password } = req.body;
 
@@ -29,20 +34,19 @@ router.post("/login", async (req, res) => {
             });
     }
 
-    /* //TODO when doing authorization
-    if (isSamePassword) {
-        //save the user info in the session
-        req.session.user = {
-            id: userFound.id,
-            username: userFound.username,
-            email: userFound.email
-        };
-        */
-
     //Check if password is the same
     const isSamePassword = await bcrypt.compare(password, user.password);
 
     if (isSamePassword) {
+        //save the user info in the session
+        req.session.user = {
+            id: user.id,
+            nickname: user.nickname,
+            email: user.email
+        };
+
+        console.log(req.session.user);
+
         return res.status(200).json({ message: "Logged in" });
     }
     else {

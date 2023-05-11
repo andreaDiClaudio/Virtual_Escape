@@ -38,10 +38,8 @@ router.post("/api/users", async (req, res) => {
         if (user.email === email) return res.status(400).json({ message: `User with the email '${email}' already exists` });
     }
 
-
     // Hash the password using bcrypt
     hashedPassword = await bcrypt.hash(password, 12);
-
 
     //Saving the user in the db
     const { lastID } = await db.execute("INSERT INTO users (email, nickname, password) VALUES (?, ?, ?);", [email, nickname, hashedPassword]);
