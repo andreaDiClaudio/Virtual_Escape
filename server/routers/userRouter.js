@@ -1,7 +1,10 @@
 import { Router } from "express";
+import bcrypt from "bcrypt";
 import db from "../database/connection.js";
 
 const router = Router();
+
+export let hashedPassword = "";
 
 //*GET*//
 router.get("/api/users", async (req, res) => {
@@ -35,13 +38,13 @@ router.post("/api/users", async (req, res) => {
         if (user.email === email) return res.status(400).json({ message: `User with the email '${email}' already exists` });
     }
 
-    /*TODO Implement later once it works
+
     // Hash the password using bcrypt
     hashedPassword = await bcrypt.hash(password, 12);
-    */
+
 
     //Saving the user in the db
-    const { lastID } = await db.execute("INSERT INTO users (email, nickname, password) VALUES (?, ?, ?);", [email, nickname, password]);
+    const { lastID } = await db.execute("INSERT INTO users (email, nickname, password) VALUES (?, ?, ?);", [email, nickname, hashedPassword]);
 
     return res.status(201).json({
         message: `User created successfully`
