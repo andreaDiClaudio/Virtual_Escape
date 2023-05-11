@@ -21,7 +21,6 @@ app.use(session({
     cookie: { secure: false } //'secure : true' expect us to use https    
 }));
 
-
 /*RATE LIMIT */
 const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -32,7 +31,8 @@ const apiLimiter = rateLimit({
 app.use("/login", apiLimiter);
 app.use("/home", apiLimiter);
 
-// Middleware to check if the user is authenticated
+/* MIDDLEWARE */
+// To check if the user is authenticated
 export function isAuthenticated(req, res, next) {
     if (req.session && req.session.user) {
         next();

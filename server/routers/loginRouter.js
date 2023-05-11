@@ -45,8 +45,6 @@ router.post("/login", async (req, res) => {
             email: user.email
         };
 
-        console.log(req.session.user);
-
         return res.status(200).json({ message: "Logged in" });
     }
     else {
