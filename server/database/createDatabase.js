@@ -29,7 +29,7 @@ db.execute(`
   );
 `);
 
-/*IMAGES*/
+/*IMAGES
 db.execute(`
   CREATE TABLE IF NOT EXISTS images (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -42,7 +42,7 @@ db.execute(`
   );
 `);
 
-/*FOLDERS*/
+/*FOLDERS
 db.execute(`
   CREATE TABLE IF NOT EXISTS folders (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -52,7 +52,7 @@ db.execute(`
   );
 `);
 
-/*FOLDER_IMAGES*/
+/*FOLDER_IMAGES
 db.execute(`
   CREATE TABLE IF NOT EXISTS folder_images (
     folder_id INT NOT NULL,
@@ -64,7 +64,7 @@ db.execute(`
   );
 `);
 
-/*COMMENTS*/
+/*COMMENTS
 db.execute(`
   CREATE TABLE IF NOT EXISTS comments (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -76,7 +76,7 @@ db.execute(`
   );
 `);
 
-/*LIKES*/
+/*LIKES
 db.execute(`
   CREATE TABLE IF NOT EXISTS likes (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -87,7 +87,7 @@ db.execute(`
   );
 `);
 
-/*FOLLOWS*/
+/*FOLLOWS
 db.execute(`
   CREATE TABLE IF NOT EXISTS follows (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -97,3 +97,4 @@ db.execute(`
     FOREIGN KEY (followee_id) REFERENCES users (id) ON DELETE CASCADE
   );
 `);
+*/
