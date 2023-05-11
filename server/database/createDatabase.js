@@ -3,12 +3,12 @@ import db from "./connection.js";
 const isDeleteMode = process.argv.findIndex((argument) => argument === "delete_mode") === -1 ? false : true;
 
 if (isDeleteMode) {
-  db.execute(`DROP TABLE folder_images;`);
-  db.execute(`DROP TABLE comments;`);
-  db.execute(`DROP TABLE likes;`);
-  db.execute(`DROP TABLE follows;`);
-  db.execute(`DROP TABLE folders;`);
-  db.execute(`DROP TABLE images;`);
+  //db.execute(`DROP TABLE folder_images;`);
+  //db.execute(`DROP TABLE comments;`);
+  // db.execute(`DROP TABLE likes;`);
+  // db.execute(`DROP TABLE follows;`);
+  // db.execute(`DROP TABLE folders;`);
+  // db.execute(`DROP TABLE images;`);
   db.execute(`DROP TABLE users;`);
 }
 
@@ -18,7 +18,7 @@ if (isDeleteMode) {
 db.execute(`
   CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL,
     nickname VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     bio TEXT,

@@ -16,25 +16,24 @@ router.post("/api/users", async (req, res) => {
     const { email, nickname, password } = req.body;
 
     // Validate the required fields
-    /* //TODO implement later once it works
-    if (!email || !password || !username) {
+    if (!email || !password || !nickname) {
         return res.status(400).json({ message: 'Please provide all required credentials' });
     }
-    */
 
-    /* //TODO implement later once it works
-    const user = await db.get('SELECT * FROM users WHERE email = ? AND nick = ?', [email, username]);
+    // Check if a user with the same credentials already exists
+    const [users, fields] = await db.execute('SELECT * FROM users WHERE email = ? OR nickname = ?', [email, nickname]);
+
+    //saves the user in a variable
+    const user = users[0];
+
+    // If the user exists will send a message saying what fields are matched and status 400
     if (user) {
-        // Check if a user with the same credentials already exists
-        if (user.username === username && user.email === email) return res.status(400).json({ message: `User with the username '${username}' and email '${email}' already exists` });
+        if (user.nickname === nickname && user.email === email) return res.status(400).json({ message: `User with the nickname '${nickname}' and email '${email}' already exists` });
 
-        // Check if a user with the same username already exists
-        if (user.username === username) return res.status(400).json({ message: `User with the username '${username}' already exists` });
+        if (user.nickname === nickname) return res.status(400).json({ message: `User with the nickname '${nickname}' already exists` });
 
-        // Check if a user with the same email already exists
         if (user.email === email) return res.status(400).json({ message: `User with the email '${email}' already exists` });
     }
-    */
 
     /*TODO Implement later once it works
     // Hash the password using bcrypt
