@@ -1,13 +1,14 @@
 import express from "express";
 
 const app = express();
-
-app.get("/", (req, res) => {
-    res.send({ message: "Working" });
-})
+//for parsing the req.body
+app.use(express.json());
 
 import userRouter from "./routers/userRouter.js";
 app.use(userRouter);
+
+import loginRouter from "./routers/loginRouter.js";
+app.use(loginRouter);
 
 const PORT = 8080;
 app.listen(PORT, () => {
