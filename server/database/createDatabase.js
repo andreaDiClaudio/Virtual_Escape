@@ -76,6 +76,7 @@ db.execute(`
   );
 `);
 
+
 /*LIKES
 db.execute(`
   CREATE TABLE IF NOT EXISTS likes (
