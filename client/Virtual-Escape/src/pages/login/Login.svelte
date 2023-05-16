@@ -2,6 +2,9 @@
   import { useNavigate, useLocation } from "svelte-navigator";
   import { user } from "../../stores/users/users.js";
 
+  import "toastr/build/toastr.min.css";
+  import toastr from "toastr";
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -32,8 +35,27 @@
 
         const from = ($location.state && $location.state.from) || "/home";
         navigate(from, { replace: true });
-      } else if (response.status === 404) {
+      } else if (response.status === 400) {
         message = "Wrong credentials";
+
+        toastr["warning"]("Wrong Credentials, try again");
+        toastr.options = {
+          closeButton: false,
+          debug: false,
+          newestOnTop: false,
+          progressBar: false,
+          positionClass: "toast-top-left",
+          preventDuplicates: false,
+          onclick: null,
+          hideDuration: 500,
+          timeOut: 3000,
+          extendedTimeOut: 1000,
+          showEasing: "swing",
+          hideEasing: "linear",
+          showMethod: "fadeIn",
+          hideMethod: "fadeOut",
+          showDuration: 300,
+        };
       }
     });
   }
