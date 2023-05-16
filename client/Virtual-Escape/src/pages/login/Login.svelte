@@ -5,12 +5,9 @@
   const navigate = useNavigate();
   const location = useLocation();
 
-  //import toastr from "toastr"; TODO
-  //import 'toastr/build/toastr.min.css'; TODO
-
-  let email = "andreadicla@gmail.com";
-  let nickname = "ndreotti";
-  let password = "lol";
+  let email = "";
+  let nickname = "";
+  let password = "";
   let message = "";
 
   function handleSubmit() {
@@ -37,27 +34,6 @@
         navigate(from, { replace: true });
       } else if (response.status === 404) {
         message = "Wrong credentials";
-
-        /* TODO when loggin works
-          toastr["error"]("Incorrect credentials");
-          toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": false,
-            "positionClass": "toast-top-right",
-            "preventDuplicates": false,
-            "onclick": null,
-            "hideDuration": "500",
-            "timeOut": "3000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut",
-            "showDuration": "300"
-      }
-      */
       }
     });
   }
