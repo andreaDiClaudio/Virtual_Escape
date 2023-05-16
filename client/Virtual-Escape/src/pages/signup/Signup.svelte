@@ -1,0 +1,117 @@
+<script>
+    import "toastr/build/toastr.min.css";
+    import toastr from "toastr";
+
+    let email = "";
+    let nickname = "";
+    let password = "";
+    let message = "";
+
+    async function handleSubmit() {
+        const data = { email, nickname, password };
+
+        fetch("http://localhost:8080/api/users", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nickname: nickname,
+                password: password,
+                email: email,
+            }),
+        }).then((response) => {
+            if (response.status === 201) {
+                window.location.href = "/";
+            } else if (response.status === 400) {
+                message = "User already exists";
+
+                toastr["warning"]("Credentials already taken");
+                toastr.options = {
+                    closeButton: false,
+                    debug: false,
+                    newestOnTop: false,
+                    progressBar: false,
+                    positionClass: "toast-top-left",
+                    preventDuplicates: false,
+                    onclick: null,
+                    hideDuration: 500,
+                    timeOut: 3000,
+                    extendedTimeOut: 1000,
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    showDuration: 300,
+                };
+            }
+        });
+    }
+</script>
+
+<div id="page">
+    <div id="login-window">
+        <div id="image-wrapper">
+            <img
+                id="logo"
+                src="../../src/assets/images/logo/logo.png"
+                alt="Virtual Escape Logo"
+            />
+        </div>
+        <div id="title-wrapper">
+            <p>
+                <a id="signup-link" href="/">Already a member?</a>
+            </p>
+        </div>
+
+        <div id="form-wrapper">
+            <form id="login-form" on:submit|preventDefault={handleSubmit}>
+                <div id="email-wrapper">
+                    <input
+                        id="email-input"
+                        class="input"
+                        type="email"
+                        name="email"
+                        placeholder="email@example.com"
+                        required
+                        bind:value={email}
+                    />
+                </div>
+
+                <div id="username-wrapper" data-name="username">
+                    <input
+                        id="username-input"
+                        class="input"
+                        type="text"
+                        name="username"
+                        placeholder="username"
+                        required
+                        bind:value={nickname}
+                    />
+                </div>
+
+                <div id="password-wrapper">
+                    <input
+                        id="password-input"
+                        class="input"
+                        type="password"
+                        name="password"
+                        placeholder="password"
+                        required
+                        bind:value={password}
+                    />
+                </div>
+
+                <div id="button-wrapper">
+                    <button id="submit-form-button" type="submit"
+                        >Create Account</button
+                    >
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="copyright-year-wrapper">
+        <p id="copyright-year">Andrea Di Claudio / © 2023</p>
+    </div>
+</div>
