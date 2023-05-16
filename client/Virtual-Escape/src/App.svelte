@@ -5,6 +5,10 @@
   import Login from "./pages/login/Login.svelte";
   import Signup from "./pages/signup/Signup.svelte";
   import Home from "./pages/home/home.svelte";
+  import { titleStore } from "./stores/tabTitle/tabTitle.js";
+
+  // Update the document title reactively
+  $: document.title = $titleStore;
 </script>
 
 <Router primary={false}>

@@ -1,6 +1,14 @@
 <script>
     import { user } from "../../stores/users/users.js";
 
+    import { onMount, onDestroy } from "svelte";
+    onMount(() => {
+        document.title = "Home | VE";
+        return onDestroy(() => {
+            document.title = "Virtual Escape";
+        });
+    });
+
     function handleSubmit() {
         fetch("http://localhost:8080/logout", {
             method: "POST",

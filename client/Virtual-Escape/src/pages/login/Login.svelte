@@ -4,13 +4,25 @@
 
   import "toastr/build/toastr.min.css";
   import toastr from "toastr";
+  import { onMount, onDestroy } from "svelte";
+  import { titleStore } from "../../stores/tabTitle/tabTitle.js";
+
+  // Update the document title when the component is mounted
+  titleStore.setTitle("Login | VE");
+
+  // Reset the document title when the component is unmounted
+  onDestroy(() => {
+    titleStore.resetTitle();
+  });
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  let email = "";
-  let nickname = "";
-  let password = "";
+  const currentYear = new Date().getFullYear();
+
+  let email = "test@gmail.com";
+  let nickname = "test";
+  let password = "test";
   let message = "";
 
   function handleSubmit() {
@@ -35,7 +47,7 @@
 
         const from = ($location.state && $location.state.from) || "/home";
         navigate(from, { replace: true });
-      } else if (response.status === 400) {
+      } else if (response.status === 400 || response.status === 404) {
         message = "Wrong credentials";
 
         toastr["warning"]("Wrong Credentials, try again");
@@ -122,6 +134,6 @@
   </div>
 
   <div id="copyright-year-wrapper">
-    <p id="copyright-year">Andrea Di Claudio / © 2023</p>
+    <p id="copyright-year">Andrea Di Claudio / © {currentYear}</p>
   </div>
 </div>

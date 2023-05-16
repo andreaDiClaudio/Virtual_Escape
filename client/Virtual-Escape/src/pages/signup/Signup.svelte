@@ -1,7 +1,18 @@
 <script>
     import "toastr/build/toastr.min.css";
     import toastr from "toastr";
+    import { onMount, onDestroy } from "svelte";
+    import { titleStore } from "../../stores/tabTitle/tabTitle.js";
 
+    // Update the document title when the component is mounted
+    titleStore.setTitle("Signup | VE");
+
+    // Reset the document title when the component is unmounted
+    onDestroy(() => {
+        titleStore.resetTitle();
+    });
+
+    const currentYear = new Date().getFullYear();
     let email = "";
     let nickname = "";
     let password = "";
@@ -114,6 +125,6 @@
     </div>
 
     <div id="copyright-year-wrapper">
-        <p id="copyright-year">Andrea Di Claudio / © 2023</p>
+        <p id="copyright-year">Andrea Di Claudio / © {currentYear}</p>
     </div>
 </div>
