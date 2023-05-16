@@ -1,24 +1,19 @@
 <script>
-  import { useNavigate } from "svelte-navigator";
+  import { useNavigate, useLocation } from "svelte-navigator";
+  import { user } from "../../stores/users/users.js";
 
-  //import { useNavigate, useLocation } from "svelte-navigator"; //TODO
-  //import { user } from "../../stores/users.js"; TODO
+  const navigate = useNavigate();
+  const location = useLocation();
+
   //import toastr from "toastr"; TODO
   //import 'toastr/build/toastr.min.css'; TODO
 
-  const navigate = useNavigate();
-  //const location = useLocation();TODO
-
-  let email = "";
-  let nickname = "";
-  let password = "";
+  let email = "andreadicla@gmail.com";
+  let nickname = "ndreotti";
+  let password = "lol";
   let message = "";
 
   function handleSubmit() {
-    console.log(email);
-    console.log(nickname);
-    console.log(password);
-
     fetch("http://localhost:8080/login", {
       method: "POST",
       headers: {
@@ -31,13 +26,18 @@
       }),
     }).then((response) => {
       if (response.status === 200) {
+        console.log("Reached");
+
         const currentUser = { nickname, password };
-        //user.set(currentUser);
-        //localStorage.setItem('user', JSON.stringify(currentUser));
-        //const from = ($location.state && $location.state.from) || "/home";
-        navigate("/home", { replace: true });
+        user.set(currentUser);
+        console.log(currentUser);
+        localStorage.setItem("user", JSON.stringify(currentUser));
+
+        const from = ($location.state && $location.state.from) || "/home";
+        navigate(from, { replace: true });
       } else if (response.status === 404) {
         message = "Wrong credentials";
+
         /* TODO when loggin works
           toastr["error"]("Incorrect credentials");
           toastr.options = {
