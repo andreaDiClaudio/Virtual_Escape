@@ -1,39 +1,44 @@
 <script>
-    //import { useNavigate, useLocation } from "svelte-navigator"; //TODO
-    //import { user } from "../../stores/users.js"; TODO
-    //import toastr from "toastr"; TODO
-    //import 'toastr/build/toastr.min.css'; TODO
-  
-    //const navigate = useNavigate();TODO
-    //const location = useLocation();TODO
-  
-    let email = '';
-    let nickname = '';
-    let password = '';
-    let message = '';
-  
-    function handleSubmit() {
-      fetch('http://localhost:8080/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          'nickname': nickname,
-          'password': password,
-          'email': email
-        })
-      })/* TODO when loggin works
-      .then(response => {
-        if (response.status === 200) {
-          const currentUser = { nickname, password };
-          user.set(currentUser);
-          localStorage.setItem('user', JSON.stringify(currentUser));
-          const from = ($location.state && $location.state.from) || "/home";
-          navigate(from, { replace: true });
-        } else if (response.status === 404) {
-          message = "Wrong credentials";
-  
+  import { useNavigate } from "svelte-navigator";
+
+  //import { useNavigate, useLocation } from "svelte-navigator"; //TODO
+  //import { user } from "../../stores/users.js"; TODO
+  //import toastr from "toastr"; TODO
+  //import 'toastr/build/toastr.min.css'; TODO
+
+  const navigate = useNavigate();
+  //const location = useLocation();TODO
+
+  let email = "";
+  let nickname = "";
+  let password = "";
+  let message = "";
+
+  function handleSubmit() {
+    console.log(email);
+    console.log(nickname);
+    console.log(password);
+
+    fetch("http://localhost:8080/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        nickname: nickname,
+        password: password,
+      }),
+    }).then((response) => {
+      if (response.status === 200) {
+        const currentUser = { nickname, password };
+        //user.set(currentUser);
+        //localStorage.setItem('user', JSON.stringify(currentUser));
+        //const from = ($location.state && $location.state.from) || "/home";
+        navigate("/home", { replace: true });
+      } else if (response.status === 404) {
+        message = "Wrong credentials";
+        /* TODO when loggin works
           toastr["error"]("Incorrect credentials");
           toastr.options = {
             "closeButton": false,
@@ -52,34 +57,63 @@
             "hideMethod": "fadeOut",
             "showDuration": "300"
       }
-        }
-      });
       */
-    }
-  </script>
-  
+      }
+    });
+  }
+</script>
+
 <div id="page">
   <div id="login-window">
     <div id="image-wrapper">
-      <img id="logo" src="../../src/assets/images/logo/logo.png" alt="Virtual Escape Logo">
+      <img
+        id="logo"
+        src="../../src/assets/images/logo/logo.png"
+        alt="Virtual Escape Logo"
+      />
     </div>
     <div id="title-wrapper">
-        <p>Welcome, <a id="signup-link" href="/signup">new to the platform?</a></p>
+      <p>
+        Welcome, <a id="signup-link" href="/signup">new to the platform?</a>
+      </p>
     </div>
-    
+
     <div id="form-wrapper">
       <form id="login-form" on:submit|preventDefault={handleSubmit}>
-
         <div id="email-wrapper">
-          <input id="email-input" class="input" type="email" name="email" placeholder="email@example.com" required bind:value={email}>
+          <input
+            id="email-input"
+            class="input"
+            type="email"
+            name="email"
+            placeholder="email@example.com"
+            required
+            bind:value={email}
+          />
         </div>
 
         <div id="username-wrapper" data-name="username">
-          <input id="username-input" class="input" type="text" name="username" placeholder="username" required bind:value={nickname}>
+          <input
+            id="username-input"
+            class="input"
+            type="text"
+            name="username"
+            placeholder="username"
+            required
+            bind:value={nickname}
+          />
         </div>
 
         <div id="password-wrapper">
-          <input id="password-input" class="input" type="password" name="password" placeholder="password" required bind:value={password}>
+          <input
+            id="password-input"
+            class="input"
+            type="password"
+            name="password"
+            placeholder="password"
+            required
+            bind:value={password}
+          />
         </div>
 
         <div id="button-wrapper">
