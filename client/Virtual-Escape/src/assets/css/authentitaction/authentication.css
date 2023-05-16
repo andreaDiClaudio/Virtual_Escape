@@ -1,0 +1,124 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: Raleway, sans-serif;
+  color: rgb(62, 62, 62);
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background: linear-gradient(55deg, #f4dfc5, #e7793e);
+  background-repeat: round;
+  min-height: 100vh;
+}
+
+#page {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  width: 100%;
+}
+
+#image-wrapper {
+  text-align: center;
+}
+#logo {
+  width: 35vw;
+  min-width: 400px;
+}
+
+#title-wrapper {
+  padding-bottom: 1rem;
+  text-align: center;
+}
+
+#signup-link {
+  color: #e7793e;
+}
+
+#form-wrapper {
+text-align: center;
+}
+
+#signup-button,
+#signup-button:hover {
+  border: none;
+  background-color: #ffffff;
+  font-size: 16px;
+  text-decoration: underline;
+  color: #e7793e;
+  cursor: pointer;
+}
+
+#login-window {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  position: relative;
+  min-width: 40vw;
+  min-height: 361px;
+  box-shadow: 0px 0px 24px #9b644b;
+}
+
+.input {
+  border: none;
+  border-bottom: 2px solid #ee9229;
+  background: none;
+  padding: 1rem;
+  font-weight: 700;
+}
+
+.input:hover {
+  box-shadow: 0px 0px 10px #9b644b;
+}
+
+#submit-form-button {
+  padding:0.6em 2em;
+  border-radius: 8px;
+  color:#fff;
+  background-color:#e7793e;
+  font-size:0.8em;
+  border: solid white 1px;
+  cursor:pointer;
+  margin:1em;
+}
+
+#submit-form-button:hover {
+  padding:0.6em 2em;
+  border-radius: 8px;
+  color:#ee9229;
+  background-color:#ffffff;
+  box-shadow: 0px 0px 10px #9b644b;
+  font-size:0.8em;
+  border: solid #ee9229 1px;
+  cursor:pointer;
+  margin:1em;
+}
+
+#copyright-year-wrapper {
+  z-index: -1;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem; /* Add this line to position the div at the right */
+  display: flex;
+  text-align: end;
+  color: #2a2a3f;
+}
+
+@media screen and (max-width:660px) {
+  .documentation-section-wrapper {
+    padding-left: 2em;
+  }
+
+  .button {
+    width: 6.5rem;
+  }
+
+  code {
+    font-size: small;
+  }
+}
