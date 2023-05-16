@@ -60,13 +60,11 @@
   
 <div id="page">
   <div id="login-window">
+    <div id="image-wrapper">
+      <img id="logo" src="../../src/assets/images/logo/logo.png" alt="Virtual Escape Logo">
+    </div>
     <div id="title-wrapper">
-      <div id="title-content">
-        <h1 id="title">Welcome</h1>
-        <a href="/signup">
-          <button id="signup-button">Don't you have an account?</button>
-        </a>
-      </div>
+        <p>Welcome, <a id="signup-link" href="/signup">new to the platform?</a></p>
     </div>
     
     <div id="form-wrapper">

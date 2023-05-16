@@ -22,17 +22,21 @@ body {
   width: 100%;
 }
 
-#title-wrapper {
-  position: relative;
-  padding-bottom: 1rem;
+#image-wrapper {
+  text-align: center;
+}
+#logo {
+  width: 35vw;
+  min-width: 400px;
 }
 
-#title-content {
+#title-wrapper {
+  padding-bottom: 1rem;
   text-align: center;
 }
 
-#title {
-  font-size: 6rem;
+#signup-link {
+  color: #e7793e;
 }
 
 #form-wrapper {
@@ -52,7 +56,6 @@ text-align: center;
 #login-window {
   display: flex;
   flex-direction: column;
-
   justify-content: center;
   background: white;
   position: relative;
@@ -104,4 +107,18 @@ text-align: center;
   display: flex;
   text-align: end;
   color: #2a2a3f;
+}
+
+@media screen and (max-width:660px) {
+  .documentation-section-wrapper {
+    padding-left: 2em;
+  }
+
+  .button {
+    width: 6.5rem;
+  }
+
+  code {
+    font-size: small;
+  }
 }
