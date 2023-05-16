@@ -60,7 +60,9 @@
         </div>
         <div id="title-wrapper">
             <p>
-                <a id="signup-link" href="/">Already a member?</a>
+                Ehy, we already know you, <a id="signup-link" href="/">
+                    log in!</a
+                >
             </p>
         </div>
 
