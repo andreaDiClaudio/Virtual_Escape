@@ -7,9 +7,14 @@
     // Update the document title when the component is mounted
     titleStore.setTitle("Signup | VE");
 
+    onMount(() => {
+        document.body.classList.add("body-gradient");
+    });
+
     // Reset the document title when the component is unmounted
     onDestroy(() => {
         titleStore.resetTitle();
+        document.body.classList.remove("body-gradient");
     });
 
     const currentYear = new Date().getFullYear();

@@ -6,9 +6,14 @@
     // Update the document title when the component is mounted
     titleStore.setTitle("Home | VE");
 
+    onMount(() => {
+        document.body.classList.add("body-white");
+    });
+
     // Reset the document title when the component is unmounted
     onDestroy(() => {
         titleStore.resetTitle();
+        document.body.classList.remove("body-white");
     });
 
     function handleSubmit() {
@@ -35,10 +40,12 @@
                 <a class="navbar-content">Create</a>
                 <a class="navbar-content">Profile</a>
             </div>
-
-            <form on:submit|preventDefault={handleSubmit}>
-                <button type="submit" id="submit-form-button">logout</button>
-            </form>
+            <div>
+                <form on:submit|preventDefault={handleSubmit}>
+                    <button type="submit" id="submit-form-button">logout</button
+                    >
+                </form>
+            </div>
         </div>
     </nav>
     <h1>Welcome, {$user.nickname}!</h1>

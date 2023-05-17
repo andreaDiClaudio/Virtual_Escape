@@ -1,5 +1,9 @@
+.body-white {
+    background-color: white;
+}
+
 #navbar {
     display: flex;
     flex-direction: row;
-    padding: 10rem;
+    padding: 2rem;
 }
