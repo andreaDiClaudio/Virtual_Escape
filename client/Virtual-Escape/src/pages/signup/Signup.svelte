@@ -37,7 +37,6 @@
             } else if (response.status === 400) {
                 message = "User already exists";
 
-                toastr["warning"]("Credentials already taken");
                 toastr.options = {
                     closeButton: false,
                     debug: false,
@@ -55,6 +54,7 @@
                     hideMethod: "fadeOut",
                     showDuration: 300,
                 };
+                toastr["warning"]("Credentials already taken");
             }
         });
     }

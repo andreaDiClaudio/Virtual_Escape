@@ -48,7 +48,6 @@
       } else if (response.status === 400 || response.status === 404) {
         message = "Wrong credentials";
 
-        toastr["warning"]("Wrong Credentials, try again");
         toastr.options = {
           closeButton: false,
           debug: false,
@@ -66,6 +65,7 @@
           hideMethod: "fadeOut",
           showDuration: 300,
         };
+        toastr["warning"]("Wrong Credentials, try again");
       }
     });
   }
