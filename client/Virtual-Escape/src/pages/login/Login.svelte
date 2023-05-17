@@ -40,7 +40,6 @@
       if (response.status === 200) {
         const currentUser = { nickname, password };
         user.set(currentUser);
-        console.log(currentUser);
         localStorage.setItem("user", JSON.stringify(currentUser));
 
         const from = ($location.state && $location.state.from) || "/home";

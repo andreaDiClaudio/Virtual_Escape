@@ -1,12 +1,14 @@
 <script>
     import { user } from "../../stores/users/users.js";
-
     import { onMount, onDestroy } from "svelte";
-    onMount(() => {
-        document.title = "Home | VE";
-        return onDestroy(() => {
-            document.title = "Virtual Escape";
-        });
+    import { titleStore } from "../../stores/tabTitle/tabTitle.js";
+
+    // Update the document title when the component is mounted
+    titleStore.setTitle("Home | VE");
+
+    // Reset the document title when the component is unmounted
+    onDestroy(() => {
+        titleStore.resetTitle();
     });
 
     function handleSubmit() {
@@ -25,10 +27,19 @@
     }
 </script>
 
-<div id="page">
-    <h1>Welcome, {$user.nickname}!</h1>
+<div id="home-page">
+    <nav>
+        <div id="navbar">
+            <div id="navbar-left-side">
+                <a class="navbar-content">Home</a>
+                <a class="navbar-content">Create</a>
+                <a class="navbar-content">Profile</a>
+            </div>
 
-    <form on:submit|preventDefault={handleSubmit}>
-        <button type="submit" id="submit-form-button">logout</button>
-    </form>
+            <form on:submit|preventDefault={handleSubmit}>
+                <button type="submit" id="submit-form-button">logout</button>
+            </form>
+        </div>
+    </nav>
+    <h1>Welcome, {$user.nickname}!</h1>
 </div>
