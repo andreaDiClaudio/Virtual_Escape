@@ -5,6 +5,8 @@
   import Login from "./pages/login/Login.svelte";
   import Signup from "./pages/signup/Signup.svelte";
   import Home from "./pages/home/home.svelte";
+  import UploadImages from "./pages/upload/UploadImages.svelte";
+
   import { titleStore } from "./stores/tabTitle/tabTitle.js";
 
   // Update the document title reactively
@@ -23,4 +25,8 @@
   <PrivateRoute path="/home" let:location>
     <Home />
   </PrivateRoute>
+
+  <Route path="/upload">
+    <UploadImages />
+  </Route>
 </Router>

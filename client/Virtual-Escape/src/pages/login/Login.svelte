@@ -38,8 +38,6 @@
       }),
     }).then((response) => {
       if (response.status === 200) {
-        console.log("Reached");
-
         const currentUser = { nickname, password };
         user.set(currentUser);
         console.log(currentUser);
