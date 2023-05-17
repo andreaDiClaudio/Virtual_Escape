@@ -5,6 +5,6 @@
     method="POST"
     enctype="multipart/form-data"
 >
-    <input type="file" name="image-input" accept="image/*" />
+    <input type="file" name="file" accept="image/*" />
     <input type="submit" />
 </form>
