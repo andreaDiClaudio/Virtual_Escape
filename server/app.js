@@ -51,7 +51,7 @@ app.use(loginRouter);
 import homeRouter from "./routers/homeRouter.js";
 app.use(homeRouter);
 
-import imageRouter from "./routers/homeRouter.js";
+import imageRouter from "./routers/imageRouter.js";
 app.use(imageRouter);
 
 import logoutRouter from "./routers/logoutRouter.js";

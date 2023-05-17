@@ -1,6 +1,10 @@
 <h1>Upload Images</h1>
 
-<form method="post" action="/api/images" enctype="multipart/form-data">
+<form
+    action="http://127.0.0.1:8080/api/images"
+    method="POST"
+    enctype="multipart/form-data"
+>
     <input type="file" name="image-input" accept="image/*" />
     <input type="submit" />
 </form>
