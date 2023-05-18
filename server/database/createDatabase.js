@@ -8,7 +8,7 @@ if (isDeleteMode) {
   // db.execute(`DROP TABLE likes;`);
   // db.execute(`DROP TABLE follows;`);
   // db.execute(`DROP TABLE folders;`);
-  // db.execute(`DROP TABLE images;`);
+  db.execute(`DROP TABLE images;`);
   db.execute(`DROP TABLE users;`);
 }
 
@@ -29,7 +29,7 @@ db.execute(`
   );
 `);
 
-/*IMAGES
+/*IMAGES*/
 db.execute(`
   CREATE TABLE IF NOT EXISTS images (
     id INT AUTO_INCREMENT PRIMARY KEY,

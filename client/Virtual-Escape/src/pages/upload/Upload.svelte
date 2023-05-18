@@ -2,25 +2,53 @@
     import Navbar from "../../components/Navbar.svelte";
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
-
+    import { user } from "../../stores/users/users.js";
+    import { navigate } from "svelte-navigator";
     titleStore.setTitle("Upload | VE");
 
     onDestroy(() => {
         titleStore.resetTitle();
     });
+
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        const form = event.target;
+        const formData = new FormData(form);
+        const file = document.getElementById("image");
+
+        // Log the keys and values of formData
+        for (let [key, value] of formData.entries()) {
+            console.log(`Key: ${key}, Value: ${value}`);
+        }
+
+        fetch("http://localhost:8080/api/images", {
+            method: "POST",
+            body: formData,
+        }).then((response) => {
+            if (response.status == 200) {
+                //window.location.href = "/home";
+            }
+        });
+    }
 </script>
 
 <Navbar />
+<h1>Welcome, {$user.nickname}!</h1>
 <div id="upload-page">
     <div id="upload-window">
         <form
-            action="http://127.0.0.1:8080/api/images"
-            method="POST"
-            enctype="multipart/form-data"
             id="upload-form"
+            on:submit|preventDefault={(event) => handleSubmit(event)}
         >
             <div id="upload-form-image-input">
-                <input type="file" name="file" accept="image/*" />
+                <input
+                    id="image"
+                    type="file"
+                    name="file"
+                    accept="image/*"
+                    required
+                />
             </div>
             <div id="upload-form-right-panel">
                 <label id="upload-description-label"

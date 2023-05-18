@@ -43,9 +43,10 @@
       }),
     }).then((response) => {
       if (response.status === 200) {
-        const currentUser = { nickname, password };
+        const currentUser = { nickname, email };
         user.set(currentUser);
-        localStorage.setItem("user", JSON.stringify(currentUser));
+        //TODO changed from localstorage to session storage
+        sessionStorage.setItem("user", JSON.stringify(currentUser));
 
         const from = "/home";
         navigate(from, { replace: true });

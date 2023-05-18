@@ -15,6 +15,7 @@ app.use(cors({
 
 /*SESSION*/
 dotenv.config();//needed to read .env file
+
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false, //it will resave the session even if changes do not happen
@@ -38,7 +39,7 @@ export function isAuthenticated(req, res, next) {
     if (req.session && req.session.user) {
         next();
     } else {
-        res.redirect('/login');
+        res.redirect('http://localhost:5173/');
     }
 }
 

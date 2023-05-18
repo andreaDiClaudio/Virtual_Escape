@@ -5,10 +5,9 @@
   import Login from "./pages/login/Login.svelte";
   import Signup from "./pages/signup/Signup.svelte";
   import Home from "./pages/home/Home.svelte";
-  import UploadImages from "./pages/upload/Upload.svelte";
+  import Upload from "./pages/upload/Upload.svelte";
 
   import { titleStore } from "./stores/tabTitle/tabTitle.js";
-  import Upload from "./pages/upload/Upload.svelte";
 
   // Update the document title reactively
   $: document.title = $titleStore;

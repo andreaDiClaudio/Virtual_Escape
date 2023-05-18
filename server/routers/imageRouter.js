@@ -1,16 +1,15 @@
 import { Router } from "express";
 import multer from "multer";
+import { isAuthenticated } from "../app.js";
+import db from "../database/connection.js";
+import connection from "../database/connection.js";
 
 const router = Router();
-
-router.get("/api/images", (req, res) => {
-    res.send("LOL");
-});
 
 //Handles destination and the filename of the uploaded image
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "../client/Virtual-Escape/public/uploadedImages/");
+        cb(null, "./public/uploadedImages/");
     },
     filename: (req, file, cb) => {
         const filenameParts = file.originalname.split(".");
@@ -31,14 +30,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.post("/api/images", upload.single("file"), (req, res) => {
-    console.log("****---------------------****");
 
-    console.log("Filename: " + req.file.filename);
-    console.log("Description: " + req.body.description);
-    console.log("Game: " + req.body.game);
+    console.log(req.body);
 
-    console.log("****---------------------****");
-    res.send({ data: "File uploaded correctly" });
+    res.sendStatus(200);
 });
 
 export default router;
