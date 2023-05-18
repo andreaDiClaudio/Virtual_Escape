@@ -17,17 +17,13 @@
         const formData = new FormData(form);
         const file = document.getElementById("image");
 
-        // Log the keys and values of formData
-        for (let [key, value] of formData.entries()) {
-            console.log(`Key: ${key}, Value: ${value}`);
-        }
-
         fetch("http://localhost:8080/api/images", {
             method: "POST",
             body: formData,
+            credentials: "include"
         }).then((response) => {
             if (response.status == 200) {
-                //window.location.href = "/home";
+                window.location.href = "/home";
             }
         });
     }

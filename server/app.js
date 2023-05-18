@@ -39,7 +39,7 @@ export function isAuthenticated(req, res, next) {
     if (req.session && req.session.user) {
         next();
     } else {
-        res.redirect('http://localhost:5173/');
+        res.sendStatus(401);
     }
 }
 

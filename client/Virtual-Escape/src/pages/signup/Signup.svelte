@@ -36,6 +36,7 @@
                 password: password,
                 email: email,
             }),
+            credentials: "include"
         }).then((response) => {
             if (response.status === 201) {
                 window.location.href = "/";

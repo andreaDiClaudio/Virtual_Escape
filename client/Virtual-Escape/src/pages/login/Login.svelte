@@ -41,6 +41,7 @@
         nickname: nickname,
         password: password,
       }),
+      credentials: "include"
     }).then((response) => {
       if (response.status === 200) {
         const currentUser = { nickname, email };
