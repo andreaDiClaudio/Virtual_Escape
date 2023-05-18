@@ -25,14 +25,19 @@
             <div id="upload-form-right-panel">
                 <label id="upload-description-label"
                     >Description
-                    <textarea id="upload-description-textarea" />
+                    <textarea
+                        id="upload-description-textarea"
+                        name="description"
+                    />
                 </label>
                 <label id="upload-label"
                     >Game
-                    <select />
+                    <select name="game">
+                        <option>Game 1</option>
+                    </select>
                 </label>
                 <div id="upload-submit-button">
-                    <input type="submit" />
+                    <button type="submit"> Upload </button>
                 </div>
             </div>
         </form>

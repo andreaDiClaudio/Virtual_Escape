@@ -21,7 +21,7 @@
 #upload-form {
     display: flex;
     flex-direction: row;
-    padding-left: 1.1rem;
+    padding-left: 0.5rem;
     padding-top: 0.2rem;
     height: 35rem;
 	width: 49rem;	
@@ -34,16 +34,16 @@
     align-items: center;
     width: 30rem;
     height: 34.6rem;
-    border: solid 1px purple;
+    border-right: solid 2px #2a2a3f;
 }
 #upload-form-right-panel {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-left: 0.5rem;
     gap: 1rem;
     width: 17.5rem;
     height: 34.6rem;
-    border: solid 1px green;
   }
   
   #upload-description-label {
@@ -56,8 +56,14 @@
     resize: vertical;
     max-height: 15rem;
   }
+
+  #upload-label {
+    display: flex;
+    flex-direction: column;
+  }
   
   #upload-submit-button {
+    padding: 1rem;
     align-self: flex-end;
     margin-top: auto; 
   }

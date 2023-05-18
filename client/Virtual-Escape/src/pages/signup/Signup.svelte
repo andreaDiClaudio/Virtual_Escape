@@ -76,9 +76,7 @@
         </div>
         <div id="title-wrapper">
             <p>
-                Ehy, we already know you, <a id="signup-link" href="/">
-                    log in!</a
-                >
+                Already been here? <a id="signup-link" href="/"> log in!</a>
             </p>
         </div>
 

@@ -31,7 +31,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.post("/api/images", upload.single("file"), (req, res) => {
-    console.log(req.file);
+    console.log("****---------------------****");
+
+    console.log("Filename: " + req.file.filename);
+    console.log("Description: " + req.body.description);
+    console.log("Game: " + req.body.game);
+
+    console.log("****---------------------****");
     res.send({ data: "File uploaded correctly" });
 });
 
