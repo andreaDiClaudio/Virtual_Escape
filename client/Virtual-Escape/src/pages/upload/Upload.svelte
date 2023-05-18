@@ -20,13 +20,16 @@
         fetch("http://localhost:8080/api/images", {
             method: "POST",
             body: formData,
-            credentials: "include"
+            credentials: "include",
         }).then((response) => {
             if (response.status == 200) {
                 window.location.href = "/home";
             }
         });
     }
+
+    //TODO on chage to display the image preview
+    //TODO polishing and commments
 </script>
 
 <Navbar />
@@ -57,6 +60,7 @@
                 <label id="upload-label"
                     >Game
                     <select name="game">
+                        <option disabled>Choose game</option>
                         <option>Game 1</option>
                     </select>
                 </label>

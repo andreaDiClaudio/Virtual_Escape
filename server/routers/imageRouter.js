@@ -31,6 +31,9 @@ const upload = multer({ storage });
 
 router.post("/api/images", isAuthenticated, upload.single("file"), (req, res) => {
 
+    //TODO Database queries
+    //TODO polishing and commments
+
     console.log(req.session.user);
     console.log(req.file);
     console.log(req.body);
