@@ -4,7 +4,6 @@
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import Navbar from "../../components/Navbar.svelte";
 
-    // Update the document title when the component is mounted
     titleStore.setTitle("Home | VE");
 
     onMount(() => {
@@ -18,7 +17,5 @@
     });
 </script>
 
-<div id="home-page">
-    <Navbar />
-    <h1>Welcome, {$user.nickname}!</h1>
-</div>
+<Navbar />
+<h1>Welcome, {$user.nickname}!</h1>

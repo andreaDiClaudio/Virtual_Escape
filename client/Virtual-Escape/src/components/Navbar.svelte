@@ -20,7 +20,9 @@
 <nav id="navbar">
     <div id="navbar-left-side">
         <a class="navbar-content" href="/home">Home</a>
+        <p>|</p>
         <a class="navbar-content" href="/upload">Upload</a>
+        <p>|</p>
         <a class="navbar-content" href="/profile">Profile</a>
     </div>
     <div id="navbar-right-side">

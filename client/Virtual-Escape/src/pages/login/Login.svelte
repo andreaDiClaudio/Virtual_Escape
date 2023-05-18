@@ -47,7 +47,7 @@
         user.set(currentUser);
         localStorage.setItem("user", JSON.stringify(currentUser));
 
-        const from = ($location.state && $location.state.from) || "/home";
+        const from = "/home";
         navigate(from, { replace: true });
       } else if (response.status === 400 || response.status === 404) {
         message = "Wrong credentials";
