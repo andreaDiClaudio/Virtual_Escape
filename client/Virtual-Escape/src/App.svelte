@@ -4,7 +4,7 @@
 
   import Login from "./pages/login/Login.svelte";
   import Signup from "./pages/signup/Signup.svelte";
-  import Home from "./pages/home/home.svelte";
+  import Home from "./pages/home/Home.svelte";
   import UploadImages from "./pages/upload/UploadImages.svelte";
 
   import { titleStore } from "./stores/tabTitle/tabTitle.js";
