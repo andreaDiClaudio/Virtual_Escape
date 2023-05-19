@@ -8,17 +8,27 @@ export let hashedPassword = "";
 
 //*GET*//
 router.get("/api/users", async (req, res) => {
-    const [rows, fields] = await db.execute("SELECT nickname, email FROM users;")
+    const [rows, fields] = await db.execute("SELECT nickname, email, bio, gamertag, age, country, language FROM users;")
     res.send({
         data: rows
     });
 });
 
-router.get("/api/users/:id", async (req, res) => {
-    const [rows, fields] = await db.execute("SELECT nickname, email FROM users WHERE id = ?", [req.params.id]);
+//get user by query paramethers
+router.get("/api/users", async (req, res) => {
+    const nickname = req.query.nickname;
+    const email = req.query.email;
 
-    const userFound = rows[0];
-    res.send({ data: userFound });
+    if (!nickname || !email) {
+        return res.status(400).send({ error: 'Both nickname and email are required.' });
+    }
+
+    const [rows, fields] = await db.execute(
+        "SELECT nickname, email, gamertag, age, country, language FROM users WHERE nickname = ? AND email = ?",
+        [nickname, email]
+    );
+
+    res.status(200).send({ data: userFound });
 });
 
 //*POST*//

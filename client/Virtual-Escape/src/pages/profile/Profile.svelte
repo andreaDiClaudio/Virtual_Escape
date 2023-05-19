@@ -3,17 +3,52 @@
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import { user } from "../../stores/users/users.js";
+    import Login from "../login/Login.svelte";
 
     titleStore.setTitle("Profile | VE");
 
+    //helper function to update user info in the webpage
+    function updateUserInfoInput(elementId, value) {
+        const element = document.getElementById(elementId);
+        if (value !== null || value !== undefined) {
+            // @ts-ignore
+            element.value = value;
+        } else {
+            element.setAttribute("hidden", "true");
+        }
+    }
+
     //TODO
     //Retrieve user info from db and displaythem
-    onMount(() => {});
+    onMount(() => {
+        fetch(
+            "http://localhost:8080/api/users?nickname=" +
+                $user.nickname +
+                "&email=" +
+                $user.email,
+            {
+                method: "GET",
+            }
+        ).then((response) => {
+            if (response.status == 200) {
+                response.json().then((result) => {
+                    const user = result.data[0];
+
+                    console.log(user);
+
+                    updateUserInfoInput("user-info-age", user.age);
+                    updateUserInfoInput("user-info-country", user.country);
+                    updateUserInfoInput("user-info-language", user.language);
+                    updateUserInfoInput("user-info-gamertag", user.gamertag);
+                    updateUserInfoInput("user-info-bio", user.bio);
+                });
+            }
+        });
+    });
 
     onDestroy(() => {
         titleStore.resetTitle();
     });
-    //TODO make all the fields as input but style them as not making it read only. when the user press edit, the inputs become not readonly and have a styling similar to input.
 
     //shows buttons and modifies input to be not readonly
     function editUserInfo() {
@@ -119,15 +154,12 @@
                 />
                 <div id="extra-user-info-wrapper">
                     <input id="user-info-gamertag" value="Gamertag" readonly />
-                    <p>•</p>
                     <input id="user-info-age" value="Age" readonly />
-                    <p>•</p>
                     <input id="user-info-country" value="Country" readonly />
-                    <p>•</p>
                     <input id="user-info-language" value="Languge" readonly />
                 </div>
                 <div id="user-info-bio-wrapper">
-                    <textarea id="user-info-bio" placeholder="bio" readonly />
+                    <textarea id="user-info-bio" readonly />
                 </div>
             </div>
             <div id="user-info-edit-button-wrapper">
