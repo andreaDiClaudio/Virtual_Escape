@@ -2,8 +2,6 @@
     import Navbar from "../../components/Navbar.svelte";
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
-    import { user } from "../../stores/users/users.js";
-    import { navigate } from "svelte-navigator";
     titleStore.setTitle("Upload | VE");
 
     onDestroy(() => {
@@ -56,8 +54,6 @@
             previewSrc = "";
         }
     }
-
-    //TODO implemente input tag instead of fropdown menu for games with autocompletition. api for games:https://rapidapi.com/accujazz/api/rawg-video-games-database/
 </script>
 
 <Navbar />
