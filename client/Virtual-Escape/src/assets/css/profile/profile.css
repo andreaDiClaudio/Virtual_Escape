@@ -6,10 +6,72 @@
 #left-panel {
     border: solid 1px red;
     height: 100vh;
-    max-width: 13rem;
+    max-width: 15rem;
 }
 
 #right-panel {
     border: solid 1px blue;
     width: 100vw;
+}
+
+#user-info-wrapper {
+    border: solid 1px green;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+#user-info-profile-image {
+    border: solid 1px magenta;
+    display: flex;
+    align-items: center;
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+#user-info-profile {
+    border: solid 1px orange;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+#extra-user-info-wrapper {
+    border: solid 1px black;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+#user-info-nickname {
+    font-size: 2rem;
+}
+
+#user-info-age {
+    width: 1.4rem;
+}
+
+#user-info-country {
+    width: 3rem;
+}
+
+#user-info-language {
+    width: 3rem;
+}
+
+#user-info-bio-wrapper {
+    border: solid 1px gray;
+    padding-top: 0.5rem;
+}
+
+#user-info-edit-button {
+    display: flex;
+    align-items:first baseline;
+}
+
+#user-info-edit-button {
+    border: solid 1px brown;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
