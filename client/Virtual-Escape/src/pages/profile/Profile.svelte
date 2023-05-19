@@ -3,9 +3,12 @@
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import { user } from "../../stores/users/users.js";
-    import Login from "../login/Login.svelte";
 
     titleStore.setTitle("Profile | VE");
+
+    onDestroy(() => {
+        titleStore.resetTitle();
+    });
 
     //helper function to update user info in the webpage
     function updateUserInfoInput(elementId, value) {
@@ -18,7 +21,6 @@
         }
     }
 
-    //TODO
     //Retrieve user info from db and displaythem
     onMount(() => {
         fetch(
@@ -46,12 +48,10 @@
         });
     });
 
-    onDestroy(() => {
-        titleStore.resetTitle();
-    });
-
     //shows buttons and modifies input to be not readonly
     function editUserInfo() {
+        //TODO ask ai about rewriting thhis to make it more efficient
+        //TODO style the input
         //const profileImage TODO as last
 
         //save elements
@@ -131,6 +131,8 @@
         //refreshes the page
         window.location.href = "/profile";
     }
+
+    //TODO Retreive photos and create the whole gallery section
 </script>
 
 <Navbar />
