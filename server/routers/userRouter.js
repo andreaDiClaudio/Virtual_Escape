@@ -8,7 +8,7 @@ export let hashedPassword = "";
 
 //*GET*//
 router.get("/api/users", async (req, res) => {
-    const [rows, fields] = await db.execute("SELECT * FROM users;")
+    const [rows, fields] = await db.execute("SELECT nickname, email FROM users;")
     res.send({
         data: rows
     });

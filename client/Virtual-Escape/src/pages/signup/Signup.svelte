@@ -7,9 +7,14 @@
     // Update the document title when the component is mounted
     titleStore.setTitle("Signup | VE");
 
+    onMount(() => {
+        document.body.classList.add("body-gradient");
+    });
+
     // Reset the document title when the component is unmounted
     onDestroy(() => {
         titleStore.resetTitle();
+        document.body.classList.remove("body-gradient");
     });
 
     const currentYear = new Date().getFullYear();
@@ -31,13 +36,13 @@
                 password: password,
                 email: email,
             }),
+            credentials: "include"
         }).then((response) => {
             if (response.status === 201) {
                 window.location.href = "/";
             } else if (response.status === 400) {
                 message = "User already exists";
 
-                toastr["warning"]("Credentials already taken");
                 toastr.options = {
                     closeButton: false,
                     debug: false,
@@ -55,6 +60,7 @@
                     hideMethod: "fadeOut",
                     showDuration: 300,
                 };
+                toastr["warning"]("Credentials already taken");
             }
         });
     }
@@ -71,9 +77,7 @@
         </div>
         <div id="title-wrapper">
             <p>
-                Ehy, we already know you, <a id="signup-link" href="/">
-                    log in!</a
-                >
+                Already been here? <a id="signup-link" href="/"> log in!</a>
             </p>
         </div>
 

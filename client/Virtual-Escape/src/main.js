@@ -1,5 +1,6 @@
-//import './app.css'
 import "./assets/css/authentitaction/authentication.css";
+import "./assets/css/home/home.css";
+import "./assets/css/upload/upload.css";
 import App from './App.svelte';
 
 const app = new App({

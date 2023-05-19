@@ -10,9 +10,14 @@
   // Update the document title when the component is mounted
   titleStore.setTitle("Login | VE");
 
+  onMount(() => {
+    document.body.classList.add("body-gradient");
+  });
+
   // Reset the document title when the component is unmounted
   onDestroy(() => {
     titleStore.resetTitle();
+    document.body.classList.remove("body-gradient");
   });
 
   const navigate = useNavigate();
@@ -36,21 +41,18 @@
         nickname: nickname,
         password: password,
       }),
+      credentials: "include",
     }).then((response) => {
       if (response.status === 200) {
-        console.log("Reached");
-
-        const currentUser = { nickname, password };
+        const currentUser = { nickname, email };
         user.set(currentUser);
-        console.log(currentUser);
-        localStorage.setItem("user", JSON.stringify(currentUser));
+        sessionStorage.setItem("user", JSON.stringify(currentUser));
 
-        const from = ($location.state && $location.state.from) || "/home";
+        const from = "/home";
         navigate(from, { replace: true });
       } else if (response.status === 400 || response.status === 404) {
         message = "Wrong credentials";
 
-        toastr["warning"]("Wrong Credentials, try again");
         toastr.options = {
           closeButton: false,
           debug: false,
@@ -68,6 +70,7 @@
           hideMethod: "fadeOut",
           showDuration: 300,
         };
+        toastr["warning"]("Wrong Credentials, try again");
       }
     });
   }

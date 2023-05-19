@@ -4,9 +4,10 @@
 
   import Login from "./pages/login/Login.svelte";
   import Signup from "./pages/signup/Signup.svelte";
-  import Home from "./pages/home/home.svelte";
-  import { titleStore } from "./stores/tabTitle/tabTitle.js";
+  import Home from "./pages/home/Home.svelte";
+  import Upload from "./pages/upload/Upload.svelte";
 
+  import { titleStore } from "./stores/tabTitle/tabTitle.js";
   // Update the document title reactively
   $: document.title = $titleStore;
 </script>
@@ -22,5 +23,9 @@
 
   <PrivateRoute path="/home" let:location>
     <Home />
+  </PrivateRoute>
+
+  <PrivateRoute path="/upload" let:location>
+    <Upload />
   </PrivateRoute>
 </Router>

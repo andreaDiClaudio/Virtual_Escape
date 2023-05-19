@@ -5,15 +5,17 @@ import dotenv from "dotenv";
 import rateLimit from "express-rate-limit";
 
 const app = express();
-//for parsing the req.body
-app.use(express.json());
+app.use(express.static('public'))
+app.use(express.json()); //for parsing the req.body
+
 app.use(cors({
     credentials: true,
     origin: true
-}))
+}));
 
 /*SESSION*/
 dotenv.config();//needed to read .env file
+
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false, //it will resave the session even if changes do not happen
@@ -37,10 +39,11 @@ export function isAuthenticated(req, res, next) {
     if (req.session && req.session.user) {
         next();
     } else {
-        res.redirect('/login');
+        res.sendStatus(401);
     }
 }
 
+/*ROUTES*/
 import userRouter from "./routers/userRouter.js";
 app.use(userRouter);
 
@@ -50,10 +53,13 @@ app.use(loginRouter);
 import homeRouter from "./routers/homeRouter.js";
 app.use(homeRouter);
 
+import imageRouter from "./routers/imageRouter.js";
+app.use(imageRouter);
+
 import logoutRouter from "./routers/logoutRouter.js";
 app.use(logoutRouter);
 
-const PORT = 8080;
-app.listen(PORT, () => {
-    console.log("Server is running on port: ", PORT)
+const PORT = process.env.PORT;
+app.listen((PORT), () => {
+    console.log("Server is running on port:", PORT)
 })

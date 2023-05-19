@@ -2,13 +2,15 @@ import db from "./connection.js";
 
 const isDeleteMode = process.argv.findIndex((argument) => argument === "delete_mode") === -1 ? false : true;
 
+//TODO implement mode to empty the tables without deleting them. 'DELETE FROM images'
+
 if (isDeleteMode) {
   //db.execute(`DROP TABLE folder_images;`);
   //db.execute(`DROP TABLE comments;`);
   // db.execute(`DROP TABLE likes;`);
   // db.execute(`DROP TABLE follows;`);
   // db.execute(`DROP TABLE folders;`);
-  // db.execute(`DROP TABLE images;`);
+  db.execute(`DROP TABLE images;`);
   db.execute(`DROP TABLE users;`);
 }
 
@@ -29,7 +31,7 @@ db.execute(`
   );
 `);
 
-/*IMAGES
+/*IMAGES*/
 db.execute(`
   CREATE TABLE IF NOT EXISTS images (
     id INT AUTO_INCREMENT PRIMARY KEY,
