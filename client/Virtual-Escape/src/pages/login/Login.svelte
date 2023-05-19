@@ -41,12 +41,11 @@
         nickname: nickname,
         password: password,
       }),
-      credentials: "include"
+      credentials: "include",
     }).then((response) => {
       if (response.status === 200) {
         const currentUser = { nickname, email };
         user.set(currentUser);
-        //TODO changed from localstorage to session storage
         sessionStorage.setItem("user", JSON.stringify(currentUser));
 
         const from = "/home";

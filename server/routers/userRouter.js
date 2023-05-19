@@ -6,16 +6,6 @@ const router = Router();
 
 export let hashedPassword = "";
 
-
-/*TODO delete */
-router.get('/current-user', (req, res) => {
-    if (req.session && req.session.user) {
-        res.send({ user: req.session.user });
-    } else {
-        res.send({ user: null });
-    }
-});
-
 //*GET*// //TODO eliminate or retrieve only username and email
 router.get("/api/users", async (req, res) => {
     const [rows, fields] = await db.execute("SELECT * FROM users;")

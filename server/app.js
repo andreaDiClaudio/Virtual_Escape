@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import rateLimit from "express-rate-limit";
 
 const app = express();
+app.use(express.static('public'))
 //for parsing the req.body
 app.use(express.json());
 
