@@ -5,7 +5,7 @@
 
 #left-panel {
     border: solid 1px red;
-    height: 100vh;
+    height: 92vh;
     max-width: 15rem;
 }
 
@@ -27,8 +27,8 @@
     border: solid 1px magenta;
     display: flex;
     align-items: center;
-    padding-right: 1rem;
-    padding-left: 1rem;
+    width: 7rem;
+    min-width: 7rem;
 }
 
 #user-info-profile {
@@ -52,6 +52,10 @@
     width: 1.4rem;
 }
 
+#user-info-age {
+    
+}
+
 #user-info-country {
     width: 3rem;
 }
@@ -60,18 +64,28 @@
     width: 3rem;
 }
 
+#user-info-gamertag {
+    width: 4rem;
+}
+
 #user-info-bio-wrapper {
     border: solid 1px gray;
     padding-top: 0.5rem;
 }
 
-#user-info-edit-button {
-    display: flex;
-    align-items:first baseline;
+#user-info-bio {
+    height: 3rem;
+    width: 21.3rem;
+    border: none;
+    resize: none;
 }
 
-#user-info-edit-button {
+#user-info-edit-button-wrapper {
     border: solid 1px brown;
     padding-left: 1rem;
     padding-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 4.5rem;
 }
