@@ -48,11 +48,11 @@
             previewSrc = "";
         }
     }
+
     //TODO polishing and commments
 </script>
 
 <Navbar />
-<h1>Welcome, {$user.nickname}!</h1>
 <div id="upload-page">
     <div id="upload-window">
         <form
@@ -81,11 +81,13 @@
             </div>
 
             <div id="upload-form-right-panel">
+                <h1 id="form-right-panel-title">Details</h1>
                 <label id="upload-description-label"
                     >Description
                     <textarea
                         id="upload-description-textarea"
                         name="description"
+                        maxlength="254"
                     />
                 </label>
                 <label id="upload-label"
