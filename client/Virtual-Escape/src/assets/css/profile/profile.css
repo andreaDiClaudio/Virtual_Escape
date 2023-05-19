@@ -1,0 +1,15 @@
+#profile-page {
+    display: flex;
+    flex-direction: row;
+}
+
+#left-panel {
+    border: solid 1px red;
+    height: 100vh;
+    max-width: 13rem;
+}
+
+#right-panel {
+    border: solid 1px blue;
+    width: 100vw;
+}
