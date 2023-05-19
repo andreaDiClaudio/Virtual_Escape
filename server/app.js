@@ -6,8 +6,7 @@ import rateLimit from "express-rate-limit";
 
 const app = express();
 app.use(express.static('public'))
-//for parsing the req.body
-app.use(express.json());
+app.use(express.json()); //for parsing the req.body
 
 app.use(cors({
     credentials: true,
@@ -44,6 +43,7 @@ export function isAuthenticated(req, res, next) {
     }
 }
 
+/*ROUTES*/
 import userRouter from "./routers/userRouter.js";
 app.use(userRouter);
 

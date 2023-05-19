@@ -8,7 +8,6 @@
   import Upload from "./pages/upload/Upload.svelte";
 
   import { titleStore } from "./stores/tabTitle/tabTitle.js";
-
   // Update the document title reactively
   $: document.title = $titleStore;
 </script>

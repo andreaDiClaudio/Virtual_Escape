@@ -28,28 +28,36 @@
         });
     }
 
-    //TODO on chage to display the image preview
     let previewSrc = "";
-
+    // Function to handle the preview of an image
     function previewImage(event) {
         const imageInputButton = document.getElementById("image-input");
 
+        // Hide the image input button
         imageInputButton.style.display = "none";
 
+        // Get the image input from the event target
         const imageInput = event.target;
+
+        // Check if there are files and if the first file is an image
         if (imageInput.files && imageInput.files[0]) {
             const reader = new FileReader();
+            // Set the onload function for the reader
             reader.onload = (e) => {
                 // @ts-ignore
+                // Set the preview source to the result of the file read
                 previewSrc = e.target.result;
             };
+
+            // Read the image file as a data URL
             reader.readAsDataURL(imageInput.files[0]);
         } else {
+            // If no image file, set the preview source to an empty string
             previewSrc = "";
         }
     }
 
-    //TODO polishing and commments
+    //TODO implemente input tag instead of fropdown menu for games with autocompletition. api for games:https://rapidapi.com/accujazz/api/rawg-video-games-database/
 </script>
 
 <Navbar />
@@ -92,10 +100,7 @@
                 </label>
                 <label id="upload-label"
                     >Game
-                    <select name="game">
-                        <option disabled>Choose game</option>
-                        <option>Game 1</option>
-                    </select>
+                    <input type="text" name="game" />
                 </label>
                 <div id="upload-submit-button">
                     <button type="submit"> Upload </button>

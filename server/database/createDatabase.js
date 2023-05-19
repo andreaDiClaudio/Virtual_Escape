@@ -2,6 +2,8 @@ import db from "./connection.js";
 
 const isDeleteMode = process.argv.findIndex((argument) => argument === "delete_mode") === -1 ? false : true;
 
+//TODO implement mode to empty the tables without deleting them. 'DELETE FROM images'
+
 if (isDeleteMode) {
   //db.execute(`DROP TABLE folder_images;`);
   //db.execute(`DROP TABLE comments;`);
