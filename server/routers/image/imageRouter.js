@@ -1,7 +1,7 @@
 import { Router } from "express";
 import multer from "multer";
-import { isAuthenticated } from "../app.js";
-import db from "../database/connection.js";
+import { isAuthenticated } from "../../app.js";
+import db from "../../database/connection.js";
 
 const router = Router();
 

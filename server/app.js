@@ -44,19 +44,19 @@ export function isAuthenticated(req, res, next) {
 }
 
 /*ROUTES*/
-import userRouter from "./routers/userRouter.js";
+import userRouter from "./routers/user/userRouter.js";
 app.use(userRouter);
 
-import loginRouter from "./routers/loginRouter.js";
+import loginRouter from "./routers/authentication/loginRouter.js";
 app.use(loginRouter);
 
-import homeRouter from "./routers/homeRouter.js";
+import homeRouter from "./routers/home/homeRouter.js";
 app.use(homeRouter);
 
-import imageRouter from "./routers/imageRouter.js";
+import imageRouter from "./routers/image/imageRouter.js";
 app.use(imageRouter);
 
-import logoutRouter from "./routers/logoutRouter.js";
+import logoutRouter from "./routers/authentication/logoutRouter.js";
 app.use(logoutRouter);
 
 const PORT = process.env.PORT;

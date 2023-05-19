@@ -1,6 +1,6 @@
 import { Router } from "express";
 import bcrypt from "bcrypt";
-import db from "../database/connection.js";
+import db from "../../database/connection.js";
 
 const router = Router();
 
@@ -12,6 +12,13 @@ router.get("/api/users", async (req, res) => {
     res.send({
         data: rows
     });
+});
+
+router.get("/api/users/:id", async (req, res) => {
+    const [rows, fields] = await db.execute("SELECT nickname, email FROM users WHERE id = ?", [req.params.id]);
+
+    const userFound = rows[0];
+    res.send({ data: userFound });
 });
 
 //*POST*//
@@ -48,5 +55,15 @@ router.post("/api/users", async (req, res) => {
         message: `User created successfully`
     });
 });
+
+
+router.patch("/api/users/:id", (res, req) => {
+
+    //TODO
+    //find the id of the user
+    //if userfound
+    //UPDATE table_name SET column1 = value1, column2 = value2 WHERE condition;
+});
+
 
 export default router;

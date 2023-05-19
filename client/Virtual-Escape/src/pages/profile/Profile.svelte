@@ -6,16 +6,18 @@
 
     titleStore.setTitle("Profile | VE");
 
+    //TODO
+    //Retrieve user info from db and displaythem
+    onMount(() => {});
+
     onDestroy(() => {
         titleStore.resetTitle();
     });
     //TODO make all the fields as input but style them as not making it read only. when the user press edit, the inputs become not readonly and have a styling similar to input.
 
+    //shows buttons and modifies input to be not readonly
     function editUserInfo() {
         //const profileImage TODO as last
-
-        //show the button 'save changes'
-        //show the button 'discard changes'
 
         //save elements
         const age = document.getElementById("user-info-age");
@@ -60,7 +62,6 @@
         const newGamertag = gamertag.value;
         // @ts-ignore
         const newBio = bio.value;
-        // @ts-ignore
 
         editConfirmWrapper.setAttribute("hidden", "true");
         editConfirmWrapper.setAttribute("hidden", "true");
@@ -73,22 +74,27 @@
 
     //Discard Changes
     function discardChanges() {
-        //save attributes
-        const age = document.getElementById("user-info-age");
-        const country = document.getElementById("user-info-country");
-        const language = document.getElementById("user-info-language");
-        const gamertag = document.getElementById("user-info-gamertag");
+        //sets the inputs to readonly
+        const age = document
+            .getElementById("user-info-age")
+            .setAttribute("readonly", "true");
+        const country = document
+            .getElementById("user-info-country")
+            .setAttribute("readonly", "true");
+        const language = document
+            .getElementById("user-info-language")
+            .setAttribute("readonly", "true");
+        const gamertag = document
+            .getElementById("user-info-gamertag")
+            .setAttribute("readonly", "true");
         const bio = document.getElementById("user-info-bio");
         const editConfirmWrapper = document.getElementById(
             "user-info-edit-confirm-wrapper"
         );
-
         editConfirmWrapper.setAttribute("hidden", "true");
-        age.setAttribute("readonly", "true");
-        country.setAttribute("readonly", "true");
-        language.setAttribute("readonly", "true");
-        gamertag.setAttribute("readonly", "true");
-        bio.setAttribute("readonly", "true");
+
+        //refreshes the page
+        window.location.href = "/profile";
     }
 </script>
 
