@@ -34,18 +34,13 @@ router.post("/api/images", isAuthenticated, upload.single("file"), async (req, r
     const { id, nickname, email } = req.session.user;
     const path = req.file.path;
 
-    //TODO Database queries
-    //Finde the user id where nickanme and email are ...
     const [usersId, fields] = await db.execute("SELECT id FROM users WHERE nickname = ? AND email = ?;", [nickname, email]);
     const userId = usersId[0].id;
 
-
     const { lastID } = await db.execute("INSERT INTO images (user_id, description, game, image_url) VALUES (?, ?, ?, ?);", [userId, description, game, path]);
-
-    //TODO polishing and commments
-
 
     res.sendStatus(200);
 });
 
+//TODO polishing and commments
 export default router;

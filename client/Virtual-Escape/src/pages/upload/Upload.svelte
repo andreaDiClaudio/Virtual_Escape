@@ -29,6 +29,25 @@
     }
 
     //TODO on chage to display the image preview
+    let previewSrc = "";
+
+    function previewImage(event) {
+        const imageInputButton = document.getElementById("image-input");
+
+        imageInputButton.style.display = "none";
+
+        const imageInput = event.target;
+        if (imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                // @ts-ignore
+                previewSrc = e.target.result;
+            };
+            reader.readAsDataURL(imageInput.files[0]);
+        } else {
+            previewSrc = "";
+        }
+    }
     //TODO polishing and commments
 </script>
 
@@ -42,13 +61,25 @@
         >
             <div id="upload-form-image-input">
                 <input
-                    id="image"
+                    id="image-input"
                     type="file"
                     name="file"
                     accept="image/*"
                     required
+                    on:change={previewImage}
                 />
+                {#if previewSrc}
+                    <div id="image-preview-wrapper">
+                        <!-- svelte-ignore a11y-img-redundant-alt -->
+                        <img
+                            id="image-preview"
+                            src={previewSrc}
+                            alt="Image Preview"
+                        />
+                    </div>
+                {/if}
             </div>
+
             <div id="upload-form-right-panel">
                 <label id="upload-description-label"
                     >Description
