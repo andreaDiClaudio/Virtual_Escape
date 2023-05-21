@@ -4,15 +4,18 @@
 }
 
 #left-panel {
+    border: solid 1px red;
     height: 92vh;
     max-width: 15rem;
 }
 
 #right-panel {
+    border: solid 1px blue;
     width: 100vw;
 }
 
 #user-info-wrapper {
+    border: solid 1px green;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -21,18 +24,40 @@
 }
 
 #user-info-profile-image {
+    border: solid 1px magenta;
     display: flex;
     align-items: center;
     width: 7rem;
     min-width: 7rem;
 }
 
+#profile-image-input {
+    width: 7rem;
+}
+
+#profile-image-preview-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+}
+
+#profile-image-preview {
+    max-width: 6.5rem;
+    max-height: 6.5rem;
+    border-radius: 50%;
+    border: solid 2px #2a2a3f;
+    z-index: -1;
+}
+
 #user-info-profile {
+    border: solid 1px orange;
     padding-left: 1rem;
     padding-right: 1rem;
 }
 
-#extra-user-info-wrapper {  
+#extra-user-info-wrapper {
+    border: solid 1px black;
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
@@ -63,6 +88,7 @@
 }
 
 #user-info-bio-wrapper {
+    border: solid 1px gray;
     padding-top: 0.5rem;
 }
 
@@ -75,6 +101,7 @@
 }
 
 .user-info-input{
+    border: 2px solid #2a2a3f;
     background-color:  #2a2a3f;
     font-weight: 200;
     color: white;
@@ -82,6 +109,7 @@
 }
 
 #user-info-edit-button-wrapper {
+    border: solid 1px brown;
     padding-left: 1rem;
     padding-right: 1rem;
     display: flex;
