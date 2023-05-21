@@ -8,7 +8,7 @@ export let hashedPassword = "";
 
 //*GET*//
 router.get("/api/users", async (req, res) => {
-    const [rows, fields] = await db.execute("SELECT nickname, email, bio, gamertag, age, country, language FROM users;")
+    const [rows, fields] = await db.execute("SELECT id, nickname, email, bio, gamertag, age, country, language FROM users;")
     res.send({
         data: rows
     });
@@ -66,13 +66,20 @@ router.post("/api/users", async (req, res) => {
     });
 });
 
+/*PATCH*/
+router.patch("/api/users/:id", async (req, res) => {
 
-router.patch("/api/users/:id", (res, req) => {
+    //Check if user exists
+    const [users, fields] = await db.execute('SELECT gamertag, bio, age,country, language FROM users WHERE id = ?', [req.params.id]);
 
-    //TODO
-    //find the id of the user
-    //if userfound
-    //UPDATE table_name SET column1 = value1, column2 = value2 WHERE condition;
+    if (users.length === 0) {
+        res.status(404).send({ message: "User not found" });
+    } else {
+        //Update user info
+        await db.execute("UPDATE users SET gamertag = ?, bio = ?, age = ?, country = ?, language = ? WHERE id = ?", [req.body.gamertag, req.body.bio, req.body.age, req.body.country, req.body.language, req.params.id]);
+
+        res.status(200).send({ message: "User info updated correctly" });
+    }
 });
 
 

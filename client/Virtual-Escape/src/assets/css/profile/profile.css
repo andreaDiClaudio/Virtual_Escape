@@ -4,18 +4,15 @@
 }
 
 #left-panel {
-    border: solid 1px red;
     height: 92vh;
     max-width: 15rem;
 }
 
 #right-panel {
-    border: solid 1px blue;
     width: 100vw;
 }
 
 #user-info-wrapper {
-    border: solid 1px green;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -24,7 +21,6 @@
 }
 
 #user-info-profile-image {
-    border: solid 1px magenta;
     display: flex;
     align-items: center;
     width: 7rem;
@@ -32,13 +28,11 @@
 }
 
 #user-info-profile {
-    border: solid 1px orange;
     padding-left: 1rem;
     padding-right: 1rem;
 }
 
-#extra-user-info-wrapper {
-    border: solid 1px black;
+#extra-user-info-wrapper {  
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
@@ -50,26 +44,25 @@
 
 #user-info-age {
     width: 1.4rem;
-}
-
-#user-info-age {
-    
+    font-weight: 550;
 }
 
 #user-info-country {
     width: 3rem;
+    font-weight: 550;
 }
 
 #user-info-language {
     width: 3rem;
+    font-weight: 550;
 }
 
 #user-info-gamertag {
     width: 4rem;
+    font-weight: 550;
 }
 
 #user-info-bio-wrapper {
-    border: solid 1px gray;
     padding-top: 0.5rem;
 }
 
@@ -78,10 +71,17 @@
     width: 21.3rem;
     border: none;
     resize: none;
+    font-weight: 550;
+}
+
+.user-info-input{
+    background-color:  #2a2a3f;
+    font-weight: 200;
+    color: white;
+    box-shadow: 0px 0px 3px #9b644b;
 }
 
 #user-info-edit-button-wrapper {
-    border: solid 1px brown;
     padding-left: 1rem;
     padding-right: 1rem;
     display: flex;
