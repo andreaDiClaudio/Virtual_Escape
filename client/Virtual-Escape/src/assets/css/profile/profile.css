@@ -14,6 +14,15 @@
     width: 100vw;
 }
 
+
+#user-info-profile-image {
+    border: solid 1px magenta;
+    display: flex;
+    align-items: center;
+    width: 7rem;
+    min-width: 7rem;
+}
+
 #user-info-wrapper {
     border: solid 1px green;
     display: flex;
@@ -23,12 +32,23 @@
     padding-bottom: 5rem;
 }
 
-#user-info-profile-image {
-    border: solid 1px magenta;
+#user-gallery-wrapper {
+    border: solid 1px green;
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    width: 7rem;
-    min-width: 7rem;
+    height: auto;
+    padding-bottom: 100px;
+    gap: 1rem;
+
+}
+
+.user-gallery-card {
+    border: 2px solid #2a2a3f;
+    height: 16rem;
+    width: 22rem;
 }
 
 #profile-image-input {

@@ -27,7 +27,8 @@ db.execute(`
     age INT,
     country VARCHAR(255),
     language VARCHAR(255),
-    gamertag VARCHAR(255)
+    gamertag VARCHAR(255),
+    profile_img_url TEXT
   );
 `);
 

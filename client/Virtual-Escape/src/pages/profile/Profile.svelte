@@ -10,6 +10,7 @@
         titleStore.resetTitle();
     });
 
+    /**USER INFO SECTION**/
     //helper function to update user info in the webpage
     function updateUserInfoInput(elementId, value) {
         const element = document.getElementById(elementId);
@@ -56,38 +57,32 @@
     /*EDIT*/
     //shows buttons and modifies input to be not readonly
     function editUserInfo() {
-        //TODO ask ai about rewriting thhis to make it more efficient
+        // Define an array of input element ids
+        const inputIds = [
+            "user-info-gamertag",
+            "user-info-age",
+            "user-info-country",
+            "user-info-language",
+            "user-info-bio",
+        ];
 
-        //const profileImage TODO as last
+        // Loop through the inputIds array and apply changes to each element
+        inputIds.forEach((id) => {
+            const inputElement = document.getElementById(id);
+            inputElement.className = "user-info-input";
+            inputElement.removeAttribute("readonly");
 
-        //save elements
-        const gamertag = document.getElementById("user-info-gamertag");
-        const age = document.getElementById("user-info-age");
-        const country = document.getElementById("user-info-country");
-        const language = document.getElementById("user-info-language");
-        const bio = document.getElementById("user-info-bio");
+            // Add specific styles and attributes for the "user-info-age" element
+            if (id === "user-info-age") {
+                inputElement.style.width = "2rem";
+                inputElement.setAttribute("type", "number");
+            }
+        });
+
+        // Show the editConfirmWrapper element
         const editConfirmWrapper = document.getElementById(
             "user-info-edit-confirm-wrapper"
         );
-
-        //style the input
-        gamertag.className = "user-info-input";
-
-        age.className = "user-info-input";
-        age.style.width = "2rem";
-        age.setAttribute("type", "number");
-
-        country.className = "user-info-input";
-        language.className = "user-info-input";
-        bio.className = "user-info-input";
-
-        //remove readonly attribute
-        age.removeAttribute("readonly");
-        country.removeAttribute("readonly");
-        language.removeAttribute("readonly");
-        gamertag.removeAttribute("readonly");
-        bio.removeAttribute("readonly");
-        //remove hidden attribute
         editConfirmWrapper.removeAttribute("hidden");
     }
 
@@ -146,44 +141,34 @@
             }
         });
 
-        //Remove styling from inputs
-        gamertag.className = "";
-        age.className = "";
-        country.className = "";
-        language.className = "";
-        bio.className = "";
+        // Reset input styling and attributes
+        [gamertag, age, country, language, bio].forEach((element) => {
+            element.className = "";
+            element.setAttribute("readonly", "true");
+        });
 
         editConfirmWrapper.setAttribute("hidden", "true");
-        editConfirmWrapper.setAttribute("hidden", "true");
-        age.setAttribute("readonly", "true");
-        country.setAttribute("readonly", "true");
-        language.setAttribute("readonly", "true");
-        gamertag.setAttribute("readonly", "true");
-        bio.setAttribute("readonly", "true");
     }
 
     /*DISCARD CHANGES*/
     function discardChanges() {
-        //sets the inputs to readonly
-        const age = document
-            .getElementById("user-info-age")
-            .setAttribute("readonly", "true");
-        const country = document
-            .getElementById("user-info-country")
-            .setAttribute("readonly", "true");
-        const language = document
-            .getElementById("user-info-language")
-            .setAttribute("readonly", "true");
-        const gamertag = document
-            .getElementById("user-info-gamertag")
-            .setAttribute("readonly", "true");
-        const bio = document.getElementById("user-info-bio");
+        const inputIds = [
+            "user-info-gamertag",
+            "user-info-age",
+            "user-info-country",
+            "user-info-language",
+            "user-info-bio",
+        ];
+
         const editConfirmWrapper = document.getElementById(
             "user-info-edit-confirm-wrapper"
         );
+        // Set inputs to readonly
+        inputIds.forEach((id) => {
+            document.getElementById(id).setAttribute("readonly", "true");
+        });
         editConfirmWrapper.setAttribute("hidden", "true");
-
-        //refreshes the page
+        // Refresh the page
         window.location.href = "/profile";
     }
 
@@ -193,11 +178,13 @@
 <Navbar />
 
 <div id="profile-page">
+    <!--TODO implement later
     <div id="left-panel">
         <h2>Folders</h2>
         <p>1. Horizon Forbidden West</p>
         <p>1. A very long title of a none existing gam, but just in case</p>
     </div>
+    -->
     <div id="right-panel">
         <div id="user-info-wrapper">
             <div id="user-info-profile-image">
@@ -229,6 +216,17 @@
                     <button on:click={discardChanges}>discard</button>
                     <button on:click={saveChanges}>save</button>
                 </div>
+            </div>
+        </div>
+        <div id="user-gallery-wrapper">
+            <div class="user-gallery-card">
+                <p>Working</p>
+            </div>
+            <div class="user-gallery-card">
+                <p>Working</p>
+            </div>
+            <div class="user-gallery-card">
+                <p>Working</p>
             </div>
         </div>
     </div>
