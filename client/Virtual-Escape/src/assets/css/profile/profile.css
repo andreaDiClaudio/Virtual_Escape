@@ -23,6 +23,11 @@
     min-width: 7rem;
 }
 
+#profile-image {
+    width: 7rem;
+    min-width: 7rem;
+}
+
 #user-info-wrapper {
     border: solid 1px green;
     display: flex;

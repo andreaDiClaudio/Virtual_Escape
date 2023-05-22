@@ -3,9 +3,14 @@ import session from "express-session";
 import cors from "cors";
 import dotenv from "dotenv";
 import rateLimit from "express-rate-limit";
+import { join } from "path";
 
 const app = express();
-app.use(express.static('public'))
+
+const currentWorkingDirectory = process.cwd();
+
+app.use("/public", express.static(join(currentWorkingDirectory, "public")));
+
 app.use(express.json()); //for parsing the req.body
 
 app.use(cors({

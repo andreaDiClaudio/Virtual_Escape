@@ -28,6 +28,7 @@
     }
 
     /*LOAD USER INFO*/
+    let profileImageSrc = "";
     //Retrieve user info from db and displaythem
     onMount(() => {
         fetch(
@@ -42,6 +43,15 @@
             if (response.status == 200) {
                 response.json().then((result) => {
                     const user = result.data[0];
+
+                    if (user.profile_img_url == null) {
+                        document
+                            .getElementById("profile-image")
+                            .setAttribute(
+                                "src",
+                                "http://localhost:8080/public/uploadedImages/1684737647624-181908121___default_profile_image.jpg"
+                            );
+                    }
 
                     updateUserInfoInput("user-info-nickname", user.nickname);
                     updateUserInfoInput("user-info-age", user.age);
@@ -188,7 +198,8 @@
     <div id="right-panel">
         <div id="user-info-wrapper">
             <div id="user-info-profile-image">
-                <p>profile photo</p>
+                <!-- svelte-ignore a11y-img-redundant-alt -->
+                <img id="profile-image" alt="Profile image" />
             </div>
             <div id="user-info-profile">
                 <input id="user-info-nickname" readonly />
