@@ -86,6 +86,10 @@
             inputElement.removeAttribute("readonly");
             inputElement.removeAttribute("disabled");
 
+            //split the ids and takes the last part to se it as placeholder
+            const idSplitted = id.split("-");
+            inputElement.setAttribute("placeholder", idSplitted[2]);
+
             // Add specific styles and attributes for the "user-info-age" element
             if (id === "user-info-age") {
                 inputElement.style.width = "2rem";
@@ -97,6 +101,11 @@
             "user-info-edit-confirm-wrapper"
         );
         editConfirmWrapper.removeAttribute("hidden");
+
+        const editPorfilePictureButton = document.getElementById(
+            "edit-profile-image-button"
+        );
+        editPorfilePictureButton.removeAttribute("hidden");
     }
 
     /*SAVE CHANGES*/
@@ -109,6 +118,9 @@
         const bio = document.getElementById("user-info-bio");
         const editConfirmWrapper = document.getElementById(
             "user-info-edit-confirm-wrapper"
+        );
+        const editPorfilePictureButton = document.getElementById(
+            "edit-profile-image-button"
         );
 
         /*GET*/
@@ -162,6 +174,12 @@
                             );
 
                             editConfirmWrapper.setAttribute("hidden", "true");
+
+                            editPorfilePictureButton.setAttribute(
+                                "hidden",
+                                "true"
+                            );
+
                             window.location.href = "/profile";
                         }
                     });
@@ -192,6 +210,11 @@
         window.location.href = "/profile";
     }
 
+    //TODO
+    function uploadProfilePicture() {
+        console.log("lol");
+    }
+
     //TODO Retreive photos and create the whole gallery section
 </script>
 
@@ -208,9 +231,15 @@
     <div id="right-panel">
         <div id="user-info-wrapper">
             <div id="user-info-profile-image">
+                <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <!-- svelte-ignore a11y-img-redundant-alt -->
                 <img id="profile-image" alt="Profile image" />
-                <!--TODO add edit button -->
+                <!-- TODO understand how to style it-->
+                <button
+                    hidden
+                    on:click={uploadProfilePicture}
+                    id="edit-profile-image-button">Edit</button
+                >
             </div>
             <div id="user-info-profile">
                 <input id="user-info-nickname" readonly disabled />
