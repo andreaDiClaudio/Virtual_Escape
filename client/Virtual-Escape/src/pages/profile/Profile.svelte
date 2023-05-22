@@ -51,6 +51,10 @@
                                 "src",
                                 "http://localhost:8080/public/uploadedImages/1684737647624-181908121___default_profile_image.jpg"
                             );
+                    } else {
+                        document
+                            .getElementById("profile-image")
+                            .setAttribute("src", user.profile_img_url);
                     }
 
                     updateUserInfoInput("user-info-nickname", user.nickname);
@@ -200,6 +204,7 @@
             <div id="user-info-profile-image">
                 <!-- svelte-ignore a11y-img-redundant-alt -->
                 <img id="profile-image" alt="Profile image" />
+                <!--TODO add edit button -->
             </div>
             <div id="user-info-profile">
                 <input id="user-info-nickname" readonly />

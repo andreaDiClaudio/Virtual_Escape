@@ -36,7 +36,7 @@
                 password: password,
                 email: email,
             }),
-            credentials: "include"
+            credentials: "include",
         }).then((response) => {
             if (response.status === 201) {
                 window.location.href = "/";
@@ -71,7 +71,7 @@
         <div id="image-wrapper">
             <img
                 id="logo"
-                src="../../src/assets/images/logo/logo.png"
+                src="http://localhost:8080/public/logo/logo.png"
                 alt="Virtual Escape Logo"
             />
         </div>
