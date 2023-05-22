@@ -75,10 +75,18 @@ router.patch("/api/users/:id", async (req, res) => {
     if (users.length === 0) {
         res.status(404).send({ message: "User not found" });
     } else {
-        //Update user info
-        await db.execute("UPDATE users SET gamertag = ?, bio = ?, age = ?, country = ?, language = ? WHERE id = ?", [req.body.gamertag, req.body.bio, req.body.age, req.body.country, req.body.language, req.params.id]);
 
-        res.status(200).send({ message: "User info updated correctly" });
+        if (req.body.age === "") {
+            req.body.age = null;
+        }
+
+        if (req.body.age !== null && isNaN(parseInt(req.body.age))) {
+            res.status(400).send({ message: "Wrong data, please try again filling the information correctly (Age as number)" });
+        } else {
+            // Update user info
+            await db.execute("UPDATE users SET gamertag = ?, bio = ?, age = ?, country = ?, language = ? WHERE id = ?", [req.body.gamertag, req.body.bio, req.body.age, req.body.country, req.body.language, req.params.id]);
+            res.status(200).send({ message: "User info updated correctly" });
+        }
     }
 });
 

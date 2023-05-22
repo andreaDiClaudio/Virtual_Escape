@@ -13,6 +13,14 @@
   $: document.title = $titleStore;
 </script>
 
+<svelte:head>
+  <link
+    rel="icon"
+    type="image/png"
+    href="http://localhost:8080/public/icon/tabIcon.png?v=2"
+  />
+</svelte:head>
+
 <Router primary={false}>
   <Route path="/">
     <Login />

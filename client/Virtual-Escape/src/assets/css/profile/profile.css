@@ -89,15 +89,18 @@
 }
 
 #user-info-nickname {
+    border:none;
     font-size: 2rem;
 }
 
 #user-info-age {
+    border:none;
     width: 1.4rem;
     font-weight: 550;
 }
 
 #user-info-country {
+    border:none;
     width: 3rem;
     font-weight: 550;
 }
@@ -105,11 +108,13 @@
 #user-info-language {
     width: 3rem;
     font-weight: 550;
+    border:none;
 }
 
 #user-info-gamertag {
     width: 4rem;
     font-weight: 550;
+    border:none;
 }
 
 #user-info-bio-wrapper {

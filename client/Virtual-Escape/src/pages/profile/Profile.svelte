@@ -28,7 +28,6 @@
     }
 
     /*LOAD USER INFO*/
-    let profileImageSrc = "";
     //Retrieve user info from db and displaythem
     onMount(() => {
         fetch(
@@ -85,11 +84,11 @@
             const inputElement = document.getElementById(id);
             inputElement.className = "user-info-input";
             inputElement.removeAttribute("readonly");
+            inputElement.removeAttribute("disabled");
 
             // Add specific styles and attributes for the "user-info-age" element
             if (id === "user-info-age") {
                 inputElement.style.width = "2rem";
-                inputElement.setAttribute("type", "number");
             }
         });
 
@@ -147,21 +146,28 @@
                             "Content-type": "application/json; charset=UTF-8",
                         },
                     }).then((response) => {
-                        if (response.status === 200) {
+                        if (response.status === 400) {
+                            //TODO implement toaster for the message
+                            console.log(
+                                "Wrong input. please enter the age as number"
+                            );
+                        } else if (response.status === 200) {
+                            // Reset input styling and attributes
+                            [gamertag, age, country, language, bio].forEach(
+                                (element) => {
+                                    element.className = "";
+                                    element.setAttribute("readonly", "true");
+                                    element.setAttribute("disabled", "true");
+                                }
+                            );
+
+                            editConfirmWrapper.setAttribute("hidden", "true");
                             window.location.href = "/profile";
                         }
                     });
                 });
             }
         });
-
-        // Reset input styling and attributes
-        [gamertag, age, country, language, bio].forEach((element) => {
-            element.className = "";
-            element.setAttribute("readonly", "true");
-        });
-
-        editConfirmWrapper.setAttribute("hidden", "true");
     }
 
     /*DISCARD CHANGES*/
@@ -207,18 +213,34 @@
                 <!--TODO add edit button -->
             </div>
             <div id="user-info-profile">
-                <input id="user-info-nickname" readonly />
+                <input id="user-info-nickname" readonly disabled />
                 <div id="extra-user-info-wrapper">
-                    <input id="user-info-gamertag" value="Gamertag" readonly />
+                    <input
+                        id="user-info-gamertag"
+                        value="Gamertag"
+                        readonly
+                        disabled
+                    />
                     <input
                         id="user-info-age"
                         value="Age"
                         min="1"
                         max="100"
                         readonly
+                        disabled
                     />
-                    <input id="user-info-country" value="Country" readonly />
-                    <input id="user-info-language" value="Languge" readonly />
+                    <input
+                        id="user-info-country"
+                        value="Country"
+                        readonly
+                        disabled
+                    />
+                    <input
+                        id="user-info-language"
+                        value="Languge"
+                        readonly
+                        disabled
+                    />
                 </div>
                 <div id="user-info-bio-wrapper">
                     <textarea id="user-info-bio" readonly />
