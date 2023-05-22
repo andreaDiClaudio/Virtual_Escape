@@ -1,17 +1,29 @@
 import db from "./connection.js";
 
 const isDeleteMode = process.argv.findIndex((argument) => argument === "delete_mode") === -1 ? false : true;
+const isTruncateMode = process.argv.findIndex((argument) => argument === "truncate_mode") === -1 ? false : true;
 
-//TODO implement mode to empty the tables without deleting them. 'DELETE FROM images'
+// List of tables to empty or delete
+const tables = [
+  //"folder_images",
+  // "comments",
+  // "likes",
+  // "follows",
+  // "folders",
+  "images",
+  "users",
+];
 
 if (isDeleteMode) {
-  //db.execute(`DROP TABLE folder_images;`);
-  //db.execute(`DROP TABLE comments;`);
-  // db.execute(`DROP TABLE likes;`);
-  // db.execute(`DROP TABLE follows;`);
-  // db.execute(`DROP TABLE folders;`);
-  db.execute(`DROP TABLE images;`);
-  db.execute(`DROP TABLE users;`);
+  // Delete the tables (drop schema)
+  tables.forEach((table) => {
+    db.execute(`DROP TABLE ${table};`);
+  });
+} else if (isTruncateMode) {
+  // Empty the tables without deleting them (truncate data)
+  tables.forEach((table) => {
+    db.execute(`DELETE FROM ${table};`);
+  });
 }
 
 /*

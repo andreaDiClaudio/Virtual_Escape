@@ -2,6 +2,7 @@
   "type": "module",
   "scripts": {
     "reset-database": "node ./database/createDatabase.js delete_mode",
+    "truncate-database": "node ./database/createDatabase.js truncate_mode",
     "create-database": "node ./database/createDatabase.js"
   },
   "dependencies": {
