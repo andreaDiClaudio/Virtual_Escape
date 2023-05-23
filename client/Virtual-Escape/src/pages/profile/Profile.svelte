@@ -257,7 +257,7 @@
                                     "true"
                                 );
 
-                                //window.location.href = "/profile";
+                                window.location.href = "/profile";
                             }
                         });
                     } else {
@@ -329,7 +329,7 @@
                                                 "true"
                                             );
 
-                                            //window.location.href = "/profile";
+                                            window.location.href = "/profile";
                                         }
                                     });
                                 }
