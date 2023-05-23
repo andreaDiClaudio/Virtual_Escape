@@ -53,12 +53,33 @@
                                 "http://localhost:8080/public/uploadedImages/1684737647624-181908121___default_profile_image.jpg"
                             );
                     } else {
-                        document
-                            .getElementById("profile-image")
-                            .setAttribute(
-                                "src",
-                                "http://localhost:8080/" + user.profile_img_url
+                        let relativeUrl = "";
+                        if (
+                            user.profile_img_url.includes(
+                                "http://localhost:8080/"
+                            )
+                        ) {
+                            console.log(user.profile_img_url);
+
+                            relativeUrl = user.profile_img_url.replace(
+                                "http://localhost:8080/",
+                                ""
                             );
+                            document
+                                .getElementById("profile-image")
+                                .setAttribute(
+                                    "src",
+                                    "http://localhost:8080/" + relativeUrl
+                                );
+                        } else {
+                            document
+                                .getElementById("profile-image")
+                                .setAttribute(
+                                    "src",
+                                    "http://localhost:8080/" +
+                                        user.profile_img_url
+                                );
+                        }
                     }
 
                     updateUserInfoInput("user-info-nickname", user.nickname);
@@ -156,7 +177,6 @@
         /***************************/
         /*GET*/
         //Retrieve user logged in in the db and saves it in a variable
-        const userFound = {};
         fetch(
             "http://localhost:8080/api/users?nickname=" +
                 $user.nickname +
@@ -170,6 +190,8 @@
                 response.json().then((result) => {
                     const userFound = result.data[0];
                     /***************************/
+
+                    console.log(userFound);
 
                     /***************************/
                     /*POST*/
@@ -186,82 +208,146 @@
                     formData.append("description", "");
                     formData.append("game", "");
 
-                    const profileImagePath = "";
-                    fetch("http://localhost:8080/api/images", {
-                        method: "POST",
-                        body: formData,
-                        credentials: "include",
-                    })
-                        .then((response) => {
-                            if (response.status == 200) {
-                                return response.json(); // Return the JSON promise
+                    //Working
+                    if (!file) {
+                        console.log("picture not updated");
+                        console.log(
+                            // @ts-ignore
+                            document.getElementById("profile-image").src
+                        );
+                        // @ts-ignore
+                        const oldImageUrl =
+                            document.getElementById("profile-image").src;
+                        /*PATCH without uploading the image*/
+                        fetch(
+                            "http://localhost:8080/api/users/" + userFound.id,
+                            {
+                                method: "PATCH",
+                                body: JSON.stringify({
+                                    // @ts-ignore
+                                    gamertag: gamertag.value,
+                                    // @ts-ignore
+                                    bio: bio.value,
+                                    // @ts-ignore
+                                    age: age.value,
+                                    // @ts-ignore
+                                    country: country.value,
+                                    // @ts-ignore
+                                    language: language.value,
+                                    profile_img_url: oldImageUrl,
+                                }),
+                                headers: {
+                                    "Content-type":
+                                        "application/json; charset=UTF-8",
+                                },
                             }
-                        })
-                        .then((data) => {
-                            if (data) {
-                                console.log(data.imagePath); // Extract the imagePath value from the JSON data
-
-                                /***************************/
-                                /*PATCH*/
-                                fetch(
-                                    "http://localhost:8080/api/users/" +
-                                        userFound.id,
-                                    {
-                                        method: "PATCH",
-                                        body: JSON.stringify({
-                                            // @ts-ignore
-                                            gamertag: gamertag.value,
-                                            // @ts-ignore
-                                            bio: bio.value,
-                                            // @ts-ignore
-                                            age: age.value,
-                                            // @ts-ignore
-                                            country: country.value,
-                                            // @ts-ignore
-                                            language: language.value,
-                                            profile_img_url: data.imagePath,
-                                        }),
-                                        headers: {
-                                            "Content-type":
-                                                "application/json; charset=UTF-8",
-                                        },
-                                    }
-                                ).then((response) => {
-                                    if (response.status === 400) {
-                                        //TODO implement toaster for the message
-                                        console.log(
-                                            "Wrong input. please enter the age as number"
-                                        );
-                                    } else if (response.status === 200) {
-                                        // Reset input styling and attributes
-                                        [
-                                            gamertag,
-                                            age,
-                                            country,
-                                            language,
-                                            bio,
-                                        ].forEach((element) => {
-                                            element.className = "";
-                                            element.setAttribute(
-                                                "readonly",
-                                                "true"
-                                            );
-                                            element.setAttribute(
-                                                "disabled",
-                                                "true"
-                                            );
-                                        });
-
-                                        editConfirmWrapper.setAttribute(
-                                            "hidden",
+                        ).then((response) => {
+                            if (response.status === 400) {
+                                //TODO implement toaster for the message
+                                console.log(
+                                    "Wrong input. please enter the age as number"
+                                );
+                            } else if (response.status === 200) {
+                                // Reset input styling and attributes
+                                [gamertag, age, country, language, bio].forEach(
+                                    (element) => {
+                                        element.className = "";
+                                        element.setAttribute(
+                                            "readonly",
                                             "true"
                                         );
-
-                                        window.location.href = "/profile";
+                                        element.setAttribute(
+                                            "disabled",
+                                            "true"
+                                        );
                                     }
-                                });
+                                );
+
+                                editConfirmWrapper.setAttribute(
+                                    "hidden",
+                                    "true"
+                                );
+
+                                //window.location.href = "/profile";
                             }
                         });
+                    } else {
+                        fetch("http://localhost:8080/api/images", {
+                            method: "POST",
+                            body: formData,
+                            credentials: "include",
+                        })
+                            .then((response) => {
+                                if (response.status == 200) {
+                                    return response.json(); // Return the JSON promise
+                                }
+                            })
+                            .then((data) => {
+                                if (data) {
+                                    console.log(data.imagePath); // Extract the imagePath value from the JSON data
+
+                                    /***************************/
+                                    /*PATCH*/
+                                    fetch(
+                                        "http://localhost:8080/api/users/" +
+                                            userFound.id,
+                                        {
+                                            method: "PATCH",
+                                            body: JSON.stringify({
+                                                // @ts-ignore
+                                                gamertag: gamertag.value,
+                                                // @ts-ignore
+                                                bio: bio.value,
+                                                // @ts-ignore
+                                                age: age.value,
+                                                // @ts-ignore
+                                                country: country.value,
+                                                // @ts-ignore
+                                                language: language.value,
+                                                profile_img_url: data.imagePath,
+                                            }),
+                                            headers: {
+                                                "Content-type":
+                                                    "application/json; charset=UTF-8",
+                                            },
+                                        }
+                                    ).then((response) => {
+                                        if (response.status === 400) {
+                                            //TODO implement toaster for the message
+                                            console.log(
+                                                "Wrong input. please enter the age as number"
+                                            );
+                                        } else if (response.status === 200) {
+                                            // Reset input styling and attributes
+                                            [
+                                                gamertag,
+                                                age,
+                                                country,
+                                                language,
+                                                bio,
+                                            ].forEach((element) => {
+                                                element.className = "";
+                                                element.setAttribute(
+                                                    "readonly",
+                                                    "true"
+                                                );
+                                                element.setAttribute(
+                                                    "disabled",
+                                                    "true"
+                                                );
+                                            });
+
+                                            editConfirmWrapper.setAttribute(
+                                                "hidden",
+                                                "true"
+                                            );
+
+                                            //window.location.href = "/profile";
+                                        }
+                                    });
+                                }
+                            });
+                    }
                 });
                 /***************************/
             }

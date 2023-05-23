@@ -10,7 +10,6 @@ export let hashedPassword = "";
 router.get("/api/users", async (req, res) => {
     const [rows, fields] = await db.execute("SELECT id, nickname, email, bio, gamertag, age, country, language, profile_img_url FROM users;")
 
-    console.log(rows[0]);
     res.send({
         data: rows
     });

@@ -35,6 +35,10 @@ router.post("/api/images", isAuthenticated, upload.single("file"), async (req, r
     try {
         const { description, game } = req.body;
         const { id, nickname, email } = req.session.user;
+
+        if (!req.file) {
+            //TODO see if it better to save the old path in the db or somewhere else and then set it here if the nrw one is empty
+        }
         const path = req.file.path;
 
         const [usersId, fields] = await db.execute("SELECT id FROM users WHERE nickname = ? AND email = ?;", [nickname, email]);
