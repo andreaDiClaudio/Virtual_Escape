@@ -43,6 +43,8 @@
                 response.json().then((result) => {
                     const user = result.data[0];
 
+                    console.log(user);
+
                     if (user.profile_img_url == null) {
                         document
                             .getElementById("profile-image")
@@ -53,7 +55,10 @@
                     } else {
                         document
                             .getElementById("profile-image")
-                            .setAttribute("src", user.profile_img_url);
+                            .setAttribute(
+                                "src",
+                                "http://localhost:8080/" + user.profile_img_url
+                            );
                     }
 
                     updateUserInfoInput("user-info-nickname", user.nickname);
@@ -68,6 +73,29 @@
     });
 
     /*EDIT*/
+    function previewImage(event) {
+        const imageInputButton = document.getElementById("profile-image-input");
+
+        // Get the image input from the event target
+        const imageInput = event.target;
+
+        // Check if there are files and if the first file is an image
+        if (imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+            // Set the onload function for the reader
+            reader.onload = (e) => {
+                // @ts-ignore
+                // Set the preview source to the result of the file read
+                document
+                    .getElementById("profile-image")
+                    .setAttribute("src", e.target.result.toString());
+            };
+
+            // Read the image file as a data URL
+            reader.readAsDataURL(imageInput.files[0]);
+        }
+    }
+
     //shows buttons and modifies input to be not readonly
     function editUserInfo() {
         // Define an array of input element ids
@@ -97,15 +125,17 @@
         });
 
         // Show the editConfirmWrapper element
-        const editConfirmWrapper = document.getElementById(
-            "user-info-edit-confirm-wrapper"
-        );
-        editConfirmWrapper.removeAttribute("hidden");
+        document
+            .getElementById("user-info-edit-confirm-wrapper")
+            .removeAttribute("hidden");
 
-        const editPorfilePictureButton = document.getElementById(
-            "edit-profile-image-button"
-        );
-        editPorfilePictureButton.removeAttribute("hidden");
+        //Show the profile image input
+        document
+            .getElementById("profile-image-input")
+            .removeAttribute("hidden");
+        document
+            .getElementById("profile-image-input")
+            .removeAttribute("disabled");
     }
 
     /*SAVE CHANGES*/
@@ -123,6 +153,7 @@
             "edit-profile-image-button"
         );
 
+        /***************************/
         /*GET*/
         //Retrieve user logged in in the db and saves it in a variable
         const userFound = {};
@@ -138,52 +169,101 @@
             if (response.status == 200) {
                 response.json().then((result) => {
                     const userFound = result.data[0];
+                    /***************************/
 
-                    /*PATCH*/
-                    fetch("http://localhost:8080/api/users/" + userFound.id, {
-                        method: "PATCH",
-                        body: JSON.stringify({
-                            // @ts-ignore
-                            gamertag: gamertag.value,
-                            // @ts-ignore
-                            bio: bio.value,
-                            // @ts-ignore
-                            age: age.value,
-                            // @ts-ignore
-                            country: country.value,
-                            // @ts-ignore
-                            language: language.value,
-                        }),
-                        headers: {
-                            "Content-type": "application/json; charset=UTF-8",
-                        },
-                    }).then((response) => {
-                        if (response.status === 400) {
-                            //TODO implement toaster for the message
-                            console.log(
-                                "Wrong input. please enter the age as number"
-                            );
-                        } else if (response.status === 200) {
-                            // Reset input styling and attributes
-                            [gamertag, age, country, language, bio].forEach(
-                                (element) => {
-                                    element.className = "";
-                                    element.setAttribute("readonly", "true");
-                                    element.setAttribute("disabled", "true");
-                                }
-                            );
+                    /***************************/
+                    /*POST*/
+                    //Upload the profile image
+                    const imageInput = document.getElementById(
+                        "profile-image-input"
+                    );
 
-                            editConfirmWrapper.setAttribute("hidden", "true");
+                    // @ts-ignore
+                    const file = imageInput.files[0];
+                    const formData = new FormData();
 
-                            editPorfilePictureButton.setAttribute(
-                                "hidden",
-                                "true"
-                            );
+                    formData.append("file", file);
+                    formData.append("description", "");
+                    formData.append("game", "");
 
-                            window.location.href = "/profile";
-                        }
-                    });
+                    const profileImagePath = "";
+                    fetch("http://localhost:8080/api/profileimage", {
+                        method: "POST",
+                        body: formData,
+                        credentials: "include",
+                    })
+                        .then((response) => {
+                            if (response.status == 200) {
+                                return response.json(); // Return the JSON promise
+                            }
+                        })
+                        .then((data) => {
+                            if (data) {
+                                console.log(data.imagePath); // Extract the imagePath value from the JSON data
+
+                                /***************************/
+                                /*PATCH*/
+                                fetch(
+                                    "http://localhost:8080/api/users/" +
+                                        userFound.id,
+                                    {
+                                        method: "PATCH",
+                                        body: JSON.stringify({
+                                            // @ts-ignore
+                                            gamertag: gamertag.value,
+                                            // @ts-ignore
+                                            bio: bio.value,
+                                            // @ts-ignore
+                                            age: age.value,
+                                            // @ts-ignore
+                                            country: country.value,
+                                            // @ts-ignore
+                                            language: language.value,
+                                            profile_img_url: data.imagePath,
+                                        }),
+                                        headers: {
+                                            "Content-type":
+                                                "application/json; charset=UTF-8",
+                                        },
+                                    }
+                                ).then((response) => {
+                                    if (response.status === 400) {
+                                        //TODO implement toaster for the message
+                                        console.log(
+                                            "Wrong input. please enter the age as number"
+                                        );
+                                    } else if (response.status === 200) {
+                                        // Reset input styling and attributes
+                                        [
+                                            gamertag,
+                                            age,
+                                            country,
+                                            language,
+                                            bio,
+                                        ].forEach((element) => {
+                                            element.className = "";
+                                            element.setAttribute(
+                                                "readonly",
+                                                "true"
+                                            );
+                                            element.setAttribute(
+                                                "disabled",
+                                                "true"
+                                            );
+                                        });
+
+                                        editConfirmWrapper.setAttribute(
+                                            "hidden",
+                                            "true"
+                                        );
+
+                                        window.location.href = "/profile";
+                                    }
+                                });
+                            }
+                        });
                 });
+                /***************************/
             }
         });
     }
@@ -210,11 +290,6 @@
         window.location.href = "/profile";
     }
 
-    //TODO
-    function uploadProfilePicture() {
-        console.log("lol");
-    }
-
     //TODO Retreive photos and create the whole gallery section
 </script>
 
@@ -231,15 +306,18 @@
     <div id="right-panel">
         <div id="user-info-wrapper">
             <div id="user-info-profile-image">
-                <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <!-- svelte-ignore a11y-img-redundant-alt -->
-                <img id="profile-image" alt="Profile image" />
-                <!-- TODO understand how to style it-->
-                <button
+                <img id="profile-image" alt="Image Preview" />
+                <input
+                    id="profile-image-input"
+                    type="file"
+                    name="file"
+                    accept="image/*"
+                    alt="Profile image"
+                    disabled
                     hidden
-                    on:click={uploadProfilePicture}
-                    id="edit-profile-image-button">Edit</button
-                >
+                    on:change={previewImage}
+                />
             </div>
             <div id="user-info-profile">
                 <input id="user-info-nickname" readonly disabled />

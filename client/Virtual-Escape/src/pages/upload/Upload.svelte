@@ -69,6 +69,7 @@
                     type="file"
                     name="file"
                     accept="image/*"
+                    alt="Image to upload"
                     required
                     on:change={previewImage}
                 />

@@ -8,7 +8,9 @@ export let hashedPassword = "";
 
 //*GET*//
 router.get("/api/users", async (req, res) => {
-    const [rows, fields] = await db.execute("SELECT id, nickname, email, bio, gamertag, age, country, language FROM users;")
+    const [rows, fields] = await db.execute("SELECT id, nickname, email, bio, gamertag, age, country, language, profile_img_url FROM users;")
+
+    console.log(rows[0]);
     res.send({
         data: rows
     });
@@ -84,7 +86,7 @@ router.patch("/api/users/:id", async (req, res) => {
             res.status(400).send({ message: "Wrong data, please try again filling the information correctly (Age as number)" });
         } else {
             // Update user info
-            await db.execute("UPDATE users SET gamertag = ?, bio = ?, age = ?, country = ?, language = ? WHERE id = ?", [req.body.gamertag, req.body.bio, req.body.age, req.body.country, req.body.language, req.params.id]);
+            await db.execute("UPDATE users SET gamertag = ?, bio = ?, age = ?, country = ?, language = ?, profile_img_url = ? WHERE id = ?", [req.body.gamertag, req.body.bio, req.body.age, req.body.country, req.body.language, req.body.profile_img_url, req.params.id]);
             res.status(200).send({ message: "User info updated correctly" });
         }
     }
