@@ -42,25 +42,6 @@ router.post("/api/images", isAuthenticated, upload.single("file"), async (req, r
 
         const { lastID } = await db.execute("INSERT INTO images (user_id, description, game, image_url) VALUES (?, ?, ?, ?);", [userId, description, game, path]);
 
-        res.status(200).json({ message: 'Image uploaded successfully' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'An error occurred while uploading the image' });
-    }
-});
-
-/*POST - profile image*/
-router.post("/api/profileimage", isAuthenticated, upload.single("file"), async (req, res) => {
-    try {
-        const { description, game } = req.body;
-        const { id, nickname, email } = req.session.user;
-        const path = req.file.path;
-
-        const [usersId, fields] = await db.execute("SELECT id FROM users WHERE nickname = ? AND email = ?;", [nickname, email]);
-        const userId = usersId[0].id;
-
-        const { lastID } = await db.execute("INSERT INTO images (user_id, description, game, image_url) VALUES (?, ?, ?, ?);", [userId, description, game, path]);
-
         res.status(200).json({ message: 'Image uploaded successfully', imagePath: path });
     } catch (error) {
         console.error(error);

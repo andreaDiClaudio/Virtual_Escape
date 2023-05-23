@@ -187,7 +187,7 @@
                     formData.append("game", "");
 
                     const profileImagePath = "";
-                    fetch("http://localhost:8080/api/profileimage", {
+                    fetch("http://localhost:8080/api/images", {
                         method: "POST",
                         body: formData,
                         credentials: "include",
