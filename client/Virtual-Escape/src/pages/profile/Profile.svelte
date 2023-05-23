@@ -43,14 +43,12 @@
                 response.json().then((result) => {
                     const user = result.data[0];
 
-                    console.log(user);
-
                     if (user.profile_img_url == null) {
                         document
                             .getElementById("profile-image")
                             .setAttribute(
                                 "src",
-                                "http://localhost:8080/public/uploadedImages/1684737647624-181908121___default_profile_image.jpg"
+                                "http://localhost:8080/public/defaultUserProfileImage/1684737647624-181908121___default_profile_image.jpg"
                             );
                     } else {
                         let relativeUrl = "";
@@ -59,8 +57,6 @@
                                 "http://localhost:8080/"
                             )
                         ) {
-                            console.log(user.profile_img_url);
-
                             relativeUrl = user.profile_img_url.replace(
                                 "http://localhost:8080/",
                                 ""
@@ -191,8 +187,6 @@
                     const userFound = result.data[0];
                     /***************************/
 
-                    console.log(userFound);
-
                     /***************************/
                     /*POST*/
                     //Upload the profile image
@@ -210,13 +204,8 @@
 
                     //Working
                     if (!file) {
-                        console.log("picture not updated");
-                        console.log(
-                            // @ts-ignore
-                            document.getElementById("profile-image").src
-                        );
-                        // @ts-ignore
                         const oldImageUrl =
+                            // @ts-ignore
                             document.getElementById("profile-image").src;
                         /*PATCH without uploading the image*/
                         fetch(
@@ -284,8 +273,6 @@
                             })
                             .then((data) => {
                                 if (data) {
-                                    console.log(data.imagePath); // Extract the imagePath value from the JSON data
-
                                     /***************************/
                                     /*PATCH*/
                                     fetch(
