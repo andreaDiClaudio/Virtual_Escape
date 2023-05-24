@@ -4,19 +4,15 @@
 }
 
 #left-panel {
-    border: solid 1px red;
     height: 92vh;
     max-width: 15rem;
 }
 
 #right-panel {
-    border: solid 1px blue;
     width: 100vw;
 }
 
-
 #user-info-profile-image {
-    border: solid 1px magenta;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -27,10 +23,21 @@
 #profile-image {
     width: 7rem;
     min-width: 7rem;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 50%;
+    border: solid 2px #e7793e;
+    object-fit: contain;
+}
+
+#profile-image-input {
+    width: 7rem;
+    max-width: 100%;
+    max-height: 100%;
+    padding-top: 1rem;
 }
 
 #user-info-wrapper {
-    border: solid 1px green;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -57,9 +64,6 @@
     width: 22rem;
 }
 
-#profile-image-input {
-    width: 7rem;
-}
 
 #profile-image-preview-wrapper {
     display: flex;
@@ -77,16 +81,16 @@
 }
 
 #user-info-profile {
-    border: solid 1px orange;
     padding-left: 1rem;
     padding-right: 1rem;
 }
 
 #extra-user-info-wrapper {
-    border: solid 1px black;
     display: flex;
     flex-direction: row;
-    gap: 0.5rem;
+    gap: 1rem;
+    padding-left: 0.5rem;
+    padding-top: 0.3rem;
 }
 
 #user-info-nickname {
@@ -98,29 +102,33 @@
     border:none;
     width: 1.4rem;
     font-weight: 550;
+    color: black;
 }
 
 #user-info-country {
     border:none;
     width: 3rem;
     font-weight: 550;
+    color: black;
 }
 
 #user-info-language {
     width: 3rem;
     font-weight: 550;
     border:none;
+    color: black;
 }
 
 #user-info-gamertag {
     width: 4rem;
     font-weight: 550;
     border:none;
+    color: black;
 }
 
 #user-info-bio-wrapper {
-    border: solid 1px gray;
-    padding-top: 0.5rem;
+    padding-left: 0.5rem;
+    padding-top: 0.3rem;
 }
 
 #user-info-bio {
@@ -140,9 +148,6 @@
 }
 
 #user-info-edit-button-wrapper {
-    border: solid 1px brown;
-    padding-left: 1rem;
-    padding-right: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
