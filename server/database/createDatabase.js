@@ -52,6 +52,7 @@ db.execute(`
     description TEXT,
     game VARCHAR(255),
     image_url TEXT NOT NULL,
+    is_profile_img TINYINT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
   );
 `);

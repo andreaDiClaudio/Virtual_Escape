@@ -90,8 +90,6 @@
 
     /*EDIT*/
     function previewImage(event) {
-        const imageInputButton = document.getElementById("profile-image-input");
-
         // Get the image input from the event target
         const imageInput = event.target;
 
@@ -158,7 +156,6 @@
     }
 
     /*SAVE CHANGES*/
-
     // Function to update user information and profile image
     function updateUser(userFound, imagePath) {
         // Get user information elements
@@ -242,6 +239,7 @@
                     formData.append("file", file);
                     formData.append("description", "");
                     formData.append("game", "");
+                    formData.append("is_profile_img", "1");
 
                     // Check if there's a file to upload
                     if (!file) {
@@ -293,8 +291,6 @@
         // Refresh the page
         window.location.href = "/profile";
     }
-
-    //TODO Retreive photos and create the whole gallery section
 </script>
 
 <!--*PAGE*-->

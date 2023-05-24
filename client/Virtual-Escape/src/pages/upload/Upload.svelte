@@ -15,6 +15,8 @@
         const formData = new FormData(form);
         const file = document.getElementById("image");
 
+        formData.append("is_profile_img", "0");
+
         fetch("http://localhost:8080/api/images", {
             method: "POST",
             body: formData,

@@ -33,18 +33,15 @@ const upload = multer({ storage });
 
 router.post("/api/images", isAuthenticated, upload.single("file"), async (req, res) => {
     try {
-        const { description, game } = req.body;
-        const { id, nickname, email } = req.session.user;
 
-        if (!req.file) {
-            //TODO see if it better to save the old path in the db or somewhere else and then set it here if the nrw one is empty
-        }
+        const { description, game, is_profile_img } = req.body;
+        const { id, nickname, email } = req.session.user;
         const path = req.file.path;
 
         const [usersId, fields] = await db.execute("SELECT id FROM users WHERE nickname = ? AND email = ?;", [nickname, email]);
         const userId = usersId[0].id;
 
-        const { lastID } = await db.execute("INSERT INTO images (user_id, description, game, image_url) VALUES (?, ?, ?, ?);", [userId, description, game, path]);
+        const { lastID } = await db.execute("INSERT INTO images (user_id, description, game, image_url, is_profile_img) VALUES (?, ?, ?, ?, ?);", [userId, description, game, path, is_profile_img]);
 
         res.status(200).json({ message: 'Image uploaded successfully', imagePath: path });
     } catch (error) {
