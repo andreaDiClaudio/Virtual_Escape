@@ -9,8 +9,9 @@
     onDestroy(() => {
         titleStore.resetTitle();
     });
+    //TODO add toastr notification
 
-    /**USER INFO SECTION**/
+    /*LOAD USER INFO*/
     //helper function to update user info in the webpage
     function updateUserInfoInput(elementId, value) {
         const element = document.getElementById(elementId);
@@ -26,8 +27,6 @@
             element.setAttribute("hidden", "true");
         }
     }
-
-    /*LOAD USER INFO*/
     //Retrieve user info from db and displaythem
     onMount(() => {
         fetch(
@@ -156,8 +155,10 @@
     }
 
     /*SAVE CHANGES*/
-    function saveChanges() {
-        //save attributes
+
+    // Function to update user information and profile image
+    function updateUser(userFound, imagePath) {
+        // Get user information elements
         const age = document.getElementById("user-info-age");
         const country = document.getElementById("user-info-country");
         const language = document.getElementById("user-info-language");
@@ -166,13 +167,50 @@
         const editConfirmWrapper = document.getElementById(
             "user-info-edit-confirm-wrapper"
         );
-        const editPorfilePictureButton = document.getElementById(
-            "edit-profile-image-button"
-        );
 
-        /***************************/
-        /*GET*/
-        //Retrieve user logged in in the db and saves it in a variable
+        // Send a PATCH request to update the user information and profile image
+        return fetch("http://localhost:8080/api/users/" + userFound.id, {
+            method: "PATCH",
+            body: JSON.stringify({
+                // @ts-ignore
+                gamertag: gamertag.value,
+                // @ts-ignore
+                bio: bio.value,
+                // @ts-ignore
+                age: age.value,
+                // @ts-ignore
+                country: country.value,
+                // @ts-ignore
+                language: language.value,
+                profile_img_url: imagePath,
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+            },
+        }).then((response) => {
+            // Check the response status
+            if (response.status === 400) {
+                //TODO add toastr notification
+                console.log("Wrong input. please enter the age as number");
+            } else if (response.status === 200) {
+                // Reset input styling and attributes
+                [gamertag, age, country, language, bio].forEach((element) => {
+                    element.className = "";
+                    element.setAttribute("readonly", "true");
+                    element.setAttribute("disabled", "true");
+                });
+
+                // Hide the edit confirmation wrapper
+                editConfirmWrapper.setAttribute("hidden", "true");
+                // Redirect to the profile page
+                window.location.href = "/profile";
+            }
+        });
+    }
+
+    // Function to save changes made to the user profile
+    function saveChanges() {
+        // Fetch the user information from the API
         fetch(
             "http://localhost:8080/api/users?nickname=" +
                 $user.nickname +
@@ -181,86 +219,36 @@
             {
                 method: "GET",
             }
-        ).then((response) => {
-            if (response.status == 200) {
-                response.json().then((result) => {
+        )
+            .then((response) => {
+                if (response.status == 200) {
+                    return response.json();
+                }
+            })
+            .then((result) => {
+                if (result) {
                     const userFound = result.data[0];
-                    /***************************/
-
-                    /***************************/
-                    /*POST*/
-                    //Upload the profile image
                     const imageInput = document.getElementById(
                         "profile-image-input"
                     );
-
                     // @ts-ignore
                     const file = imageInput.files[0];
                     const formData = new FormData();
 
+                    // Append the file and other data to the form data
                     formData.append("file", file);
                     formData.append("description", "");
                     formData.append("game", "");
 
-                    //Working
+                    // Check if there's a file to upload
                     if (!file) {
                         const oldImageUrl =
                             // @ts-ignore
                             document.getElementById("profile-image").src;
-                        /*PATCH without uploading the image*/
-                        fetch(
-                            "http://localhost:8080/api/users/" + userFound.id,
-                            {
-                                method: "PATCH",
-                                body: JSON.stringify({
-                                    // @ts-ignore
-                                    gamertag: gamertag.value,
-                                    // @ts-ignore
-                                    bio: bio.value,
-                                    // @ts-ignore
-                                    age: age.value,
-                                    // @ts-ignore
-                                    country: country.value,
-                                    // @ts-ignore
-                                    language: language.value,
-                                    profile_img_url: oldImageUrl,
-                                }),
-                                headers: {
-                                    "Content-type":
-                                        "application/json; charset=UTF-8",
-                                },
-                            }
-                        ).then((response) => {
-                            if (response.status === 400) {
-                                //TODO implement toaster for the message
-                                console.log(
-                                    "Wrong input. please enter the age as number"
-                                );
-                            } else if (response.status === 200) {
-                                // Reset input styling and attributes
-                                [gamertag, age, country, language, bio].forEach(
-                                    (element) => {
-                                        element.className = "";
-                                        element.setAttribute(
-                                            "readonly",
-                                            "true"
-                                        );
-                                        element.setAttribute(
-                                            "disabled",
-                                            "true"
-                                        );
-                                    }
-                                );
-
-                                editConfirmWrapper.setAttribute(
-                                    "hidden",
-                                    "true"
-                                );
-
-                                window.location.href = "/profile";
-                            }
-                        });
+                        // Update user information without uploading a new image
+                        updateUser(userFound, oldImageUrl);
                     } else {
+                        // Upload the image and update user information
                         fetch("http://localhost:8080/api/images", {
                             method: "POST",
                             body: formData,
@@ -268,77 +256,17 @@
                         })
                             .then((response) => {
                                 if (response.status == 200) {
-                                    return response.json(); // Return the JSON promise
+                                    return response.json();
                                 }
                             })
                             .then((data) => {
                                 if (data) {
-                                    /***************************/
-                                    /*PATCH*/
-                                    fetch(
-                                        "http://localhost:8080/api/users/" +
-                                            userFound.id,
-                                        {
-                                            method: "PATCH",
-                                            body: JSON.stringify({
-                                                // @ts-ignore
-                                                gamertag: gamertag.value,
-                                                // @ts-ignore
-                                                bio: bio.value,
-                                                // @ts-ignore
-                                                age: age.value,
-                                                // @ts-ignore
-                                                country: country.value,
-                                                // @ts-ignore
-                                                language: language.value,
-                                                profile_img_url: data.imagePath,
-                                            }),
-                                            headers: {
-                                                "Content-type":
-                                                    "application/json; charset=UTF-8",
-                                            },
-                                        }
-                                    ).then((response) => {
-                                        if (response.status === 400) {
-                                            //TODO implement toaster for the message
-                                            console.log(
-                                                "Wrong input. please enter the age as number"
-                                            );
-                                        } else if (response.status === 200) {
-                                            // Reset input styling and attributes
-                                            [
-                                                gamertag,
-                                                age,
-                                                country,
-                                                language,
-                                                bio,
-                                            ].forEach((element) => {
-                                                element.className = "";
-                                                element.setAttribute(
-                                                    "readonly",
-                                                    "true"
-                                                );
-                                                element.setAttribute(
-                                                    "disabled",
-                                                    "true"
-                                                );
-                                            });
-
-                                            editConfirmWrapper.setAttribute(
-                                                "hidden",
-                                                "true"
-                                            );
-
-                                            window.location.href = "/profile";
-                                        }
-                                    });
+                                    updateUser(userFound, data.imagePath);
                                 }
                             });
                     }
-                });
-                /***************************/
-            }
-        });
+                }
+            });
     }
 
     /*DISCARD CHANGES*/
@@ -366,8 +294,8 @@
     //TODO Retreive photos and create the whole gallery section
 </script>
 
+<!--*PAGE*-->
 <Navbar />
-
 <div id="profile-page">
     <!--TODO implement later
     <div id="left-panel">
