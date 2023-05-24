@@ -152,6 +152,9 @@
         document
             .getElementById("profile-image-input")
             .removeAttribute("disabled");
+        document
+            .getElementById("label-image-upload-input")
+            .removeAttribute("hidden");
     }
 
     /*SAVE CHANGES*/
@@ -309,16 +312,25 @@
             <div id="user-info-profile-image">
                 <!-- svelte-ignore a11y-img-redundant-alt -->
                 <img id="profile-image" alt="Image Preview" />
-                <input
-                    id="profile-image-input"
-                    type="file"
-                    name="file"
-                    accept="image/*"
-                    alt="Profile image"
-                    disabled
-                    hidden
-                    on:change={previewImage}
-                />
+                <div id="label-wrapper">
+                    <label
+                        for="profile-image-input"
+                        id="label-image-upload-input"
+                        hidden
+                    >
+                        Upload Image
+                        <input
+                            id="profile-image-input"
+                            type="file"
+                            name="file"
+                            accept="image/*"
+                            alt="Profile image"
+                            disabled
+                            hidden
+                            on:change={previewImage}
+                        />
+                    </label>
+                </div>
             </div>
             <div id="user-info-profile">
                 <input id="user-info-nickname" readonly disabled />
@@ -355,12 +367,21 @@
                 </div>
             </div>
             <div id="user-info-edit-button-wrapper">
-                <div id="user-info-edit-button">
-                    <button on:click={editUserInfo}>Edit</button>
+                <div>
+                    <button
+                        class="user-info-update-buttons"
+                        on:click={editUserInfo}>Edit</button
+                    >
                 </div>
                 <div id="user-info-edit-confirm-wrapper" hidden>
-                    <button on:click={discardChanges}>discard</button>
-                    <button on:click={saveChanges}>save</button>
+                    <button
+                        class="user-info-update-buttons"
+                        on:click={discardChanges}>Discard</button
+                    >
+                    <button
+                        class="user-info-update-buttons"
+                        on:click={saveChanges}>Save</button
+                    >
                 </div>
             </div>
         </div>

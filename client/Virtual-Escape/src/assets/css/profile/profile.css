@@ -35,6 +35,7 @@
     max-width: 100%;
     max-height: 100%;
     padding-top: 1rem;
+    display: none;
 }
 
 #user-info-wrapper {
@@ -134,7 +135,7 @@
 
 #user-info-bio {
     height: 3rem;
-    width: 21.3rem;
+    width: 20rem;
     border: none;
     resize: none;
     font-weight: 550;
@@ -154,4 +155,50 @@
     flex-direction: column;
     justify-content: space-between;
     min-width: 4.5rem;
+}
+
+.user-info-update-buttons {
+padding:0.6em 1.2em;
+    border-radius: 8px;
+    color:#fff;
+    background-color: #2a2a3f;
+    font-size:0.8em;
+    border: solid white 1px;
+    cursor:pointer;
+}
+
+.user-info-update-buttons:hover {
+    padding:0.6em 1.2em;
+    border-radius: 8px;
+    color:#2a2a3f;
+    background-color:#ffffff;
+    box-shadow: 0px 0px 10px #9b644b;
+    font-size:0.8em;
+    border: solid #2a2a3f 1px;
+    cursor:pointer;
+}
+
+#label-image-upload-input {
+    padding:0.6em 1.2em;
+    border-radius: 8px;
+    color:#fff;
+    background-color: #2a2a3f;
+    box-shadow: 0px 0px 10px #9b644b;
+    font-size:0.8em;
+    cursor:pointer;
+}
+
+#label-image-upload-input:hover {
+    padding:0.6em 1.2em;
+    border-radius: 8px;
+    color:#2a2a3f;
+    background-color:#ffffff;
+    box-shadow: 0px 0px 10px #9b644b;
+    font-size:0.8em;
+    border: solid #2a2a3f 1px;
+    cursor:pointer;
+}
+
+#label-wrapper {
+    padding-top: 0.9rem;
 }
