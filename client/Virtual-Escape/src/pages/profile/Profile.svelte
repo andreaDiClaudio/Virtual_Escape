@@ -6,6 +6,12 @@
 
     titleStore.setTitle("Profile | VE");
 
+    //Retrieve user info from db and displaythem
+    onMount(() => {
+        fetchUserData();
+        fetchUserImages();
+    });
+
     onDestroy(() => {
         titleStore.resetTitle();
     });
@@ -27,8 +33,8 @@
             element.setAttribute("hidden", "true");
         }
     }
-    //Retrieve user info from db and displaythem
-    onMount(() => {
+
+    function fetchUserData() {
         fetch(
             "http://localhost:8080/api/users?nickname=" +
                 $user.nickname +
@@ -86,7 +92,27 @@
                 });
             }
         });
-    });
+    }
+
+    function fetchUserImages() {
+        fetch("http://localhost:8080/api/images", {
+            method: "GET",
+            credentials: "include",
+        })
+            .then((response) => {
+                if (response.status == 200) {
+                    return response.json();
+                }
+            })
+            .then((res) => {
+                // Access the data array
+                const data = res.data;
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error("Error fetching user images:", error);
+            });
+    }
 
     /*EDIT*/
     function previewImage(event) {
