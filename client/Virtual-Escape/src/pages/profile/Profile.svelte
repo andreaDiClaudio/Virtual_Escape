@@ -107,7 +107,30 @@
             .then((res) => {
                 // Access the data array
                 const data = res.data;
-                console.log(data);
+
+                // Get the container where you want to append the new div elements
+                const container = document.getElementById(
+                    "user-gallery-wrapper"
+                );
+
+                data.forEach((image) => {
+                    // Create a new div element
+                    const div = document.createElement("div");
+                    div.className = "user-gallery-card";
+
+                    // Create a new img element
+                    const img = document.createElement("img");
+                    img.src = "http://localhost:8080/" + image.image_url;
+                    img.className = "user-gallery-image";
+
+                    // Add the img element to the div
+                    div.appendChild(img);
+
+                    // Add the div element to the container
+                    container.appendChild(div);
+
+                    console.log(image.image_url);
+                });
             })
             .catch((error) => {
                 console.error("Error fetching user images:", error);
@@ -407,16 +430,6 @@
                 </div>
             </div>
         </div>
-        <div id="user-gallery-wrapper">
-            <div class="user-gallery-card">
-                <p>Working</p>
-            </div>
-            <div class="user-gallery-card">
-                <p>Working</p>
-            </div>
-            <div class="user-gallery-card">
-                <p>Working</p>
-            </div>
-        </div>
+        <div id="user-gallery-wrapper" />
     </div>
 </div>
