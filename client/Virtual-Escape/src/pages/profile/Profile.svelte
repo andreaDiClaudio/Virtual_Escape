@@ -3,6 +3,8 @@
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import { user } from "../../stores/users/users.js";
+    import "toastr/build/toastr.min.css";
+    import toastr from "toastr";
 
     titleStore.setTitle("Profile | VE");
 
@@ -15,7 +17,6 @@
     onDestroy(() => {
         titleStore.resetTitle();
     });
-    //TODO add toastr notification
 
     /*LOAD USER INFO*/
     //helper function to update user info in the webpage
@@ -239,8 +240,28 @@
         }).then((response) => {
             // Check the response status
             if (response.status === 400) {
-                //TODO add toastr notification
-                console.log("Wrong input. please enter the age as number");
+                let message = "Wrong credentials";
+
+                toastr.options = {
+                    closeButton: false,
+                    debug: false,
+                    newestOnTop: false,
+                    progressBar: false,
+                    positionClass: "toast-top-center",
+                    preventDuplicates: true,
+                    onclick: null,
+                    hideDuration: 500,
+                    timeOut: 3000,
+                    extendedTimeOut: 1000,
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    showDuration: 300,
+                };
+                toastr["error"]("Wrong input. Please enter the age as number");
+
+                age.style.border = "solid 2px red";
             } else if (response.status === 200) {
                 // Reset input styling and attributes
                 [gamertag, age, country, language, bio].forEach((element) => {

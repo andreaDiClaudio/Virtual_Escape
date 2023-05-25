@@ -23,7 +23,7 @@
             credentials: "include",
         }).then((response) => {
             if (response.status == 200) {
-                window.location.href = "/home";
+                window.location.href = "/profile";
             }
         });
     }
