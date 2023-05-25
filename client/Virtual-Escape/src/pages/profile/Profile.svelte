@@ -180,11 +180,11 @@
 
         // Create the image preview wrapper
         const imagePreviewWrapper = document.createElement("div");
-        imagePreviewWrapper.id = "image-preview-wrapper";
+        imagePreviewWrapper.id = "user-profile-image-preview-wrapper";
 
         // Create the image preview
         const imagePreview = document.createElement("img");
-        imagePreview.id = "image-preview";
+        imagePreview.id = "user-profile-image-preview";
         imagePreview.src = imageSrc;
 
         // Add the image preview to the image preview wrapper
@@ -192,11 +192,11 @@
 
         // Create the information area
         const imageInfo = document.createElement("div");
-        imageInfo.id = "image-info";
+        imageInfo.id = "user-profile-image-info";
 
         // Create the image description element
         const imageDescriptionElement = document.createElement("div");
-        imageDescriptionElement.id = "image-description";
+        imageDescriptionElement.id = "iuser-profile-image-description";
         imageDescriptionElement.textContent =
             "Description: " + imageDescription;
 
@@ -532,6 +532,10 @@
                     >
                 </div>
             </div>
+        </div>
+        <div id="hr-div">
+            <hr id="horizontal-line" />
+            <h4>Gallery</h4>
         </div>
         <div id="user-gallery-wrapper" />
     </div>
