@@ -79,7 +79,7 @@
 }
 
 /* Style the image preview wrapper */
-#user-profile-image-preview-wrapper {
+#popup-window-image-preview-wrapper {
   width: 70rem;
   height: 35rem;
   display: flex;
@@ -89,8 +89,8 @@
 }
 
 /* Style the image preview */
-#user-profile-image-preview {
-  max-width: 100%;
+#popup-window-image-preview {
+  max-width: 99%;
   max-height: 100%;
 }
 
@@ -107,7 +107,7 @@
 }
 
 /* Style the information area */
-#user-profile-image-info {
+#popup-window-image-info {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -118,7 +118,16 @@
 }
 
 /* Style the image description */
-#user-profile-image-description {
+#popup-window-image-description {
   font-size: 1rem;
   margin-top: 1rem;
+}
+
+.popup-window-option-button-wrapper {
+  padding-top: 0.5rem;
+  padding-right: 1rem;
+}
+
+.popup-window-option-button {
+  padding: 0.2rem;
 }

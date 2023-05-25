@@ -180,11 +180,11 @@
 
         // Create the image preview wrapper
         const imagePreviewWrapper = document.createElement("div");
-        imagePreviewWrapper.id = "user-profile-image-preview-wrapper";
+        imagePreviewWrapper.id = "popup-window-image-preview-wrapper";
 
         // Create the image preview
         const imagePreview = document.createElement("img");
-        imagePreview.id = "user-profile-image-preview";
+        imagePreview.id = "popup-window-image-preview";
         imagePreview.src = imageSrc;
 
         // Add the image preview to the image preview wrapper
@@ -192,12 +192,12 @@
 
         // Create the information area
         const imageInfo = document.createElement("div");
-        imageInfo.id = "user-profile-image-info";
+        imageInfo.id = "popup-window-image-info";
 
         if (image.description) {
             // Create the image description element
             const imageDescriptionElement = document.createElement("div");
-            imageDescriptionElement.id = "user-profile-image-description";
+            imageDescriptionElement.id = "popup-window-image-description";
 
             const descriptionTitle = document.createElement("h3");
             descriptionTitle.textContent = "Description:";
@@ -236,6 +236,28 @@
         // Add the background overlay and popup window to the body
         document.body.appendChild(backgroundOverlay);
         document.body.appendChild(popupWindow);
+
+        /* TODO
+        - in case of full image make the button be over the image
+        - when button is pressed dropdown with the options to edit or delete Post
+        - When edit make two buttons appeare at the button right of the popo window 'save', 'discard'. (Reuse the upload form)
+        - When edit button is pressed, make the input for game and description appear
+        - at some point divide the scripts into more files
+        - After implemenitng the previous do likes and comments (start only wiht likes and see how much time it takes)
+        - After implemenitng the previous do the search user feature
+        */
+
+        //Create the button for delete or edit post
+        const optionButtonWrapper = document.createElement("div");
+        optionButtonWrapper.id = "popup-window-option-button-wrapper";
+        optionButtonWrapper.className = "popup-window-option-button-wrapper";
+
+        const optionButton = document.createElement("button");
+        optionButton.textContent = "•••";
+        optionButton.className = "popup-window-option-button";
+
+        optionButtonWrapper.appendChild(optionButton);
+        popupWindow.appendChild(optionButtonWrapper);
 
         // Show the background overlay and popup window
         backgroundOverlay.style.display = "block";
