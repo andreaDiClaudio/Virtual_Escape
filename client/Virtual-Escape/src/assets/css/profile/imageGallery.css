@@ -50,3 +50,64 @@
 .user-gallery-card:hover .user-gallery-opacity-layer {
   display: block;
 }
+
+/* Style the popup window */
+#popup-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 25px;
+  display: none;
+  background: white;
+  height: 35rem;
+  width: 50rem;
+  box-shadow: 0px 0px 24px #9b644b;
+  z-index: 1000;
+}
+
+/* Style the image preview wrapper */
+#image-preview-wrapper {
+  width: 37rem;
+  height: 35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #292933;
+  border-radius: 25px;
+}
+
+/* Style the image preview */
+#image-preview {
+  max-width: 30.5rem;
+  max-height: 35rem;
+}
+
+/* Add a background overlay */
+#background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 999;
+}
+
+/* Style the information area */
+#image-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+  width: 50%;
+  height: 100%;
+  border-left: solid 2px #2a2a3f;
+}
+
+/* Style the image description */
+#image-description {
+  font-size: 1rem;
+  margin-top: 1rem;
+}

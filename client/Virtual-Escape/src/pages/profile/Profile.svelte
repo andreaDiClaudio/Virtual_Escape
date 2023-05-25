@@ -143,6 +143,10 @@
                         opacityLayer.style.display = "block";
                     };
 
+                    div.onclick = function () {
+                        showPopup(img.src, "Sample Description");
+                    };
+
                     // Hide the zoom icon and opacity layer when the user exits the hover over the image card
                     div.onmouseout = function () {
                         zoomIcon.setAttribute("hidden", "true");
@@ -161,6 +165,61 @@
             .catch((error) => {
                 console.error("Error fetching user images:", error);
             });
+    }
+
+    // Function to show the popup with the selected image
+    function showPopup(imageSrc, imageDescription) {
+        // Create the background overlay
+        const backgroundOverlay = document.createElement("div");
+        backgroundOverlay.id = "background-overlay";
+
+        // Create the popup window
+        const popupWindow = document.createElement("div");
+        popupWindow.id = "popup-window";
+        popupWindow.style.display = "flex";
+
+        // Create the image preview wrapper
+        const imagePreviewWrapper = document.createElement("div");
+        imagePreviewWrapper.id = "image-preview-wrapper";
+
+        // Create the image preview
+        const imagePreview = document.createElement("img");
+        imagePreview.id = "image-preview";
+        imagePreview.src = imageSrc;
+
+        // Add the image preview to the image preview wrapper
+        imagePreviewWrapper.appendChild(imagePreview);
+
+        // Create the information area
+        const imageInfo = document.createElement("div");
+        imageInfo.id = "image-info";
+
+        // Create the image description element
+        const imageDescriptionElement = document.createElement("div");
+        imageDescriptionElement.id = "image-description";
+        imageDescriptionElement.textContent =
+            "Description: " + imageDescription;
+
+        // Add the image description element to the information area
+        imageInfo.appendChild(imageDescriptionElement);
+
+        // Add the image preview wrapper and information area to the popup window
+        popupWindow.appendChild(imagePreviewWrapper);
+        popupWindow.appendChild(imageInfo);
+
+        // Add the background overlay and popup window to the body
+        document.body.appendChild(backgroundOverlay);
+        document.body.appendChild(popupWindow);
+
+        // Show the background overlay and popup window
+        backgroundOverlay.style.display = "block";
+        popupWindow.style.display = "flex";
+
+        // Close the popup when the background overlay is clicked
+        backgroundOverlay.onclick = function () {
+            backgroundOverlay.style.display = "none";
+            popupWindow.style.display = "none";
+        };
     }
 
     /*EDIT USER INFO*/
