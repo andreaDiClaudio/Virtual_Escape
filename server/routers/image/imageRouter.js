@@ -1,9 +1,17 @@
 import { Router } from "express";
 import multer from "multer";
-import { isAuthenticated } from "../app.js";
-import db from "../database/connection.js";
+import { isAuthenticated } from "../../app.js";
+import db from "../../database/connection.js";
 
 const router = Router();
+
+/*GET*/
+//All images where is_profile_img = 0;
+router.get("/api/images", async (req, res) => {
+    const [images, fields] = await db.execute("SELECT image_url FROM images WHERE user_email = ? AND is_profile_img=0;", [req.session.user.email]);
+
+    res.status(200).json({ data: images });
+});
 
 // Set up multer storage configuration
 const storage = multer.diskStorage({
@@ -33,21 +41,21 @@ const upload = multer({ storage });
 
 router.post("/api/images", isAuthenticated, upload.single("file"), async (req, res) => {
     try {
-        const { description, game } = req.body;
+
+        const { description, game, is_profile_img } = req.body;
         const { id, nickname, email } = req.session.user;
         const path = req.file.path;
 
-        const [usersId, fields] = await db.execute("SELECT id FROM users WHERE nickname = ? AND email = ?;", [nickname, email]);
-        const userId = usersId[0].id;
+        const [usersId, fields] = await db.execute("SELECT email FROM users WHERE nickname = ? AND email = ?;", [nickname, email]);
+        const userEmail = usersId[0].email;
 
-        const { lastID } = await db.execute("INSERT INTO images (user_id, description, game, image_url) VALUES (?, ?, ?, ?);", [userId, description, game, path]);
+        const { lastID } = await db.execute("INSERT INTO images (user_email, description, game, image_url, is_profile_img) VALUES (?, ?, ?, ?, ?);", [userEmail, description, game, path, is_profile_img]);
 
-        res.status(200).json({ message: 'Image uploaded successfully' });
+        res.status(200).json({ message: 'Image uploaded successfully', imagePath: path });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'An error occurred while uploading the image' });
     }
 });
-
 
 export default router;

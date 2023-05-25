@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { isAuthenticated } from "../app.js";
+import { isAuthenticated } from "../../app.js";
 
 const router = Router();
 

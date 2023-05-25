@@ -15,13 +15,15 @@
         const formData = new FormData(form);
         const file = document.getElementById("image");
 
+        formData.append("is_profile_img", "0");
+
         fetch("http://localhost:8080/api/images", {
             method: "POST",
             body: formData,
             credentials: "include",
         }).then((response) => {
             if (response.status == 200) {
-                window.location.href = "/home";
+                window.location.href = "/profile";
             }
         });
     }
@@ -69,6 +71,7 @@
                     type="file"
                     name="file"
                     accept="image/*"
+                    alt="Image to upload"
                     required
                     on:change={previewImage}
                 />

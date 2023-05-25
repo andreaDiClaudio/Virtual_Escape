@@ -2,6 +2,7 @@
   "type": "module",
   "scripts": {
     "reset-database": "node ./database/createDatabase.js delete_mode",
+    "truncate-database": "node ./database/createDatabase.js truncate_mode",
     "create-database": "node ./database/createDatabase.js"
   },
   "dependencies": {
@@ -12,6 +13,7 @@
     "express-rate-limit": "^6.7.0",
     "express-session": "^1.17.3",
     "multer": "^1.4.5-lts.1",
-    "mysql2": "^3.3.0"
+    "mysql2": "^3.3.0",
+    "path": "^0.12.7"
   }
 }

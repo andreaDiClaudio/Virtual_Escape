@@ -1,46 +1,59 @@
 import db from "./connection.js";
 
 const isDeleteMode = process.argv.findIndex((argument) => argument === "delete_mode") === -1 ? false : true;
+const isTruncateMode = process.argv.findIndex((argument) => argument === "truncate_mode") === -1 ? false : true;
 
-//TODO implement mode to empty the tables without deleting them. 'DELETE FROM images'
+// List of tables to empty or delete
+const tables = [
+  //"folder_images",
+  // "comments",
+  // "likes",
+  // "follows",
+  // "folders",
+  "images",
+  "users",
+];
 
 if (isDeleteMode) {
-  //db.execute(`DROP TABLE folder_images;`);
-  //db.execute(`DROP TABLE comments;`);
-  // db.execute(`DROP TABLE likes;`);
-  // db.execute(`DROP TABLE follows;`);
-  // db.execute(`DROP TABLE folders;`);
-  db.execute(`DROP TABLE images;`);
-  db.execute(`DROP TABLE users;`);
+  // Delete the tables (drop schema)
+  tables.forEach((table) => {
+    db.execute(`DROP TABLE ${table};`);
+  });
+} else if (isTruncateMode) {
+  // Empty the tables without deleting them (truncate data)
+  tables.forEach((table) => {
+    db.execute(`DELETE FROM ${table};`);
+  });
 }
 
-/*
 // DDL
 /*USERS*/
 db.execute(`
-  CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255) NOT NULL,
-    nickname VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    bio TEXT,
-    age INT,
-    country VARCHAR(255),
-    language VARCHAR(255),
-    gamertag VARCHAR(255)
-  );
+ CREATE TABLE IF NOT EXISTS users (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ email VARCHAR(255) NOT NULL UNIQUE,
+ nickname VARCHAR(255) NOT NULL,
+ password VARCHAR(255) NOT NULL,
+ bio TEXT,
+ age INT,
+ country VARCHAR(255),
+ language VARCHAR(255),
+ gamertag VARCHAR(255),
+ profile_img_url TEXT
+ );
 `);
 
 /*IMAGES*/
-db.execute(`
-  CREATE TABLE IF NOT EXISTS images (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    description TEXT,
-    game VARCHAR(255),
-    image_url TEXT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
-  );
+db.execute(` 
+ CREATE TABLE IF NOT EXISTS images (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ user_email VARCHAR(255) NOT NULL,
+ description TEXT,
+ game VARCHAR(255),
+ image_url TEXT NOT NULL,
+ is_profile_img TINYINT NOT NULL,
+ FOREIGN KEY (user_email) REFERENCES users (email) ON DELETE CASCADE
+ );
 `);
 
 /*FOLDERS
