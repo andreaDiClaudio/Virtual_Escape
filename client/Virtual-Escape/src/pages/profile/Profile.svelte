@@ -144,7 +144,7 @@
                     };
 
                     div.onclick = function () {
-                        showPopup(img.src, "Sample Description");
+                        showPopup(img.src, image);
                     };
 
                     // Hide the zoom icon and opacity layer when the user exits the hover over the image card
@@ -168,7 +168,7 @@
     }
 
     // Function to show the popup with the selected image
-    function showPopup(imageSrc, imageDescription) {
+    function showPopup(imageSrc, image) {
         // Create the background overlay
         const backgroundOverlay = document.createElement("div");
         backgroundOverlay.id = "background-overlay";
@@ -194,18 +194,44 @@
         const imageInfo = document.createElement("div");
         imageInfo.id = "user-profile-image-info";
 
-        // Create the image description element
-        const imageDescriptionElement = document.createElement("div");
-        imageDescriptionElement.id = "iuser-profile-image-description";
-        imageDescriptionElement.textContent =
-            "Description: " + imageDescription;
+        if (image.description) {
+            // Create the image description element
+            const imageDescriptionElement = document.createElement("div");
+            imageDescriptionElement.id = "user-profile-image-description";
 
-        // Add the image description element to the information area
-        imageInfo.appendChild(imageDescriptionElement);
+            const descriptionTitle = document.createElement("h3");
+            descriptionTitle.textContent = "Description:";
+            imageDescriptionElement.appendChild(descriptionTitle);
+
+            const descriptionText = document.createTextNode(image.description);
+            imageDescriptionElement.appendChild(descriptionText);
+
+            // Add the image description element to the information area
+            imageInfo.appendChild(imageDescriptionElement);
+        }
+
+        if (image.game) {
+            // Create the image game element
+            const imageGameElement = document.createElement("div");
+            imageGameElement.id = "user-profile-image-game";
+
+            const gameTitle = document.createElement("h3");
+            gameTitle.style.paddingTop = "2rem";
+            gameTitle.textContent = "Game:";
+            imageGameElement.appendChild(gameTitle);
+
+            const gameText = document.createTextNode(image.game);
+            imageGameElement.appendChild(gameText);
+
+            // Add the image game element to the information area
+            imageInfo.appendChild(imageGameElement);
+        }
 
         // Add the image preview wrapper and information area to the popup window
         popupWindow.appendChild(imagePreviewWrapper);
-        popupWindow.appendChild(imageInfo);
+        if (image.game || image.description) {
+            popupWindow.appendChild(imageInfo);
+        }
 
         // Add the background overlay and popup window to the body
         document.body.appendChild(backgroundOverlay);

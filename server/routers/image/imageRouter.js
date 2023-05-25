@@ -8,7 +8,7 @@ const router = Router();
 /*GET*/
 //All images where is_profile_img = 0;
 router.get("/api/images", async (req, res) => {
-    const [images, fields] = await db.execute("SELECT image_url FROM images WHERE user_email = ? AND is_profile_img=0;", [req.session.user.email]);
+    const [images, fields] = await db.execute("SELECT image_url, description, game FROM images WHERE user_email = ? AND is_profile_img=0;", [req.session.user.email]);
 
     res.status(200).json({ data: images });
 });
