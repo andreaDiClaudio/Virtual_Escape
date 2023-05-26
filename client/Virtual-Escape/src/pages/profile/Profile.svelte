@@ -166,7 +166,9 @@
                 console.error("Error fetching user images:", error);
             });
     }
+    /***************************/
 
+    /*POPUP WINDOW*/
     // Function to show the popup with the selected image
     function showPopup(imageSrc, image) {
         // Create the background overlay
@@ -194,43 +196,57 @@
         const imageInfo = document.createElement("div");
         imageInfo.id = "popup-window-image-info";
 
-        if (image.description) {
-            // Create the image description element
-            const imageDescriptionElement = document.createElement("div");
-            imageDescriptionElement.id = "popup-window-image-description";
+        // Create the image description element
+        const imageDescriptionElement = document.createElement("div");
+        imageDescriptionElement.id = "popup-window-image-description";
 
-            const descriptionTitle = document.createElement("h3");
-            descriptionTitle.textContent = "Description:";
-            imageDescriptionElement.appendChild(descriptionTitle);
+        const descriptionTitle = document.createElement("h3");
+        descriptionTitle.textContent = "Description:";
+        imageDescriptionElement.appendChild(descriptionTitle);
 
-            const descriptionText = document.createTextNode(image.description);
-            imageDescriptionElement.appendChild(descriptionText);
+        const descriptionText = document.createTextNode(
+            image.description || ""
+        );
+        imageDescriptionElement.appendChild(descriptionText);
 
-            // Add the image description element to the information area
-            imageInfo.appendChild(imageDescriptionElement);
+        // Hide the image description element if there's no description
+        if (!image.description) {
+            imageDescriptionElement.style.display = "none";
         }
 
-        if (image.game) {
-            // Create the image game element
-            const imageGameElement = document.createElement("div");
-            imageGameElement.id = "user-profile-image-game";
+        // Add the image description element to the information area
+        imageInfo.appendChild(imageDescriptionElement);
 
-            const gameTitle = document.createElement("h3");
-            gameTitle.style.paddingTop = "2rem";
-            gameTitle.textContent = "Game:";
-            imageGameElement.appendChild(gameTitle);
+        // Create the image game element
+        const imageGameElement = document.createElement("div");
+        imageGameElement.id = "user-profile-image-game";
 
-            const gameText = document.createTextNode(image.game);
-            imageGameElement.appendChild(gameText);
+        const gameTitle = document.createElement("h3");
+        gameTitle.style.paddingTop = "2rem";
+        gameTitle.textContent = "Game:";
+        imageGameElement.appendChild(gameTitle);
 
-            // Add the image game element to the information area
-            imageInfo.appendChild(imageGameElement);
+        const gameText = document.createTextNode(image.game || "");
+        imageGameElement.appendChild(gameText);
+
+        // Hide the image game element if there's no game
+        if (!image.game) {
+            imageGameElement.style.display = "none";
         }
+
+        // Add the image game element to the information area
+        imageInfo.appendChild(imageGameElement);
 
         // Add the image preview wrapper and information area to the popup window
         popupWindow.appendChild(imagePreviewWrapper);
-        if (image.game || image.description) {
-            popupWindow.appendChild(imageInfo);
+        popupWindow.appendChild(imageInfo);
+        if (
+            image.game ||
+            image.description ||
+            image.game === "" ||
+            image.description === ""
+        ) {
+            imageInfo.style.display = "none";
         }
 
         // Add the background overlay and popup window to the body
@@ -238,7 +254,6 @@
         document.body.appendChild(popupWindow);
 
         /* TODO
-        - when button is pressed dropdown with the options to edit or delete Post
         - When edit make two buttons appeare at the button right of the popo window 'save', 'discard'. (Reuse the upload form)
         - When edit button is pressed, make the input for game and description appear
         - at some point divide the scripts into more files
@@ -246,6 +261,7 @@
         - After implemenitng the previous do the search user feature
         */
 
+        /*OPTION BUTTON WRAPPER*/
         // Create the button for delete or edit post
         const optionButtonWrapper = document.createElement("div");
         optionButtonWrapper.id = "popup-window-option-button-wrapper";
@@ -257,12 +273,14 @@
         optionButtonWrapper.appendChild(optionButton);
         popupWindow.appendChild(optionButtonWrapper);
 
+        /*DROPDOWN MENU*/
         // Create the dropdown menu
         const dropdownMenu = document.createElement("div");
         dropdownMenu.className = "dropdown-menu";
         dropdownMenu.setAttribute("hidden", "true");
         optionButtonWrapper.appendChild(dropdownMenu);
 
+        /*EDIT BUTTON*/
         // Create the 'edit' button
         const editButton = document.createElement("button");
         editButton.className = "dropdown-item";
@@ -272,8 +290,12 @@
         editIcon.style.paddingLeft = "0.5rem";
         editButton.appendChild(editIcon);
 
+        // Add the toggleEditPopup function to the edit button
+        editButton.addEventListener("click", toggleEditPopup);
+
         dropdownMenu.appendChild(editButton);
 
+        /*DELETE BUTTON*/
         // Create the 'delete' button
         const deleteButton = document.createElement("button");
         deleteButton.className = "dropdown-item";
@@ -300,6 +322,63 @@
             dropdownMenu.classList.toggle("show");
         };
     }
+
+    // Add this function to the end of your existing code
+    function toggleEditPopup() {
+        const imageInfo = document.getElementById("popup-window-image-info");
+        const imageDescriptionElement = document.getElementById(
+            "popup-window-image-description"
+        );
+        const imageGameElement = document.getElementById(
+            "user-profile-image-game"
+        );
+
+        // Show the hidden elements
+        imageDescriptionElement.style.display = "block";
+        imageGameElement.style.display = "block";
+        imageInfo.style.display = "block";
+
+        if (imageDescriptionElement.childNodes[1].nodeType === 3) {
+            // Convert description text to input field
+            const descriptionInput = document.createElement("input");
+            descriptionInput.type = "text";
+            descriptionInput.value =
+                imageDescriptionElement.childNodes[1].nodeValue.trim();
+            imageDescriptionElement.replaceChild(
+                descriptionInput,
+                imageDescriptionElement.childNodes[1]
+            );
+
+            // Convert game text to input field
+            const gameInput = document.createElement("input");
+            gameInput.type = "text";
+            gameInput.value = imageGameElement.childNodes[1].nodeValue.trim();
+            imageGameElement.replaceChild(
+                gameInput,
+                imageGameElement.childNodes[1]
+            );
+        } else {
+            // Convert input fields back to text
+            const descriptionText = document.createTextNode(
+                // @ts-ignore
+                imageDescriptionElement.childNodes[1].value
+            );
+            imageDescriptionElement.replaceChild(
+                descriptionText,
+                imageDescriptionElement.childNodes[1]
+            );
+
+            const gameText = document.createTextNode(
+                // @ts-ignore
+                imageGameElement.childNodes[1].value
+            );
+            imageGameElement.replaceChild(
+                gameText,
+                imageGameElement.childNodes[1]
+            );
+        }
+    }
+    /***************************/
 
     /*EDIT USER INFO*/
     function previewImage(event) {
