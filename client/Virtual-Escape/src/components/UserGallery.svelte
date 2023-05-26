@@ -227,6 +227,11 @@
 
         //add the deleteButton function to delete button
         deleteButton.addEventListener("click", () => {
+            // Adding an alert before fetching
+            if (!confirm("Are you sure you want to delete this image?")) {
+                return;
+            }
+
             return fetch("http://localhost:8080/api/images/" + image.id, {
                 method: "DELETE",
                 credentials: "include",

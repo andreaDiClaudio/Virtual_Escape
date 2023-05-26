@@ -17,7 +17,9 @@
     flex-direction: column;
     align-items: center;
     width: 7rem;
+    height: 7rem;
     min-width: 7rem;
+    min-height: 7rem; 
 }
 
 #profile-image {
@@ -27,7 +29,7 @@
     max-height: 100%;
     border-radius: 50%;
     border: solid 2px #e7793e;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 #profile-image-input {
