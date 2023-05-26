@@ -19,7 +19,6 @@
             .then((res) => {
                 // Access the data array
                 const data = res.data;
-                console.log(data);
 
                 // Get the container where you want to append the new div elements
                 const container = document.getElementById(
@@ -213,7 +212,7 @@
         editButton.appendChild(editIcon);
 
         // Add the editPopup function to the edit button
-        editButton.addEventListener("click", () => editPopup(imageSrc));
+        editButton.addEventListener("click", () => editPopup(image));
         dropdownMenu.appendChild(editButton);
 
         /*DELETE BUTTON*/
@@ -244,7 +243,7 @@
         };
     }
 
-    function editPopup(imageSrc) {
+    function editPopup(image) {
         const imageInfo = document.getElementById("popup-window-image-info");
         const imageDescriptionElement = document.getElementById(
             "popup-window-image-description"
@@ -289,7 +288,23 @@
         saveButton.textContent = "Save";
         saveButton.addEventListener("click", () => {
             //TODO
-            console.log(gameInput.value, descriptionInput.value);
+            return fetch("http://localhost:8080/api/images/" + image.id, {
+                method: "PATCH",
+                body: JSON.stringify({
+                    description: descriptionInput.value,
+                    game: gameInput.value,
+                }),
+                credentials: "include",
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                },
+            }).then((response) => {
+                if (response.status === 404) {
+                    //TODO notification
+                } else if (response.status === 200) {
+                    window.location.href = "/profile";
+                }
+            });
             // game title: gameInput.value
             //game description : descriptionInput.value
         });
