@@ -37,18 +37,12 @@
 
     //Load user's optional info (age,country,language,bio, profile image)
     function fetchUserData() {
-        fetch(
-            "http://localhost:8080/api/users?nickname=" +
-                $user.nickname +
-                "&email=" +
-                $user.email,
-            {
-                method: "GET",
-            }
-        ).then((response) => {
+        fetch("http://localhost:8080/api/users/" + $user.email, {
+            method: "GET",
+        }).then((response) => {
             if (response.status == 200) {
                 response.json().then((result) => {
-                    const user = result.data[0];
+                    const user = result.data;
 
                     if (user.profile_img_url == null) {
                         document
@@ -455,7 +449,7 @@
         );
 
         // Send a PATCH request to update the user information and profile image
-        return fetch("http://localhost:8080/api/users/" + userFound.id, {
+        return fetch("http://localhost:8080/api/users/" + userFound.email, {
             method: "PATCH",
             body: JSON.stringify({
                 // @ts-ignore
@@ -515,15 +509,9 @@
     // Function to save changes made to the user profile
     function saveChanges() {
         // Fetch the user information from the API
-        fetch(
-            "http://localhost:8080/api/users?nickname=" +
-                $user.nickname +
-                "&email=" +
-                $user.email,
-            {
-                method: "GET",
-            }
-        )
+        fetch("http://localhost:8080/api/users/" + $user.email, {
+            method: "GET",
+        })
             .then((response) => {
                 if (response.status == 200) {
                     return response.json();
@@ -531,7 +519,8 @@
             })
             .then((result) => {
                 if (result) {
-                    const userFound = result.data[0];
+
+                    const userFound = result.data;
                     const imageInput = document.getElementById(
                         "profile-image-input"
                     );
