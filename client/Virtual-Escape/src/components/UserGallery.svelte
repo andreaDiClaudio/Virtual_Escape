@@ -225,6 +225,17 @@
         deleteIcon.style.paddingLeft = "0.5rem";
         deleteButton.appendChild(deleteIcon);
 
+        //add the deleteButton function to delete button
+        deleteButton.addEventListener("click", () => {
+            return fetch("http://localhost:8080/api/images/" + image.id, {
+                method: "DELETE",
+                credentials: "include",
+            }).then((response) => {
+                if (response.status === 200) {
+                    window.location.href = "/profile";
+                }
+            });
+        });
         dropdownMenu.appendChild(deleteButton);
 
         // Show the background overlay and popup window
@@ -287,7 +298,6 @@
         saveButton.setAttribute("class", "user-info-update-buttons");
         saveButton.textContent = "Save";
         saveButton.addEventListener("click", () => {
-            //TODO
             return fetch("http://localhost:8080/api/images/" + image.id, {
                 method: "PATCH",
                 body: JSON.stringify({
@@ -300,13 +310,30 @@
                 },
             }).then((response) => {
                 if (response.status === 404) {
-                    //TODO notification
+                    toastr.options = {
+                        closeButton: false,
+                        debug: false,
+                        newestOnTop: false,
+                        progressBar: false,
+                        positionClass: "toast-top-center",
+                        preventDuplicates: true,
+                        onclick: null,
+                        hideDuration: 500,
+                        timeOut: 3000,
+                        extendedTimeOut: 1000,
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        showDuration: 300,
+                    };
+                    toastr["error"](
+                        "Something Went Wrong. Please refresh the page"
+                    );
                 } else if (response.status === 200) {
                     window.location.href = "/profile";
                 }
             });
-            // game title: gameInput.value
-            //game description : descriptionInput.value
         });
 
         buttonsWrapper.appendChild(discardButton);

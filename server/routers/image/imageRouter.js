@@ -40,6 +40,7 @@ const storage = multer.diskStorage({
 // Initialize multer with the storage configuration
 const upload = multer({ storage });
 
+/*POST*/
 router.post("/api/images", isAuthenticated, upload.single("file"), async (req, res) => {
     try {
 
@@ -59,6 +60,7 @@ router.post("/api/images", isAuthenticated, upload.single("file"), async (req, r
     }
 });
 
+/*PATCH*/
 router.patch("/api/images/:id", isAuthenticated, async (req, res) => {
     const image_id = req.params.id;
 
@@ -77,6 +79,27 @@ router.patch("/api/images/:id", isAuthenticated, async (req, res) => {
         // Update image info
         await db.execute("UPDATE images SET description = ?, game = ? WHERE id = ?", [req.body.description, req.body.game, image_id]);
         res.status(200).send({ message: "Image info updated correctly" });
+    }
+})
+
+router.delete("/api/images/:id", isAuthenticated, async (req, res) => {
+    const image_id = req.params.id;
+
+    if (!image_id) {
+        return res.status(400).send({ error: "image id is required." });
+    }
+
+    const [rows, fields] = await db.execute(
+        "SELECT description, game FROM images WHERE id = ?",
+        [image_id]
+    );
+
+    if (rows.length === 0) {
+        return res.status(404).send({ error: "image to update not found." });
+    } else {
+        // Delete image
+        await db.execute("DELETE FROM images WHERE id = ?", [image_id]);
+        res.status(200).send({ message: "Image deleted correctly" });
     }
 })
 
