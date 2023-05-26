@@ -174,14 +174,6 @@
         document.body.appendChild(backgroundOverlay);
         document.body.appendChild(popupWindow);
 
-        /* TODO
-        -Backend for patch the image info
-        -front end fetch patch image info
-        - After implemenitng the previous do likes and comments because of the websocket requirement (start only wiht likes and see how much time it takes)
-        - After implemenitng the previous do the search user feature
-        -After implemt the folder feature
-        */
-
         /*OPTION BUTTON WRAPPER*/
         // Create the button for delete or edit post
         const optionButtonWrapper = document.createElement("div");
