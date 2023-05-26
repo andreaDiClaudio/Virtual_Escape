@@ -211,9 +211,9 @@
         descriptionTitle.textContent = "Description:";
         imageDescriptionElement.appendChild(descriptionTitle);
 
-        const descriptionText = document.createTextNode(
-            image.description || ""
-        );
+        const descriptionText = document.createElement("p");
+        descriptionText.id = "description-text";
+        descriptionText.textContent = image.description || "";
         imageDescriptionElement.appendChild(descriptionText);
 
         // Hide the image description element if there's no description
@@ -233,7 +233,9 @@
         gameTitle.textContent = "Game:";
         imageGameElement.appendChild(gameTitle);
 
-        const gameText = document.createTextNode(image.game);
+        const gameText = document.createElement("p");
+        gameText.id = "game-text";
+        gameText.textContent = image.game;
         imageGameElement.appendChild(gameText);
 
         // Hide the image game element if there's no game
@@ -344,28 +346,22 @@
         imageGameElement.style.display = "block";
         imageInfo.style.display = "block";
 
-        if (imageDescriptionElement.childNodes[1].nodeType === 3) {
-            // Convert description text to input field
-            const descriptionInput = document.createElement("input");
-            descriptionInput.type = "text";
-            descriptionInput.value =
-                imageDescriptionElement.childNodes[1].nodeValue.trim();
-            imageDescriptionElement.replaceChild(
-                descriptionInput,
-                imageDescriptionElement.childNodes[1]
-            );
+        const descriptionText = document.getElementById("description-text");
+        const gameText = document.getElementById("game-text");
 
-            // Convert game text to input field
-            const gameInput = document.createElement("input");
-            gameInput.type = "text";
-            gameInput.value = imageGameElement.childNodes[1].nodeValue.trim();
-            imageGameElement.replaceChild(
-                gameInput,
-                imageGameElement.childNodes[1]
-            );
-        }
+        // Convert description text to input field
+        const descriptionInput = document.createElement("input");
+        descriptionInput.type = "text";
+        descriptionInput.value = descriptionText.textContent.trim();
+        imageDescriptionElement.replaceChild(descriptionInput, descriptionText);
 
-        //creates save and discard buttons
+        // Convert game text to input field
+        const gameInput = document.createElement("input");
+        gameInput.type = "text";
+        gameInput.value = gameText.textContent.trim();
+        imageGameElement.replaceChild(gameInput, gameText);
+
+        // Create save and discard buttons
         const buttonsWrapper = document.createElement("div");
         buttonsWrapper.setAttribute("id", "image-info-edit-confirm-wrapper");
 
@@ -379,17 +375,17 @@
         const saveButton = document.createElement("button");
         saveButton.setAttribute("class", "user-info-update-buttons");
         saveButton.textContent = "Save";
-        saveButton.addEventListener("click", saveImageInfoChanges);
+        saveButton.addEventListener("click", () => {
+            //TODO
+            console.log(gameInput.value, descriptionInput.value);
+            // game title: gameInput.value
+            //game description : descriptionInput.value
+        });
 
         buttonsWrapper.appendChild(discardButton);
         buttonsWrapper.appendChild(saveButton);
         imageInfo.appendChild(buttonsWrapper);
     }
-
-    function saveImageInfoChanges(imageDescription, imageGame) {
-        // Add your discardChanges logic here
-    }
-
     /***************************/
 
     /*EDIT USER INFO*/

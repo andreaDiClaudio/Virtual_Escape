@@ -59,4 +59,6 @@ router.post("/api/images", isAuthenticated, upload.single("file"), async (req, r
     }
 });
 
+router.patch("/api/images/:")
+
 export default router;
