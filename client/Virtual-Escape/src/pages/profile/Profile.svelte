@@ -268,10 +268,11 @@
 
         /* TODO
         - When edit make two buttons appeare at the button right of the popo window 'save', 'discard'. (Reuse the upload form)
-        - When edit button is pressed, make the input for game and description appear
-        - at some point divide the scripts into more files
-        - After implemenitng the previous do likes and comments (start only wiht likes and see how much time it takes)
+        -Backend for patch the image info
+        -front end fetch patch image info
+        - After implemenitng the previous do likes and comments because of the websocket requirement (start only wiht likes and see how much time it takes)
         - After implemenitng the previous do the search user feature
+        -After implemt the folder feature
         */
 
         /*OPTION BUTTON WRAPPER*/
