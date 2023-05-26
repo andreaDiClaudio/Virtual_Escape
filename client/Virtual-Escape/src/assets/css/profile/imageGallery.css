@@ -124,10 +124,62 @@
 }
 
 .popup-window-option-button-wrapper {
-  padding-top: 0.5rem;
-  padding-right: 1rem;
+  position: absolute; /* Add this line to position the button wrapper relative to the popup window */
+  top: 0.5rem; /* Adjust the distance from the top of the popup window */
+  right: 1rem; /* Adjust the distance from the right side of the popup window */
 }
 
 .popup-window-option-button {
   padding: 0.2rem;
+}
+
+.dropdown-menu {
+  position: absolute;
+  background-color: transparent;
+  z-index: 1;
+  padding-top: 0.20rem;
+  width: 100%; /* Set the width to 100% to match the width of the parent element */
+  
+}
+
+.dropdown-item {
+  padding: 1em 1em;
+  border-radius: 8px;
+  color: #fff;
+  background-color: #2a2a3f;
+  font-size: 0.8em;
+  border: none;
+  cursor: pointer;
+  display: flex; /* Use flexbox for centering */
+  align-items: center; /* Vertically align the icon and text */
+  justify-content: center; /* Horizontally align the icon and text */
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 0.4rem;
+}
+
+.dropdown-item i {
+  color: #fff; /* Set the icon color to white */
+  margin-right: 8px; /* Add some spacing between the icon and the text */
+}
+.dropdown-item:hover {
+  padding: 1em 1em;
+  border-radius: 8px;
+  color: #2a2a3f;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px #9b644b;
+  font-size: 0.8em;
+  border: solid #2a2a3f 1px;
+  cursor: pointer;
+  display: flex; /* Use flexbox for centering */
+  align-items: center; /* Vertically align the icon and text */
+  justify-content: center; /* Horizontally align the icon and text */
+}
+
+.dropdown-item:hover i {
+  color: #2a2a3f; /* Set the icon color to match the text color on hover */
+}
+
+.show {
+  display: block;
 }

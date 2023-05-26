@@ -238,7 +238,6 @@
         document.body.appendChild(popupWindow);
 
         /* TODO
-        - in case of full image make the button be over the image
         - when button is pressed dropdown with the options to edit or delete Post
         - When edit make two buttons appeare at the button right of the popo window 'save', 'discard'. (Reuse the upload form)
         - When edit button is pressed, make the input for game and description appear
@@ -247,7 +246,7 @@
         - After implemenitng the previous do the search user feature
         */
 
-        //Create the button for delete or edit post
+        // Create the button for delete or edit post
         const optionButtonWrapper = document.createElement("div");
         optionButtonWrapper.id = "popup-window-option-button-wrapper";
         optionButtonWrapper.className = "popup-window-option-button-wrapper";
@@ -255,9 +254,36 @@
         const optionButton = document.createElement("button");
         optionButton.textContent = "•••";
         optionButton.className = "popup-window-option-button";
-
         optionButtonWrapper.appendChild(optionButton);
         popupWindow.appendChild(optionButtonWrapper);
+
+        // Create the dropdown menu
+        const dropdownMenu = document.createElement("div");
+        dropdownMenu.className = "dropdown-menu";
+        dropdownMenu.setAttribute("hidden", "true");
+        optionButtonWrapper.appendChild(dropdownMenu);
+
+        // Create the 'edit' button
+        const editButton = document.createElement("button");
+        editButton.className = "dropdown-item";
+
+        const editIcon = document.createElement("i");
+        editIcon.className = "fas fa-pen";
+        editIcon.style.paddingLeft = "0.5rem";
+        editButton.appendChild(editIcon);
+
+        dropdownMenu.appendChild(editButton);
+
+        // Create the 'delete' button
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "dropdown-item";
+
+        const deleteIcon = document.createElement("i");
+        deleteIcon.className = "fas fa-trash";
+        deleteIcon.style.paddingLeft = "0.5rem";
+        deleteButton.appendChild(deleteIcon);
+
+        dropdownMenu.appendChild(deleteButton);
 
         // Show the background overlay and popup window
         backgroundOverlay.style.display = "block";
@@ -267,6 +293,11 @@
         backgroundOverlay.onclick = function () {
             backgroundOverlay.style.display = "none";
             popupWindow.style.display = "none";
+        };
+
+        // Toggle the dropdown menu when the options button is clicked
+        optionButton.onclick = function () {
+            dropdownMenu.classList.toggle("show");
         };
     }
 
