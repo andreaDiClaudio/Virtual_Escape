@@ -171,6 +171,19 @@
     /*POPUP WINDOW*/
     // Function to show the popup with the selected image
     function showPopup(imageSrc, image) {
+        // Remove any existing popup before creating a new one
+        const existingPopup = document.getElementById("popup-window");
+        if (existingPopup) {
+            existingPopup.remove();
+        }
+
+        // Remove any existing background overlay before creating a new one
+        const existingBackgroundOverlay =
+            document.getElementById("background-overlay");
+        if (existingBackgroundOverlay) {
+            existingBackgroundOverlay.remove();
+        }
+
         // Create the background overlay
         const backgroundOverlay = document.createElement("div");
         backgroundOverlay.id = "background-overlay";
@@ -226,7 +239,7 @@
         gameTitle.textContent = "Game:";
         imageGameElement.appendChild(gameTitle);
 
-        const gameText = document.createTextNode(image.game || "");
+        const gameText = document.createTextNode(image.game);
         imageGameElement.appendChild(gameText);
 
         // Hide the image game element if there's no game
@@ -241,8 +254,8 @@
         popupWindow.appendChild(imagePreviewWrapper);
         popupWindow.appendChild(imageInfo);
         if (
-            image.game ||
-            image.description ||
+            !image.game ||
+            !image.description ||
             image.game === "" ||
             image.description === ""
         ) {
@@ -290,9 +303,8 @@
         editIcon.style.paddingLeft = "0.5rem";
         editButton.appendChild(editIcon);
 
-        // Add the toggleEditPopup function to the edit button
-        editButton.addEventListener("click", toggleEditPopup);
-
+        // Add the editPopup function to the edit button
+        editButton.addEventListener("click", editPopup);
         dropdownMenu.appendChild(editButton);
 
         /*DELETE BUTTON*/
@@ -324,7 +336,7 @@
     }
 
     // Add this function to the end of your existing code
-    function toggleEditPopup() {
+    function editPopup() {
         const imageInfo = document.getElementById("popup-window-image-info");
         const imageDescriptionElement = document.getElementById(
             "popup-window-image-description"
@@ -355,25 +367,6 @@
             gameInput.value = imageGameElement.childNodes[1].nodeValue.trim();
             imageGameElement.replaceChild(
                 gameInput,
-                imageGameElement.childNodes[1]
-            );
-        } else {
-            // Convert input fields back to text
-            const descriptionText = document.createTextNode(
-                // @ts-ignore
-                imageDescriptionElement.childNodes[1].value
-            );
-            imageDescriptionElement.replaceChild(
-                descriptionText,
-                imageDescriptionElement.childNodes[1]
-            );
-
-            const gameText = document.createTextNode(
-                // @ts-ignore
-                imageGameElement.childNodes[1].value
-            );
-            imageGameElement.replaceChild(
-                gameText,
                 imageGameElement.childNodes[1]
             );
         }
