@@ -330,7 +330,6 @@
         };
     }
 
-    // Add this function to the end of your existing code
     function editPopup() {
         const imageInfo = document.getElementById("popup-window-image-info");
         const imageDescriptionElement = document.getElementById(
@@ -365,7 +364,32 @@
                 imageGameElement.childNodes[1]
             );
         }
+
+        //creates save and discard buttons
+        const buttonsWrapper = document.createElement("div");
+        buttonsWrapper.setAttribute("id", "image-info-edit-confirm-wrapper");
+
+        const discardButton = document.createElement("button");
+        discardButton.setAttribute("class", "user-info-update-buttons");
+        discardButton.textContent = "Discard";
+        discardButton.addEventListener("click", () => {
+            window.location.href = "/profile";
+        });
+
+        const saveButton = document.createElement("button");
+        saveButton.setAttribute("class", "user-info-update-buttons");
+        saveButton.textContent = "Save";
+        saveButton.addEventListener("click", saveImageInfoChanges);
+
+        buttonsWrapper.appendChild(discardButton);
+        buttonsWrapper.appendChild(saveButton);
+        imageInfo.appendChild(buttonsWrapper);
     }
+
+    function saveImageInfoChanges(imageDescription, imageGame) {
+        // Add your discardChanges logic here
+    }
+
     /***************************/
 
     /*EDIT USER INFO*/
@@ -519,8 +543,8 @@
             })
             .then((result) => {
                 if (result) {
-
                     const userFound = result.data;
+
                     const imageInput = document.getElementById(
                         "profile-image-input"
                     );

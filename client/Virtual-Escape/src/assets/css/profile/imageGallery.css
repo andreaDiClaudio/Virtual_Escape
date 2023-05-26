@@ -45,6 +45,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    cursor: pointer
   }
 
   /* Style the opacity layer */
@@ -56,6 +57,7 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: none;
+  cursor: pointer;
 }
 
 /* Show the opacity layer on hover */
@@ -195,4 +197,9 @@
 
 .show {
   display: block;
+}
+
+
+#image-info-edit-confirm-wrapper {
+  padding-top: 2rem;
 }
