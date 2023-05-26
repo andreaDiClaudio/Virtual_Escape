@@ -1,5 +1,6 @@
 <script>
     import Navbar from "../../components/Navbar.svelte";
+    import UserGallery from "../../components/UserGallery.svelte";
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import { user } from "../../stores/users/users.js";
@@ -11,14 +12,13 @@
     //Retrieve user info from db and displaythem
     onMount(() => {
         fetchUserData();
-        fetchUserImages();
     });
 
     onDestroy(() => {
         titleStore.resetTitle();
     });
 
-    /*LOAD USER INFO*/
+    /*LOAD USER DATA*/
     //helper function to update user info in the webpage
     function updateUserInfoInput(elementId, value) {
         const element = document.getElementById(elementId);
@@ -35,19 +35,14 @@
         }
     }
 
+    //Load user's optional info (age,country,language,bio, profile image)
     function fetchUserData() {
-        fetch(
-            "http://localhost:8080/api/users?nickname=" +
-                $user.nickname +
-                "&email=" +
-                $user.email,
-            {
-                method: "GET",
-            }
-        ).then((response) => {
+        fetch("http://localhost:8080/api/users/" + $user.email, {
+            method: "GET",
+        }).then((response) => {
             if (response.status == 200) {
                 response.json().then((result) => {
-                    const user = result.data[0];
+                    const user = result.data;
 
                     if (user.profile_img_url == null) {
                         document
@@ -95,50 +90,9 @@
         });
     }
 
-    function fetchUserImages() {
-        fetch("http://localhost:8080/api/images", {
-            method: "GET",
-            credentials: "include",
-        })
-            .then((response) => {
-                if (response.status == 200) {
-                    return response.json();
-                }
-            })
-            .then((res) => {
-                // Access the data array
-                const data = res.data;
+    /***************************/
 
-                // Get the container where you want to append the new div elements
-                const container = document.getElementById(
-                    "user-gallery-wrapper"
-                );
-
-                data.forEach((image) => {
-                    // Create a new div element
-                    const div = document.createElement("div");
-                    div.className = "user-gallery-card";
-
-                    // Create a new img element
-                    const img = document.createElement("img");
-                    img.src = "http://localhost:8080/" + image.image_url;
-                    img.className = "user-gallery-image";
-
-                    // Add the img element to the div
-                    div.appendChild(img);
-
-                    // Add the div element to the container
-                    container.appendChild(div);
-
-                    console.log(image.image_url);
-                });
-            })
-            .catch((error) => {
-                console.error("Error fetching user images:", error);
-            });
-    }
-
-    /*EDIT*/
+    /*EDIT USER INFO*/
     function previewImage(event) {
         // Get the image input from the event target
         const imageInput = event.target;
@@ -219,7 +173,7 @@
         );
 
         // Send a PATCH request to update the user information and profile image
-        return fetch("http://localhost:8080/api/users/" + userFound.id, {
+        return fetch("http://localhost:8080/api/users/" + userFound.email, {
             method: "PATCH",
             body: JSON.stringify({
                 // @ts-ignore
@@ -240,8 +194,6 @@
         }).then((response) => {
             // Check the response status
             if (response.status === 400) {
-                let message = "Wrong credentials";
-
                 toastr.options = {
                     closeButton: false,
                     debug: false,
@@ -281,15 +233,9 @@
     // Function to save changes made to the user profile
     function saveChanges() {
         // Fetch the user information from the API
-        fetch(
-            "http://localhost:8080/api/users?nickname=" +
-                $user.nickname +
-                "&email=" +
-                $user.email,
-            {
-                method: "GET",
-            }
-        )
+        fetch("http://localhost:8080/api/users/" + $user.email, {
+            method: "GET",
+        })
             .then((response) => {
                 if (response.status == 200) {
                     return response.json();
@@ -297,7 +243,8 @@
             })
             .then((result) => {
                 if (result) {
-                    const userFound = result.data[0];
+                    const userFound = result.data;
+
                     const imageInput = document.getElementById(
                         "profile-image-input"
                     );
@@ -451,6 +398,10 @@
                 </div>
             </div>
         </div>
-        <div id="user-gallery-wrapper" />
+        <div id="hr-div">
+            <hr id="horizontal-line" />
+            <h4>Gallery</h4>
+        </div>
+        <UserGallery />
     </div>
 </div>
