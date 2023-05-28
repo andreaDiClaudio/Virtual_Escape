@@ -23,7 +23,7 @@
             return;
         }
 
-        fetch("http://localhost:8080/api/users?search=" + searchValue, {
+        fetch("http://localhost:8080/api/search/users?search=" + searchValue, {
             method: "GET",
         })
             .then((response) => {
@@ -39,8 +39,7 @@
                     const card = document.createElement("div");
                     card.className = "suggestion-card";
                     card.innerHTML = `
-          <h3>${account.nickname}</h3>
-          <p>Email: ${account.email}</p>
+          <h3>@${account.nickname}</h3>
           <p>Gamertag: ${account.gamertag}</p>
           <p>Age: ${account.age}</p>
           <p>Country: ${account.country}</p>
