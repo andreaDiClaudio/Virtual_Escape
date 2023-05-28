@@ -35,21 +35,70 @@
             })
             .then((result) => {
                 const accounts = result.data;
+
                 accounts.forEach((account) => {
+                    // Create the suggestion card
                     const card = document.createElement("div");
                     card.className = "suggestion-card";
-                    card.innerHTML = `
-          <h3>@${account.nickname}</h3>
-          <p>Gamertag: ${account.gamertag}</p>
-          <p>Age: ${account.age}</p>
-          <p>Country: ${account.country}</p>
-          <p>Language: ${account.language}</p>
-          <p>Bio: ${account.bio}</p>
-          <img src="${
-              "http://localhost:8080/" + account.profile_img_url ||
-              "http://localhost:8080/public/defaultUserProfileImage/1684737647624-181908121___default_profile_image.jpg"
-          }" alt="Profile image" style="width: 100px; height: 100px;">
-        `;
+
+                    // User info profile image wrapper
+                    const profileImageWrapper = document.createElement("div");
+                    profileImageWrapper.id = "user-info-profile-image-wrapper";
+                    const img = document.createElement("img");
+                    img.id = "profile-image";
+                    img.src =
+                        `http://localhost:8080/${account.profile_img_url}` ||
+                        "http://localhost:8080/public/defaultUserProfileImage/1684737647624-181908121___default_profile_image.jpg";
+                    img.alt = "Image Preview";
+                    profileImageWrapper.appendChild(img);
+                    card.appendChild(profileImageWrapper);
+
+                    // User info profile
+                    const userInfoProfile = document.createElement("div");
+                    userInfoProfile.id = "user-info-profile-search";
+
+                    const nicknameInput = document.createElement("h3");
+                    nicknameInput.id = "user-info-nickname-search";
+                    nicknameInput.textContent = `@${account.nickname}`;
+                    userInfoProfile.appendChild(nicknameInput);
+
+                    const extraUserInfoWrapper = document.createElement("div");
+                    extraUserInfoWrapper.id = "extra-user-info-wrapper";
+
+                    const gamertagInput = document.createElement("h6");
+                    gamertagInput.id = "user-info-gamertag";
+                    gamertagInput.textContent = `${account.gamertag}`;
+                    extraUserInfoWrapper.appendChild(gamertagInput);
+
+                    const ageInput = document.createElement("h6");
+                    ageInput.id = "user-info-age";
+                    ageInput.textContent = `${account.age}`;
+                    extraUserInfoWrapper.appendChild(ageInput);
+
+                    const countryInput = document.createElement("h6");
+                    countryInput.id = "user-info-country";
+                    countryInput.textContent = `${account.country}`;
+                    extraUserInfoWrapper.appendChild(countryInput);
+
+                    const languageInput = document.createElement("h6");
+                    languageInput.id = "user-info-language";
+                    languageInput.textContent = `${account.language}`;
+                    extraUserInfoWrapper.appendChild(languageInput);
+
+                    userInfoProfile.appendChild(extraUserInfoWrapper);
+
+                    const userInfoBioWrapper = document.createElement("div");
+                    userInfoBioWrapper.id = "user-info-bio-wrapper";
+
+                    const bioTextarea = document.createElement("h6");
+                    bioTextarea.id = "user-info-bio";
+                    bioTextarea.textContent = `Bio: ${account.bio}`;
+                    userInfoBioWrapper.appendChild(bioTextarea);
+
+                    userInfoProfile.appendChild(userInfoBioWrapper);
+                    card.appendChild(userInfoProfile);
+
+                    // Append the suggestion card to the container
                     suggestionsContainer.appendChild(card);
                 });
             })

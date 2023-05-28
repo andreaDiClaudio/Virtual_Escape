@@ -323,7 +323,7 @@
     -->
     <div id="right-panel">
         <div id="user-info-wrapper">
-            <div id="user-info-profile-image">
+            <div id="user-info-profile-image-wrapper">
                 <!-- svelte-ignore a11y-img-redundant-alt -->
                 <img id="profile-image" alt="Image Preview" />
                 <div id="label-wrapper">
