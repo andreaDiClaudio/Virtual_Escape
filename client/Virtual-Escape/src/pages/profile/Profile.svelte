@@ -12,6 +12,7 @@
     //Retrieve user info from db and displaythem
     onMount(() => {
         fetchUserData();
+        document.getElementById("user-icon").style.color = "#e7793e";
     });
 
     onDestroy(() => {

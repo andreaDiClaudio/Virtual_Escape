@@ -8,6 +8,7 @@
 
     onMount(() => {
         document.body.classList.add("body-white");
+        document.getElementById("home-icon").style.color = "#e7793e";
     });
 
     // Reset the document title when the component is unmounted

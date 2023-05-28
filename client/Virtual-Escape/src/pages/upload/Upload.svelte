@@ -4,6 +4,10 @@
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     titleStore.setTitle("Upload | VE");
 
+    onMount(() => {
+        document.getElementById("upload-icon").style.color = "#e7793e";
+    });
+
     onDestroy(() => {
         titleStore.resetTitle();
     });
@@ -31,10 +35,9 @@
     let previewSrc = "";
     // Function to handle the preview of an image
     function previewImage(event) {
-        const imageInputButton = document.getElementById("image-input");
-
         // Hide the image input button
-        imageInputButton.style.display = "none";
+        document.getElementById("image-input").style.display = "none";
+        document.getElementById("upload-upload-icon").style.display = "none";
 
         // Get the image input from the event target
         const imageInput = event.target;
@@ -74,6 +77,12 @@
                     alt="Image to upload"
                     required
                     on:change={previewImage}
+                    style="display: none;"
+                />
+                <label
+                    for="image-input"
+                    class="fas fa-upload"
+                    id="upload-upload-icon"
                 />
                 {#if previewSrc}
                     <div id="image-preview-wrapper">

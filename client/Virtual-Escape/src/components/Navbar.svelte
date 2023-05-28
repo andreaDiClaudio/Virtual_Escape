@@ -22,8 +22,10 @@
         <!-- svelte-ignore a11y-missing-content -->
         <a class="fas fa-home" id="home-icon" href="/home" />
         <p>|</p>
+        <!-- svelte-ignore a11y-missing-content -->
         <a class="fas fa-upload" id="upload-icon" href="/upload" />
         <p>|</p>
+        <!-- svelte-ignore a11y-missing-content -->
         <a class="fas fa-user" id="user-icon" href="/profile" />
     </div>
     <div id="navbar-mid">

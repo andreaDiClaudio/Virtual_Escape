@@ -25,6 +25,18 @@
   gap: 0.2rem;
 }
 
+#upload-upload-icon {
+  cursor: pointer;
+  font-size: 4rem;
+  color: #2a2a3f;
+}
+
+#upload-upload-icon:hover {
+  cursor: pointer;
+  font-size: 4rem;
+  color: #e7793e;
+}
+
 #upload-form-image-input {
   display: flex;
   justify-content: center;
