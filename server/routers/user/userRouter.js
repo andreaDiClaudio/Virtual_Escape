@@ -36,6 +36,26 @@ router.get("/api/users/:email", async (req, res) => {
     res.status(200).send({ data: userFound });
 });
 
+// Get users by search query
+router.get("/api/users", async (req, res) => {
+    const search = req.query.search;
+
+    if (!search) {
+        return res.status(400).send({ error: "Search query is required." });
+    }
+
+    const [rows, fields] = await db.execute(
+        "SELECT nickname, email, gamertag, age, country, language, bio, profile_img_url FROM users WHERE email LIKE ? OR nickname LIKE ?",
+        [`%${search}%`, `%${search}%`]
+    );
+
+    if (rows.length === 0) {
+        return res.status(404).send({ error: "No users found." });
+    }
+
+    res.status(200).send({ data: rows });
+});
+
 //*POST*//
 router.post("/api/users", async (req, res) => {
     const { email, nickname, password } = req.body;
