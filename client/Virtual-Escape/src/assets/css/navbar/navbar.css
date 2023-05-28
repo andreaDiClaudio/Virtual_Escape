@@ -23,7 +23,6 @@
   transform: translate(-50%, -50%);
 }
 
-
 #navbar-right-side {
   display: flex; 
   align-items: center; 
@@ -54,6 +53,16 @@
 }
 
 #user-icon:hover {
+    font-size: 1.5rem;
+    color:#e7793e
+}
+
+#search-icon {
+    font-size: 1.5rem;
+    color: #2a2a3f;
+}
+
+#search-icon:hover {
     font-size: 1.5rem;
     color:#e7793e
 }

@@ -27,6 +27,8 @@
         <p>|</p>
         <!-- svelte-ignore a11y-missing-content -->
         <a class="fas fa-user" id="user-icon" href="/profile" />
+        <p>|</p>
+        <a class="fas fa-search" id="search-icon" href="/search" />
     </div>
     <div id="navbar-mid">
         <img

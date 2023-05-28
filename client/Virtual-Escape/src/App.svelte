@@ -7,6 +7,7 @@
   import Home from "./pages/home/Home.svelte";
   import Upload from "./pages/upload/Upload.svelte";
   import Profile from "./pages/profile/Profile.svelte";
+  import Search from "./pages/search/Search.svelte";
 
   import { titleStore } from "./stores/tabTitle/tabTitle.js";
   // Update the document title reactively
@@ -40,5 +41,9 @@
 
   <PrivateRoute path="/profile">
     <Profile />
+  </PrivateRoute>
+
+  <PrivateRoute path="/search">
+    <Search />
   </PrivateRoute>
 </Router>
