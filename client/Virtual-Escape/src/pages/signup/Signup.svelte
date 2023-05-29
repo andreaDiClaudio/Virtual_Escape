@@ -120,7 +120,7 @@
                 </div>
 
                 <div id="button-wrapper">
-                    <button id="submit-form-button" type="submit"
+                    <button id="submit-form-button" class="button" type="submit"
                         >Create Account</button
                     >
                 </div>

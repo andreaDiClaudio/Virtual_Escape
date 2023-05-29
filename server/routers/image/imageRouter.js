@@ -43,6 +43,7 @@ const storage = multer.diskStorage({
         cb(null, newFileName);
     }
 });
+//TODO check middlweare for scurity in server and client
 
 // Initialize multer with the storage configuration
 const upload = multer({ storage });

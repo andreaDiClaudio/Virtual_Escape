@@ -139,9 +139,7 @@
                     <input type="text" name="game" />
                 </label>
                 <div id="upload-submit-button">
-                    <button class="user-info-update-buttons" type="submit">
-                        Upload
-                    </button>
+                    <button class="button" type="submit"> Upload </button>
                 </div>
             </div>
         </form>

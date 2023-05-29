@@ -39,8 +39,6 @@
                 response.json().then((result) => {
                     const user = result.data;
 
-                    console.log(user);
-
                     document
                         .getElementById("profile-image")
                         .setAttribute(

@@ -42,8 +42,6 @@
                     const card = document.createElement("div");
                     card.className = "suggestion-card";
                     card.addEventListener("click", () => {
-                        console.log("clicked");
-                        console.log(account);
                         localStorage.setItem(
                             "selectedAccount",
                             JSON.stringify(account)

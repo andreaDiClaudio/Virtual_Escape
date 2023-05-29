@@ -1,0 +1,39 @@
+.button {
+    padding:0.6em 1.2em;
+    border-radius: 8px;
+    color:#fff;
+    background-color: #2a2a3f;
+    font-size:0.8em;
+    border: solid white 1px;
+    cursor:pointer;
+}
+
+.button:hover {    
+    padding:0.6em 1.2em;
+    border-radius: 8px;
+    color: #e7793e;
+    background-color: white;
+    border: 1px solid #e7793e ;
+    font-size: 0.8em;
+    cursor: pointer;
+}
+
+#button {
+    padding:0.6em 1.2em;
+    border-radius: 8px;
+    color:#fff;
+    background-color: #2a2a3f;
+    font-size:0.8em;
+    border: solid white 1px;
+    cursor:pointer;
+}
+
+#button:hover {    
+    padding:0.6em 1.2em;
+    border-radius: 8px;
+    color: #e7793e;
+    background-color: white;
+    border: 1px solid #e7793e ;
+    font-size: 0.8em;
+    cursor: pointer;
+}

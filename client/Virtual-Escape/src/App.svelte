@@ -49,6 +49,6 @@
   </PrivateRoute>
 
   <PrivateRoute path="/search/:nickname" let:params let:location>
-    <ProfileFound {params} />
+    <ProfileFound />
   </PrivateRoute>
 </Router>

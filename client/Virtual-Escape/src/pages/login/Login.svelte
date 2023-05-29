@@ -130,7 +130,9 @@
         </div>
 
         <div id="button-wrapper">
-          <button id="submit-form-button" type="submit">Log in</button>
+          <button id="submit-form-button" class="button" type="submit"
+            >Log in</button
+          >
         </div>
       </form>
     </div>

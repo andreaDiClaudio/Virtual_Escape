@@ -32,13 +32,14 @@
     </div>
     <div id="navbar-mid">
         <img
+            alt="VE logo"
             src="http://localhost:8080/public/logo/justLogo.png"
             id="VE-logo"
         />
     </div>
     <div id="navbar-right-side">
         <form on:submit|preventDefault={handleSubmit}>
-            <button type="submit" class="fas fa-sign-out" id="logout-button" />
+            <button type="submit" class="fas fa-sign-out" id="button" />
         </form>
     </div>
 </nav>

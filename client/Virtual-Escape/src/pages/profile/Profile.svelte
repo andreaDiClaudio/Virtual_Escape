@@ -329,6 +329,7 @@
                 <div id="label-wrapper">
                     <label
                         for="profile-image-input"
+                        class="button"
                         id="label-image-upload-input"
                         hidden
                     >
@@ -382,20 +383,13 @@
             </div>
             <div id="user-info-edit-button-wrapper">
                 <div>
-                    <button
-                        class="user-info-update-buttons"
-                        on:click={editUserInfo}>Edit</button
-                    >
+                    <button class="button" on:click={editUserInfo}>Edit</button>
                 </div>
                 <div id="user-info-edit-confirm-wrapper" hidden>
-                    <button
-                        class="user-info-update-buttons"
-                        on:click={discardChanges}>Discard</button
+                    <button class="button" on:click={discardChanges}
+                        >Discard</button
                     >
-                    <button
-                        class="user-info-update-buttons"
-                        on:click={saveChanges}>Save</button
-                    >
+                    <button class="button" on:click={saveChanges}>Save</button>
                 </div>
             </div>
         </div>
