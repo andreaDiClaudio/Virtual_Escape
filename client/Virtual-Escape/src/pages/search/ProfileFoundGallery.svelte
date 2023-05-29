@@ -1,83 +1,70 @@
 <script>
-    import { onMount, onDestroy } from "svelte";
-    // @ts-ignore
+    // @ts-nocheck
+
+    import { onMount } from "svelte";
     import showProfileFoundPopup from "../../assets/js/search/showProfileFoundPopup.js";
 
-    const selectedAccount = JSON.parse(localStorage.getItem("selectedAccount"));
+    let selectedAccount = JSON.parse(localStorage.getItem("selectedAccount"));
+    let userImages = [];
 
-    onMount(() => {
-        fetchUserImages();
+    onMount(async () => {
+        await fetchUserImages();
     });
 
-    /*FETCH SELECTED USER IMAGES*/
-    function fetchUserImages() {
-        fetch(
-            "http://localhost:8080/api/search/images/" + selectedAccount.email,
-            {
-                method: "GET",
-                credentials: "include",
-            }
-        )
-            .then((response) => {
-                if (response.status == 200) {
-                    return response.json();
+    async function fetchUserImages() {
+        try {
+            const response = await fetch(
+                "http://localhost:8080/api/search/images/" +
+                    selectedAccount.email,
+                {
+                    method: "GET",
+                    credentials: "include",
                 }
-            })
-            .then((res) => {
-                const data = res.data;
-                const container = document.getElementById(
-                    "user-gallery-wrapper"
-                );
+            );
 
-                data.forEach((image) => {
-                    const div = document.createElement("div");
-                    div.className = "user-gallery-card";
-
-                    // Create a new img element
-                    const img = document.createElement("img");
-                    img.src = "http://localhost:8080/" + image.image_url;
-                    img.className = "user-gallery-image";
-
-                    // Create the zoom icon element
-                    const zoomIcon = document.createElement("img");
-                    zoomIcon.src =
-                        "http://localhost:8080/public/webIcons/zoom-icon-white.png";
-                    zoomIcon.className = "user-gallery-zoom-in-icon";
-                    zoomIcon.setAttribute("hidden", "true");
-
-                    // Create the opacity layer element
-                    const opacityLayer = document.createElement("div");
-                    opacityLayer.className = "user-gallery-opacity-layer";
-
-                    // Show the zoom icon and opacity layer when the user hovers over the image card
-                    div.onmouseover = function () {
-                        zoomIcon.removeAttribute("hidden");
-                        opacityLayer.style.display = "block";
-                    };
-
-                    div.onclick = function () {
-                        showProfileFoundPopup(img.src, image);
-                    };
-
-                    // Hide the zoom icon and opacity layer when the user exits the hover over the image card
-                    div.onmouseout = function () {
-                        zoomIcon.setAttribute("hidden", "true");
-                        opacityLayer.style.display = "none";
-                    };
-
-                    // Add the img, zoom icon, and opacity layer elements to the div
-                    div.appendChild(img);
-                    div.appendChild(opacityLayer);
-                    div.appendChild(zoomIcon);
-
-                    // Add the div element to the container
-                    container.appendChild(div);
-                });
-            })
-            .catch((error) => {
-                console.error("Error fetching user images:", error);
-            });
+            if (response.status === 200) {
+                const res = await response.json();
+                userImages = res.data;
+            }
+        } catch (error) {
+            console.error("Error fetching user images:", error);
+        }
     }
 </script>
 
-<div id="user-gallery-wrapper" />
+<div id="user-gallery-wrapper">
+    {#each userImages as image}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-mouse-events-have-key-events -->
+        <div
+            class="user-gallery-card"
+            on:mouseover={(e) => {
+                e.currentTarget.children[1].style.display = "block";
+                e.currentTarget.children[2].hidden = false;
+            }}
+            on:mouseout={(e) => {
+                e.currentTarget.children[1].style.display = "none";
+                e.currentTarget.children[2].hidden = true;
+            }}
+            on:click={() =>
+                showProfileFoundPopup(
+                    `http://localhost:8080/${image.image_url}`,
+                    image
+                )}
+        >
+            <!-- svelte-ignore a11y-img-redundant-alt -->
+            <img
+                class="user-gallery-image"
+                src={`http://localhost:8080/${image.image_url}`}
+                alt="User gallery image"
+            />
+            <div class="user-gallery-opacity-layer" style="display: none;" />
+            <img
+                class="user-gallery-zoom-in-icon"
+                src="http://localhost:8080/public/webIcons/zoom-icon-white.png"
+                alt="Zoom icon"
+                hidden
+            />
+        </div>
+    {/each}
+</div>
