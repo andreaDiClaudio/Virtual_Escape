@@ -10,6 +10,7 @@
   import Search from "./pages/search/Search.svelte";
 
   import { titleStore } from "./stores/tabTitle/tabTitle.js";
+  import ProfileFound from "./pages/search/ProfileFound.svelte";
   // Update the document title reactively
   $: document.title = $titleStore;
 </script>
@@ -39,11 +40,15 @@
     <Upload />
   </PrivateRoute>
 
-  <PrivateRoute path="/profile">
+  <PrivateRoute path="/profile" let:location>
     <Profile />
   </PrivateRoute>
 
-  <PrivateRoute path="/search">
+  <PrivateRoute path="/search" let:location>
     <Search />
+  </PrivateRoute>
+
+  <PrivateRoute path="/search/:nickname" let:params let:location>
+    <ProfileFound {params} />
   </PrivateRoute>
 </Router>

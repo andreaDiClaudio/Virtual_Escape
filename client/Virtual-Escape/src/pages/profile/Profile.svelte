@@ -1,6 +1,6 @@
 <script>
     import Navbar from "../../components/Navbar.svelte";
-    import UserGallery from "../../components/UserGallery.svelte";
+    import UserGallery from "./ProfileGallery.svelte";
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import { user } from "../../stores/users/users.js";

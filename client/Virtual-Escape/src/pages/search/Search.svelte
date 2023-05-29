@@ -1,6 +1,7 @@
 <script>
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
+    import { navigate } from "svelte-navigator";
     import Navbar from "../../components/Navbar.svelte";
 
     titleStore.setTitle("Search | VE");
@@ -40,6 +41,15 @@
                     // Create the suggestion card
                     const card = document.createElement("div");
                     card.className = "suggestion-card";
+                    card.addEventListener("click", () => {
+                        console.log("clicked");
+                        console.log(account);
+                        localStorage.setItem(
+                            "selectedAccount",
+                            JSON.stringify(account)
+                        );
+                        navigate(`/search/@${account.nickname}`);
+                    });
 
                     // User info profile image wrapper
                     const profileImageWrapper = document.createElement("div");
