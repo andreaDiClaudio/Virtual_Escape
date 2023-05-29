@@ -1,6 +1,9 @@
 <script>
     import { user } from "../stores/users/users.js";
 
+    export let homeIconColor = "";
+    export let uploadIconColor = "";
+
     function handleSubmit() {
         fetch("http://localhost:8080/logout", {
             method: "POST",
@@ -20,14 +23,25 @@
 <nav id="navbar">
     <div id="navbar-left-side">
         <!-- svelte-ignore a11y-missing-content -->
-        <a class="fas fa-home" id="home-icon" href="/home" />
+        <a
+            class="fas fa-home"
+            id="home-icon"
+            href="/home"
+            style="color: {homeIconColor};"
+        />
         <p>|</p>
         <!-- svelte-ignore a11y-missing-content -->
-        <a class="fas fa-upload" id="upload-icon" href="/upload" />
+        <a
+            class="fas fa-upload"
+            id="upload-icon"
+            href="/upload"
+            style="color: {uploadIconColor};"
+        />
         <p>|</p>
         <!-- svelte-ignore a11y-missing-content -->
         <a class="fas fa-user" id="user-icon" href="/profile" />
         <p>|</p>
+        <!-- svelte-ignore a11y-missing-content -->
         <a class="fas fa-search" id="search-icon" href="/search" />
     </div>
     <div id="navbar-mid">

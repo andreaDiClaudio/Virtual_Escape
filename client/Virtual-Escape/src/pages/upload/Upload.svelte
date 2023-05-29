@@ -4,11 +4,15 @@
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import toastr from "toastr";
 
-    //set tab title
+    let imageInputDisplay = "none";
+    let uploadIconDisplay = "initial";
+    let previewSrc = "";
+    let uploadIconColor = "";
+
     titleStore.setTitle("Upload | VE");
 
     onMount(() => {
-        document.getElementById("upload-icon").style.color = "#e7793e";
+        uploadIconColor = "#e7793e";
     });
 
     onDestroy(() => {
@@ -17,7 +21,6 @@
 
     function handleSubmit(event) {
         const fileInput = document.getElementById("image-input");
-
         // Check if a file is selected
         // @ts-ignore
         if (!fileInput.files || fileInput.files.length === 0) {
@@ -42,9 +45,7 @@
                 "Please select an image to upload in the left side of the window."
             );
         }
-
         event.preventDefault();
-
         const form = event.target;
         const formData = new FormData(form);
         formData.append("is_profile_img", "0");
@@ -60,36 +61,27 @@
         });
     }
 
-    // Function to handle the preview of an image
-    let previewSrc = "";
     function previewImage(event) {
-        // Hide the image input button
-        document.getElementById("image-input").style.display = "none";
-        document.getElementById("upload-upload-icon").style.display = "none";
+        imageInputDisplay = "none";
+        uploadIconDisplay = "none";
 
-        // Get the image input from the event target
         const imageInput = event.target;
 
-        // Check if there are files and if the first file is an image
         if (imageInput.files && imageInput.files[0]) {
             const reader = new FileReader();
-            // Set the onload function for the reader
             reader.onload = (e) => {
                 // @ts-ignore
-                // Set the preview source to the result of the file read
                 previewSrc = e.target.result;
             };
 
-            // Read the image file as a data URL
             reader.readAsDataURL(imageInput.files[0]);
         } else {
-            // If no image file, set the preview source to an empty string
             previewSrc = "";
         }
     }
 </script>
 
-<Navbar />
+<Navbar {uploadIconColor} />
 <div id="upload-page">
     <div id="upload-window">
         <form
@@ -104,12 +96,13 @@
                     accept="image/*"
                     alt="Image to upload"
                     on:change={previewImage}
-                    style="display: none;"
+                    style="display: {imageInputDisplay};"
                 />
                 <label
                     for="image-input"
                     class="fas fa-upload"
                     id="upload-upload-icon"
+                    style="display: {uploadIconDisplay};"
                 />
                 {#if previewSrc}
                     <div id="image-preview-wrapper">
@@ -122,19 +115,18 @@
                     </div>
                 {/if}
             </div>
-
             <div id="upload-form-right-panel">
                 <h1 id="form-right-panel-title">Details</h1>
-                <label id="upload-description-label"
-                    >Description
+                <label id="upload-description-label">
+                    Description
                     <textarea
                         id="upload-description-textarea"
                         name="description"
                         maxlength="254"
                     />
                 </label>
-                <label id="upload-label"
-                    >Game
+                <label id="upload-label">
+                    Game
                     <input type="text" name="game" />
                 </label>
                 <div id="upload-submit-button">
