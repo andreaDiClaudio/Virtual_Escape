@@ -102,7 +102,7 @@
 
                     const bioTextarea = document.createElement("h6");
                     bioTextarea.id = "user-info-bio";
-                    bioTextarea.textContent = `Bio: ${account.bio}`;
+                    bioTextarea.textContent = `${account.bio}`;
                     userInfoBioWrapper.appendChild(bioTextarea);
 
                     userInfoProfile.appendChild(userInfoBioWrapper);
