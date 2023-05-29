@@ -66,7 +66,7 @@ router.get("/api/search/users", isAuthenticated, async (req, res) => {
 })
 
 //*POST*//
-router.post("/api/users", isAuthenticated, async (req, res) => {
+router.post("/api/users", async (req, res) => {
     const { email, nickname, password } = req.body;
 
     // Validate the required fields
