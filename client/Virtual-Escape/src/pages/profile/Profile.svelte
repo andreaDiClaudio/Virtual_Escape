@@ -1,40 +1,26 @@
 <script>
     import Navbar from "../../components/Navbar.svelte";
-    import UserGallery from "../../components/UserGallery.svelte";
+    import UserGallery from "./ProfileGallery.svelte";
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import { user } from "../../stores/users/users.js";
     import "toastr/build/toastr.min.css";
     import toastr from "toastr";
 
+    //set the tabtitle
     titleStore.setTitle("Profile | VE");
 
     //Retrieve user info from db and displaythem
     onMount(() => {
         fetchUserData();
+        document.getElementById("user-icon").style.color = "#e7793e";
     });
 
     onDestroy(() => {
         titleStore.resetTitle();
     });
 
-    /*LOAD USER DATA*/
-    //helper function to update user info in the webpage
-    function updateUserInfoInput(elementId, value) {
-        const element = document.getElementById(elementId);
-        if (value !== null || value !== undefined) {
-            if (elementId == "user-info-nickname") {
-                // @ts-ignore
-                element.value = "@" + value;
-            } else {
-                // @ts-ignore
-                element.value = value;
-            }
-        } else {
-            element.setAttribute("hidden", "true");
-        }
-    }
-
+    /*FETCH USER INFO*/
     //Load user's optional info (age,country,language,bio, profile image)
     function fetchUserData() {
         fetch("http://localhost:8080/api/users/" + $user.email, {
@@ -90,9 +76,23 @@
         });
     }
 
-    /***************************/
+    //helper function to update user info in the webpage
+    function updateUserInfoInput(elementId, value) {
+        const element = document.getElementById(elementId);
+        if (value !== null || value !== undefined) {
+            if (elementId == "user-info-nickname") {
+                // @ts-ignore
+                element.value = "@" + value;
+            } else {
+                // @ts-ignore
+                element.value = value;
+            }
+        } else {
+            element.setAttribute("hidden", "true");
+        }
+    }
 
-    /*EDIT USER INFO*/
+    /*PREVIEW PROFILE IMAGE*/
     function previewImage(event) {
         // Get the image input from the event target
         const imageInput = event.target;
@@ -114,6 +114,7 @@
         }
     }
 
+    /*EDIT BUTTON PRESSED*/
     //shows buttons and modifies input to be not readonly
     function editUserInfo() {
         // Define an array of input element ids
@@ -159,7 +160,65 @@
             .removeAttribute("hidden");
     }
 
-    /*SAVE CHANGES*/
+    /*SAVE BUTTON PRESSED*/
+    function saveChanges() {
+        // Fetch the user information from the API
+        fetch("http://localhost:8080/api/users/" + $user.email, {
+            method: "GET",
+        })
+            .then((response) => {
+                if (response.status == 200) {
+                    return response.json();
+                }
+            })
+            .then((result) => {
+                if (result) {
+                    const userFound = result.data;
+
+                    const imageInput = document.getElementById(
+                        "profile-image-input"
+                    );
+                    // @ts-ignore
+                    const file = imageInput.files[0];
+                    const formData = new FormData();
+
+                    // Append the file and other data to the form data
+                    formData.append("file", file);
+                    formData.append("description", "");
+                    formData.append("game", "");
+                    formData.append("is_profile_img", "1");
+
+                    // Check if there's a file to upload
+                    if (!file) {
+                        const oldImageUrl =
+                            // @ts-ignore
+                            document.getElementById("profile-image").src;
+                        // Update user information without uploading a new image
+                        updateUser(userFound, oldImageUrl);
+                    } else {
+                        /*POST IMAGE*/
+                        // Upload the image and update user information
+                        fetch("http://localhost:8080/api/images", {
+                            method: "POST",
+                            body: formData,
+                            credentials: "include",
+                        })
+                            .then((response) => {
+                                if (response.status == 200) {
+                                    return response.json();
+                                }
+                            })
+                            .then((data) => {
+                                if (data) {
+                                    /*PATCH*/
+                                    updateUser(userFound, data.imagePath);
+                                }
+                            });
+                    }
+                }
+            });
+    }
+
     // Function to update user information and profile image
     function updateUser(userFound, imagePath) {
         // Get user information elements
@@ -172,6 +231,7 @@
             "user-info-edit-confirm-wrapper"
         );
 
+        /*PATCH*/
         // Send a PATCH request to update the user information and profile image
         return fetch("http://localhost:8080/api/users/" + userFound.email, {
             method: "PATCH",
@@ -230,64 +290,7 @@
         });
     }
 
-    // Function to save changes made to the user profile
-    function saveChanges() {
-        // Fetch the user information from the API
-        fetch("http://localhost:8080/api/users/" + $user.email, {
-            method: "GET",
-        })
-            .then((response) => {
-                if (response.status == 200) {
-                    return response.json();
-                }
-            })
-            .then((result) => {
-                if (result) {
-                    const userFound = result.data;
-
-                    const imageInput = document.getElementById(
-                        "profile-image-input"
-                    );
-                    // @ts-ignore
-                    const file = imageInput.files[0];
-                    const formData = new FormData();
-
-                    // Append the file and other data to the form data
-                    formData.append("file", file);
-                    formData.append("description", "");
-                    formData.append("game", "");
-                    formData.append("is_profile_img", "1");
-
-                    // Check if there's a file to upload
-                    if (!file) {
-                        const oldImageUrl =
-                            // @ts-ignore
-                            document.getElementById("profile-image").src;
-                        // Update user information without uploading a new image
-                        updateUser(userFound, oldImageUrl);
-                    } else {
-                        // Upload the image and update user information
-                        fetch("http://localhost:8080/api/images", {
-                            method: "POST",
-                            body: formData,
-                            credentials: "include",
-                        })
-                            .then((response) => {
-                                if (response.status == 200) {
-                                    return response.json();
-                                }
-                            })
-                            .then((data) => {
-                                if (data) {
-                                    updateUser(userFound, data.imagePath);
-                                }
-                            });
-                    }
-                }
-            });
-    }
-
-    /*DISCARD CHANGES*/
+    /*DISCARD BUTTON PRESSED*/
     function discardChanges() {
         const inputIds = [
             "user-info-gamertag",
@@ -313,21 +316,15 @@
 <!--*PAGE*-->
 <Navbar />
 <div id="profile-page">
-    <!--TODO implement later
-    <div id="left-panel">
-        <h2>Folders</h2>
-        <p>1. Horizon Forbidden West</p>
-        <p>1. A very long title of a none existing gam, but just in case</p>
-    </div>
-    -->
     <div id="right-panel">
         <div id="user-info-wrapper">
-            <div id="user-info-profile-image">
+            <div id="user-info-profile-image-wrapper">
                 <!-- svelte-ignore a11y-img-redundant-alt -->
                 <img id="profile-image" alt="Image Preview" />
                 <div id="label-wrapper">
                     <label
                         for="profile-image-input"
+                        class="button"
                         id="label-image-upload-input"
                         hidden
                     >
@@ -381,20 +378,13 @@
             </div>
             <div id="user-info-edit-button-wrapper">
                 <div>
-                    <button
-                        class="user-info-update-buttons"
-                        on:click={editUserInfo}>Edit</button
-                    >
+                    <button class="button" on:click={editUserInfo}>Edit</button>
                 </div>
                 <div id="user-info-edit-confirm-wrapper" hidden>
-                    <button
-                        class="user-info-update-buttons"
-                        on:click={discardChanges}>Discard</button
+                    <button class="button" on:click={discardChanges}
+                        >Discard</button
                     >
-                    <button
-                        class="user-info-update-buttons"
-                        on:click={saveChanges}>Save</button
-                    >
+                    <button class="button" on:click={saveChanges}>Save</button>
                 </div>
             </div>
         </div>

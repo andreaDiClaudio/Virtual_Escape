@@ -3,29 +3,25 @@
     import toastr from "toastr";
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
+    import Footer from "../../components/Footer.svelte";
 
-    // Update the document title when the component is mounted
+    //set tab title
     titleStore.setTitle("Signup | VE");
 
     onMount(() => {
         document.body.classList.add("body-gradient");
     });
 
-    // Reset the document title when the component is unmounted
     onDestroy(() => {
         titleStore.resetTitle();
         document.body.classList.remove("body-gradient");
     });
 
-    const currentYear = new Date().getFullYear();
     let email = "";
     let nickname = "";
     let password = "";
     let message = "";
-
     async function handleSubmit() {
-        const data = { email, nickname, password };
-
         fetch("http://localhost:8080/api/users", {
             method: "POST",
             headers: {
@@ -120,15 +116,12 @@
                 </div>
 
                 <div id="button-wrapper">
-                    <button id="submit-form-button" type="submit"
+                    <button id="submit-form-button" class="button" type="submit"
                         >Create Account</button
                     >
                 </div>
             </form>
         </div>
     </div>
-
-    <div id="copyright-year-wrapper">
-        <p id="copyright-year">Andrea Di Claudio / © {currentYear}</p>
-    </div>
+    <Footer />
 </div>

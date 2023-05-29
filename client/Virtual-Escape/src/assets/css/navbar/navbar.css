@@ -1,0 +1,92 @@
+#navbar {
+    position: relative; 
+    display: flex;
+    display: flex;
+    flex-direction: row;
+    padding: 1.5rem;
+    border-bottom: solid 1px #2a2a3f;
+    justify-content: space-between;
+}
+
+#navbar-left-side {
+    text-align: left;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#navbar-mid {
+  position: absolute; 
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#navbar-right-side {
+  display: flex; 
+  align-items: center; 
+}
+#home-icon {
+    font-size: 1.5rem;
+    color: #2a2a3f;
+}
+
+#home-icon:hover {
+    font-size: 1.5rem;
+    color:#e7793e;
+}
+
+#upload-icon {
+    font-size: 1.5rem;
+    color: #2a2a3f;
+}
+
+#upload-icon:hover {
+    font-size: 1.5rem;
+    color:#e7793e
+}
+
+#user-icon {
+    font-size: 1.5rem;
+    color: #2a2a3f;
+}
+
+#user-icon:hover {
+    font-size: 1.5rem;
+    color:#e7793e
+}
+
+#search-icon {
+    font-size: 1.5rem;
+    color: #2a2a3f;
+}
+
+#search-icon:hover {
+    font-size: 1.5rem;
+    color:#e7793e
+}
+
+#VE-logo {
+    width: 3rem;
+}
+
+#logout-button {
+    padding:0.6em 1.2em;
+    border-radius: 8px;
+    color:#fff;
+    background-color: #2a2a3f;
+    font-size:0.8em;
+    border: solid white 1px;
+    cursor:pointer;
+}
+
+#logout-button:hover {
+    padding:0.6em 1.2em;
+    border-radius: 8px;
+    color: #e7793e;
+    background-color: white;
+    border: 1px solid #e7793e ;
+    font-size: 0.8em;
+    cursor: pointer;
+}

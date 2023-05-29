@@ -2,19 +2,51 @@
     import Navbar from "../../components/Navbar.svelte";
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
+    import toastr from "toastr";
+
+    //set tab title
     titleStore.setTitle("Upload | VE");
+
+    onMount(() => {
+        document.getElementById("upload-icon").style.color = "#e7793e";
+    });
 
     onDestroy(() => {
         titleStore.resetTitle();
     });
 
     function handleSubmit(event) {
+        const fileInput = document.getElementById("image-input");
+
+        // Check if a file is selected
+        // @ts-ignore
+        if (!fileInput.files || fileInput.files.length === 0) {
+            toastr.options = {
+                closeButton: false,
+                debug: false,
+                newestOnTop: false,
+                progressBar: false,
+                positionClass: "toast-top-center",
+                preventDuplicates: true,
+                onclick: null,
+                hideDuration: 500,
+                timeOut: 3000,
+                extendedTimeOut: 1000,
+                showEasing: "swing",
+                hideEasing: "linear",
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut",
+                showDuration: 300,
+            };
+            toastr["warning"](
+                "Please select an image to upload in the left side of the window."
+            );
+        }
+
         event.preventDefault();
 
         const form = event.target;
         const formData = new FormData(form);
-        const file = document.getElementById("image");
-
         formData.append("is_profile_img", "0");
 
         fetch("http://localhost:8080/api/images", {
@@ -28,13 +60,12 @@
         });
     }
 
-    let previewSrc = "";
     // Function to handle the preview of an image
+    let previewSrc = "";
     function previewImage(event) {
-        const imageInputButton = document.getElementById("image-input");
-
         // Hide the image input button
-        imageInputButton.style.display = "none";
+        document.getElementById("image-input").style.display = "none";
+        document.getElementById("upload-upload-icon").style.display = "none";
 
         // Get the image input from the event target
         const imageInput = event.target;
@@ -72,8 +103,13 @@
                     name="file"
                     accept="image/*"
                     alt="Image to upload"
-                    required
                     on:change={previewImage}
+                    style="display: none;"
+                />
+                <label
+                    for="image-input"
+                    class="fas fa-upload"
+                    id="upload-upload-icon"
                 />
                 {#if previewSrc}
                     <div id="image-preview-wrapper">
@@ -102,7 +138,7 @@
                     <input type="text" name="game" />
                 </label>
                 <div id="upload-submit-button">
-                    <button type="submit"> Upload </button>
+                    <button class="button" type="submit"> Upload </button>
                 </div>
             </div>
         </form>

@@ -14,6 +14,13 @@ router.get("/api/images", async (req, res) => {
     res.status(200).json({ data: images });
 });
 
+router.get("/api/search/images/:email", async (req, res) => {
+
+    const [images, fields] = await db.execute("SELECT id, image_url, description, game FROM images WHERE user_email = ? AND is_profile_img=0;", [req.params.email]);
+
+    res.status(200).json({ data: images });
+});
+
 // Set up multer storage configuration
 const storage = multer.diskStorage({
     // Define the destination folder for uploaded images
@@ -36,6 +43,7 @@ const storage = multer.diskStorage({
         cb(null, newFileName);
     }
 });
+//TODO check middlweare for scurity in server and client
 
 // Initialize multer with the storage configuration
 const upload = multer({ storage });
@@ -82,6 +90,7 @@ router.patch("/api/images/:id", isAuthenticated, async (req, res) => {
     }
 })
 
+/*DELETE*/
 router.delete("/api/images/:id", isAuthenticated, async (req, res) => {
     const image_id = req.params.id;
 

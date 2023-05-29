@@ -4,10 +4,13 @@
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import Navbar from "../../components/Navbar.svelte";
 
+    //set tab title
     titleStore.setTitle("Home | VE");
 
     onMount(() => {
         document.body.classList.add("body-white");
+        //color the current section icon in the navbar
+        document.getElementById("home-icon").style.color = "#e7793e";
     });
 
     // Reset the document title when the component is unmounted

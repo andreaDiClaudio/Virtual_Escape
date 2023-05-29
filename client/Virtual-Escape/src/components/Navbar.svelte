@@ -19,15 +19,27 @@
 
 <nav id="navbar">
     <div id="navbar-left-side">
-        <a class="navbar-content" href="/home">Home</a>
+        <!-- svelte-ignore a11y-missing-content -->
+        <a class="fas fa-home" id="home-icon" href="/home" />
         <p>|</p>
-        <a class="navbar-content" href="/upload">Upload</a>
+        <!-- svelte-ignore a11y-missing-content -->
+        <a class="fas fa-upload" id="upload-icon" href="/upload" />
         <p>|</p>
-        <a class="navbar-content" href="/profile">Profile</a>
+        <!-- svelte-ignore a11y-missing-content -->
+        <a class="fas fa-user" id="user-icon" href="/profile" />
+        <p>|</p>
+        <a class="fas fa-search" id="search-icon" href="/search" />
+    </div>
+    <div id="navbar-mid">
+        <img
+            alt="VE logo"
+            src="http://localhost:8080/public/logo/justLogo.png"
+            id="VE-logo"
+        />
     </div>
     <div id="navbar-right-side">
         <form on:submit|preventDefault={handleSubmit}>
-            <button type="submit" id="logout-button">logout</button>
+            <button type="submit" class="fas fa-sign-out" id="button" />
         </form>
     </div>
 </nav>
