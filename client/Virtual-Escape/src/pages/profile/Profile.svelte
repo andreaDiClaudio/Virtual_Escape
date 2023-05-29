@@ -7,164 +7,100 @@
     import "toastr/build/toastr.min.css";
     import toastr from "toastr";
 
-    //set the tabtitle
+    // Set the tab title
     titleStore.setTitle("Profile | VE");
 
-    //Retrieve user info from db and displaythem
+    // Reactive statement to update user icon color
+    $: {
+        if (document.getElementById("user-icon")) {
+            document.getElementById("user-icon").style.color = "#e7793e";
+        }
+    }
+
     onMount(() => {
         fetchUserData();
-        document.getElementById("user-icon").style.color = "#e7793e";
     });
 
     onDestroy(() => {
         titleStore.resetTitle();
     });
+    let isEditing = false;
+    let previewImageSrc = "";
+    let profileImgUrl;
+    let selectedFile;
+    let ageValue;
+    let countryValue;
+    let languageValue;
+    let gamertagValue;
+    let bioValue;
 
-    /*FETCH USER INFO*/
-    //Load user's optional info (age,country,language,bio, profile image)
-    function fetchUserData() {
-        fetch("http://localhost:8080/api/users/" + $user.email, {
-            method: "GET",
-        }).then((response) => {
-            if (response.status == 200) {
-                response.json().then((result) => {
-                    const user = result.data;
-
-                    if (user.profile_img_url == null) {
-                        document
-                            .getElementById("profile-image")
-                            .setAttribute(
-                                "src",
-                                "http://localhost:8080/public/defaultUserProfileImage/1684737647624-181908121___default_profile_image.jpg"
-                            );
-                    } else {
-                        let relativeUrl = "";
-                        if (
-                            user.profile_img_url.includes(
-                                "http://localhost:8080/"
-                            )
-                        ) {
-                            relativeUrl = user.profile_img_url.replace(
-                                "http://localhost:8080/",
-                                ""
-                            );
-                            document
-                                .getElementById("profile-image")
-                                .setAttribute(
-                                    "src",
-                                    "http://localhost:8080/" + relativeUrl
-                                );
-                        } else {
-                            document
-                                .getElementById("profile-image")
-                                .setAttribute(
-                                    "src",
-                                    "http://localhost:8080/" +
-                                        user.profile_img_url
-                                );
-                        }
-                    }
-
-                    updateUserInfoInput("user-info-nickname", user.nickname);
-                    updateUserInfoInput("user-info-age", user.age);
-                    updateUserInfoInput("user-info-country", user.country);
-                    updateUserInfoInput("user-info-language", user.language);
-                    updateUserInfoInput("user-info-gamertag", user.gamertag);
-                    updateUserInfoInput("user-info-bio", user.bio);
-                });
-            }
-        });
+    function toggleEditMode() {
+        isEditing = !isEditing;
     }
 
-    //helper function to update user info in the webpage
-    function updateUserInfoInput(elementId, value) {
-        const element = document.getElementById(elementId);
-        if (value !== null || value !== undefined) {
-            if (elementId == "user-info-nickname") {
-                // @ts-ignore
-                element.value = "@" + value;
-            } else {
-                // @ts-ignore
-                element.value = value;
+    // Fetch user info
+    async function fetchUserData() {
+        const response = await fetch(
+            "http://localhost:8080/api/users/" + $user.email,
+            {
+                method: "GET",
+                credentials: "include",
             }
-        } else {
-            element.setAttribute("hidden", "true");
+        );
+
+        if (response.status == 200) {
+            const result = await response.json();
+            const fetchedUser = result.data;
+
+            // Set the reactive variables with the fetched user data
+            ageValue = fetchedUser.age;
+            countryValue = fetchedUser.country;
+            languageValue = fetchedUser.language;
+            gamertagValue = fetchedUser.gamertag;
+            bioValue = fetchedUser.bio;
+
+            if (fetchedUser.profile_img_url == null) {
+                profileImgUrl =
+                    "http://localhost:8080/public/defaultUserProfileImage/1684737647624-181908121___default_profile_image.jpg";
+            } else {
+                let relativeUrl = "";
+                if (
+                    fetchedUser.profile_img_url.includes(
+                        "http://localhost:8080/"
+                    )
+                ) {
+                    relativeUrl = fetchedUser.profile_img_url.replace(
+                        "http://localhost:8080/",
+                        ""
+                    );
+                    profileImgUrl = "http://localhost:8080/" + relativeUrl;
+                } else {
+                    profileImgUrl =
+                        "http://localhost:8080/" + fetchedUser.profile_img_url;
+                }
+            }
         }
     }
 
-    /*PREVIEW PROFILE IMAGE*/
     function previewImage(event) {
-        // Get the image input from the event target
-        const imageInput = event.target;
-
-        // Check if there are files and if the first file is an image
-        if (imageInput.files && imageInput.files[0]) {
+        const file = event.target.files[0];
+        selectedFile = file;
+        if (file) {
             const reader = new FileReader();
-            // Set the onload function for the reader
             reader.onload = (e) => {
                 // @ts-ignore
-                // Set the preview source to the result of the file read
-                document
-                    .getElementById("profile-image")
-                    .setAttribute("src", e.target.result.toString());
+                previewImageSrc = e.target.result;
             };
-
-            // Read the image file as a data URL
-            reader.readAsDataURL(imageInput.files[0]);
+            reader.readAsDataURL(file);
         }
     }
 
-    /*EDIT BUTTON PRESSED*/
-    //shows buttons and modifies input to be not readonly
-    function editUserInfo() {
-        // Define an array of input element ids
-        const inputIds = [
-            "user-info-gamertag",
-            "user-info-age",
-            "user-info-country",
-            "user-info-language",
-            "user-info-bio",
-        ];
-
-        // Loop through the inputIds array and apply changes to each element
-        inputIds.forEach((id) => {
-            const inputElement = document.getElementById(id);
-            inputElement.className = "user-info-input";
-            inputElement.removeAttribute("readonly");
-            inputElement.removeAttribute("disabled");
-
-            //split the ids and takes the last part to se it as placeholder
-            const idSplitted = id.split("-");
-            inputElement.setAttribute("placeholder", idSplitted[2]);
-
-            // Add specific styles and attributes for the "user-info-age" element
-            if (id === "user-info-age") {
-                inputElement.style.width = "2rem";
-            }
-        });
-
-        // Show the editConfirmWrapper element
-        document
-            .getElementById("user-info-edit-confirm-wrapper")
-            .removeAttribute("hidden");
-
-        //Show the profile image input
-        document
-            .getElementById("profile-image-input")
-            .removeAttribute("hidden");
-        document
-            .getElementById("profile-image-input")
-            .removeAttribute("disabled");
-        document
-            .getElementById("label-image-upload-input")
-            .removeAttribute("hidden");
-    }
-
-    /*SAVE BUTTON PRESSED*/
+    /*SAVE*/
     function saveChanges() {
         // Fetch the user information from the API
         fetch("http://localhost:8080/api/users/" + $user.email, {
             method: "GET",
+            credentials: "include",
         })
             .then((response) => {
                 if (response.status == 200) {
@@ -175,24 +111,17 @@
                 if (result) {
                     const userFound = result.data;
 
-                    const imageInput = document.getElementById(
-                        "profile-image-input"
-                    );
-                    // @ts-ignore
-                    const file = imageInput.files[0];
                     const formData = new FormData();
-
                     // Append the file and other data to the form data
-                    formData.append("file", file);
+                    formData.append("file", selectedFile);
                     formData.append("description", "");
                     formData.append("game", "");
                     formData.append("is_profile_img", "1");
 
                     // Check if there's a file to upload
-                    if (!file) {
+                    if (!selectedFile) {
                         const oldImageUrl =
-                            // @ts-ignore
-                            document.getElementById("profile-image").src;
+                            previewImageSrc || $user.profile_img_url;
                         // Update user information without uploading a new image
                         updateUser(userFound, oldImageUrl);
                     } else {
@@ -219,35 +148,19 @@
             });
     }
 
-    // Function to update user information and profile image
     function updateUser(userFound, imagePath) {
-        // Get user information elements
-        const age = document.getElementById("user-info-age");
-        const country = document.getElementById("user-info-country");
-        const language = document.getElementById("user-info-language");
-        const gamertag = document.getElementById("user-info-gamertag");
-        const bio = document.getElementById("user-info-bio");
-        const editConfirmWrapper = document.getElementById(
-            "user-info-edit-confirm-wrapper"
-        );
-
-        /*PATCH*/
         // Send a PATCH request to update the user information and profile image
         return fetch("http://localhost:8080/api/users/" + userFound.email, {
             method: "PATCH",
             body: JSON.stringify({
-                // @ts-ignore
-                gamertag: gamertag.value,
-                // @ts-ignore
-                bio: bio.value,
-                // @ts-ignore
-                age: age.value,
-                // @ts-ignore
-                country: country.value,
-                // @ts-ignore
-                language: language.value,
+                gamertag: gamertagValue,
+                bio: bioValue,
+                age: ageValue,
+                country: countryValue,
+                language: languageValue,
                 profile_img_url: imagePath,
             }),
+            credentials: "include",
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
             },
@@ -272,61 +185,40 @@
                     showDuration: 300,
                 };
                 toastr["error"]("Wrong input. Please enter the age as number");
-
-                age.style.border = "solid 2px red";
+                // Add a reactive variable to handle the border style
+                let ageBorderStyle = "solid 2px red";
             } else if (response.status === 200) {
-                // Reset input styling and attributes
-                [gamertag, age, country, language, bio].forEach((element) => {
-                    element.className = "";
-                    element.setAttribute("readonly", "true");
-                    element.setAttribute("disabled", "true");
-                });
-
-                // Hide the edit confirmation wrapper
-                editConfirmWrapper.setAttribute("hidden", "true");
                 // Redirect to the profile page
                 window.location.href = "/profile";
             }
         });
     }
 
-    /*DISCARD BUTTON PRESSED*/
+    /*DISCARD CHANGES*/
     function discardChanges() {
-        const inputIds = [
-            "user-info-gamertag",
-            "user-info-age",
-            "user-info-country",
-            "user-info-language",
-            "user-info-bio",
-        ];
-
-        const editConfirmWrapper = document.getElementById(
-            "user-info-edit-confirm-wrapper"
-        );
-        // Set inputs to readonly
-        inputIds.forEach((id) => {
-            document.getElementById(id).setAttribute("readonly", "true");
-        });
-        editConfirmWrapper.setAttribute("hidden", "true");
-        // Refresh the page
         window.location.href = "/profile";
     }
 </script>
 
 <!--*PAGE*-->
 <Navbar />
+
 <div id="profile-page">
     <div id="right-panel">
         <div id="user-info-wrapper">
             <div id="user-info-profile-image-wrapper">
                 <!-- svelte-ignore a11y-img-redundant-alt -->
-                <img id="profile-image" alt="Image Preview" />
+                <img
+                    id="profile-image"
+                    alt="Image Preview"
+                    src={previewImageSrc || profileImgUrl}
+                />
                 <div id="label-wrapper">
                     <label
                         for="profile-image-input"
                         class="button"
                         id="label-image-upload-input"
-                        hidden
+                        hidden={!isEditing}
                     >
                         Upload Image
                         <input
@@ -335,55 +227,71 @@
                             name="file"
                             accept="image/*"
                             alt="Profile image"
-                            disabled
-                            hidden
                             on:change={previewImage}
+                            disabled={!isEditing}
+                            hidden={!isEditing}
                         />
                     </label>
                 </div>
             </div>
             <div id="user-info-profile">
-                <input id="user-info-nickname" readonly disabled />
+                <input
+                    id="user-info-nickname"
+                    value="@{$user.nickname}"
+                    disabled
+                />
                 <div id="extra-user-info-wrapper">
                     <input
                         id="user-info-gamertag"
-                        value="Gamertag"
-                        readonly
-                        disabled
+                        readonly={!isEditing}
+                        disabled={!isEditing}
+                        placeholder={!isEditing ? "" : "gamertag"}
+                        bind:value={gamertagValue}
                     />
                     <input
                         id="user-info-age"
-                        value="Age"
                         min="1"
                         max="100"
-                        readonly
-                        disabled
+                        readonly={!isEditing}
+                        disabled={!isEditing}
+                        placeholder={!isEditing ? "" : "age"}
+                        bind:value={ageValue}
                     />
                     <input
                         id="user-info-country"
-                        value="Country"
-                        readonly
-                        disabled
+                        bind:value={countryValue}
+                        readonly={!isEditing}
+                        disabled={!isEditing}
+                        placeholder={!isEditing ? "" : "country"}
                     />
                     <input
                         id="user-info-language"
-                        value="Languge"
-                        readonly
-                        disabled
+                        bind:value={languageValue}
+                        readonly={!isEditing}
+                        disabled={!isEditing}
+                        placeholder={!isEditing ? "" : "language"}
                     />
                 </div>
                 <div id="user-info-bio-wrapper">
-                    <textarea id="user-info-bio" readonly />
+                    <textarea
+                        id="user-info-bio"
+                        bind:value={bioValue}
+                        readonly={!isEditing}
+                        disabled={!isEditing}
+                        placeholder={!isEditing ? "" : "bio"}
+                    />
                 </div>
             </div>
             <div id="user-info-edit-button-wrapper">
                 <div>
-                    <button class="button" on:click={editUserInfo}>Edit</button>
-                </div>
-                <div id="user-info-edit-confirm-wrapper" hidden>
-                    <button class="button" on:click={discardChanges}
-                        >Discard</button
+                    <button class="button" on:click={toggleEditMode}
+                        >Edit</button
                     >
+                </div>
+                <div id="user-info-edit-confirm-wrapper" hidden={!isEditing}>
+                    <button class="button" on:click={discardChanges}>
+                        Discard
+                    </button>
                     <button class="button" on:click={saveChanges}>Save</button>
                 </div>
             </div>
