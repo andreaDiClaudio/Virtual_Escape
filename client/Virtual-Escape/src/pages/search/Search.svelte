@@ -55,9 +55,12 @@
                     profileImageWrapper.id = "user-info-profile-image-wrapper";
                     const img = document.createElement("img");
                     img.id = "profile-image";
-                    img.src =
-                        `http://localhost:8080/${account.profile_img_url}` ||
-                        "http://localhost:8080/public/defaultUserProfileImage/1684737647624-181908121___default_profile_image.jpg";
+                    if (account.profile_img_url) {
+                        img.src = `http://localhost:8080/${account.profile_img_url}`;
+                    } else {
+                        img.src =
+                            "http://localhost:8080/public/defaultUserProfileImage/1684737647624-181908121___default_profile_image.jpg";
+                    }
                     img.alt = "Image Preview";
                     profileImageWrapper.appendChild(img);
                     card.appendChild(profileImageWrapper);
@@ -78,25 +81,33 @@
                     // gamertag
                     const gamertagInput = document.createElement("h6");
                     gamertagInput.id = "user-info-gamertag";
-                    gamertagInput.textContent = `${account.gamertag}`;
+                    if (account.gamertag) {
+                        gamertagInput.textContent = `${account.gamertag}`;
+                    }
                     extraUserInfoWrapper.appendChild(gamertagInput);
 
                     // age
                     const ageInput = document.createElement("h6");
                     ageInput.id = "user-info-age";
-                    ageInput.textContent = `${account.age}`;
+                    if (account.age) {
+                        ageInput.textContent = `${account.age}`;
+                    }
                     extraUserInfoWrapper.appendChild(ageInput);
 
                     // country
                     const countryInput = document.createElement("h6");
                     countryInput.id = "user-info-country";
-                    countryInput.textContent = `${account.country}`;
+                    if (account.country) {
+                        countryInput.textContent = `${account.country}`;
+                    }
                     extraUserInfoWrapper.appendChild(countryInput);
 
                     // language
                     const languageInput = document.createElement("h6");
                     languageInput.id = "user-info-language";
-                    languageInput.textContent = `${account.language}`;
+                    if (account.language) {
+                        languageInput.textContent = `${account.language}`;
+                    }
                     extraUserInfoWrapper.appendChild(languageInput);
 
                     userInfoProfile.appendChild(extraUserInfoWrapper);
@@ -107,7 +118,9 @@
 
                     const bioTextarea = document.createElement("h6");
                     bioTextarea.id = "user-info-bio";
-                    bioTextarea.textContent = `${account.bio}`;
+                    if (account.bio) {
+                        bioTextarea.textContent = `${account.bio}`;
+                    }
                     userInfoBioWrapper.appendChild(bioTextarea);
 
                     userInfoProfile.appendChild(userInfoBioWrapper);
