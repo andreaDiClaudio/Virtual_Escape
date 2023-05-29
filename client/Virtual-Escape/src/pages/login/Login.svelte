@@ -7,22 +7,21 @@
   import { titleStore } from "../../stores/tabTitle/tabTitle.js";
   import Footer from "../../components/Footer.svelte";
 
-  //set tab title
+  // Set tab title
   titleStore.setTitle("Login | VE");
 
+  let bodyGradient = false;
+
   onMount(() => {
-    document.body.classList.add("body-gradient");
+    bodyGradient = true;
   });
 
-  // Reset the document title when the component is unmounted
   onDestroy(() => {
     titleStore.resetTitle();
-    document.body.classList.remove("body-gradient");
+    bodyGradient = false;
   });
 
   const navigate = useNavigate();
-
-  //TODO eliminate before 1st of june
   let email = "test@gmail.com";
   let nickname = "test";
   let password = "test";
@@ -45,7 +44,6 @@
         const currentUser = { nickname, email };
         user.set(currentUser);
         sessionStorage.setItem("user", JSON.stringify(currentUser));
-
         navigate("/home", { replace: true });
       } else if (response.status === 400 || response.status === 404) {
         message = "Wrong credentials";
@@ -72,6 +70,16 @@
   }
 </script>
 
+<svelte:head>
+  {#if bodyGradient}
+    <style>
+      body {
+        background-image: linear-gradient(55deg, #f4dfc5, #e7793e);
+      }
+    </style>
+  {/if}
+</svelte:head>
+
 <div id="page">
   <div id="login-window">
     <div id="image-wrapper">
@@ -83,10 +91,10 @@
     </div>
     <div id="title-wrapper">
       <p>
-        Welcome, <a id="signup-link" href="/signup">new to the platform?</a>
+        Welcome,
+        <a id="signup-link" href="/signup">new to the platform?</a>
       </p>
     </div>
-
     <div id="form-wrapper">
       <form id="login-form" on:submit|preventDefault={handleSubmit}>
         <div id="email-wrapper">
@@ -100,7 +108,6 @@
             bind:value={email}
           />
         </div>
-
         <div id="username-wrapper" data-name="username">
           <input
             id="username-input"
@@ -112,7 +119,6 @@
             bind:value={nickname}
           />
         </div>
-
         <div id="password-wrapper">
           <input
             id="password-input"
@@ -124,11 +130,10 @@
             bind:value={password}
           />
         </div>
-
         <div id="button-wrapper">
-          <button id="submit-form-button" class="button" type="submit"
-            >Log in</button
-          >
+          <button id="submit-form-button" class="button" type="submit">
+            Log in
+          </button>
         </div>
       </form>
     </div>
