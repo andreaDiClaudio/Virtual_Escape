@@ -1,13 +1,14 @@
 import { Router } from "express";
 import bcrypt from "bcrypt";
 import db from "../../database/connection.js";
+import { isAuthenticated } from "../../app.js";
 
 const router = Router();
 
 export let hashedPassword = "";
 
 //*GET*//
-router.get("/api/users", async (req, res) => {
+router.get("/api/users", isAuthenticated, async (req, res) => {
     const [rows, fields] = await db.execute("SELECT id, nickname, email, bio, gamertag, age, country, language, profile_img_url FROM users;")
 
     res.send({
@@ -16,7 +17,7 @@ router.get("/api/users", async (req, res) => {
 });
 
 // Get user by path parameter (email)
-router.get("/api/users/:email", async (req, res) => {
+router.get("/api/users/:email", isAuthenticated, async (req, res) => {
     const email = req.params.email;
 
     if (!email) {
@@ -36,7 +37,7 @@ router.get("/api/users/:email", async (req, res) => {
     res.status(200).send({ data: userFound });
 });
 
-router.get("/api/search/users", async (req, res) => {
+router.get("/api/search/users", isAuthenticated, async (req, res) => {
     const search = req.query.search;
 
     if (!search) {
@@ -65,7 +66,7 @@ router.get("/api/search/users", async (req, res) => {
 })
 
 //*POST*//
-router.post("/api/users", async (req, res) => {
+router.post("/api/users", isAuthenticated, async (req, res) => {
     const { email, nickname, password } = req.body;
 
     // Validate the required fields
@@ -100,7 +101,7 @@ router.post("/api/users", async (req, res) => {
 });
 
 /*PATCH*/
-router.patch("/api/users/:email", async (req, res) => {
+router.patch("/api/users/:email", isAuthenticated, async (req, res) => {
 
     //Check if user exists
     const [users, fields] = await db.execute('SELECT gamertag, bio, age,country, language FROM users WHERE email = ?', [req.params.email]);

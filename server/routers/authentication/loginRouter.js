@@ -4,11 +4,6 @@ import db from "../../database/connection.js";
 
 const router = Router();
 
-//Only for testing the backend redirection to login
-router.get("/login", (req, res) => {
-    res.status(200).json({ message: "Redirected to login page" });
-});
-
 router.post("/login", async (req, res) => {
     const { email, nickname, password } = req.body;
 

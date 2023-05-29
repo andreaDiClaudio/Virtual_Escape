@@ -7,7 +7,7 @@ const router = Router();
 
 /*GET*/
 //All images where is_profile_img = 0;
-router.get("/api/images", async (req, res) => {
+router.get("/api/images", isAuthenticated, async (req, res) => {
 
     const [images, fields] = await db.execute("SELECT id, image_url, description, game FROM images WHERE user_email = ? AND is_profile_img=0;", [req.session.user.email]);
 
@@ -43,7 +43,6 @@ const storage = multer.diskStorage({
         cb(null, newFileName);
     }
 });
-//TODO check middlweare for scurity in server and client
 
 // Initialize multer with the storage configuration
 const upload = multer({ storage });
