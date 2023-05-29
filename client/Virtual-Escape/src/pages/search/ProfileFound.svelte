@@ -4,33 +4,17 @@
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
 
-    const selectedAccount = JSON.parse(localStorage.getItem("selectedAccount"));
-
-    titleStore.setTitle(`@${selectedAccount.nickname} | VE`);
-
-    //Retrieve user info from db and displaythem
     onMount(() => {
         fetchUserData();
         document.getElementById("search-icon").style.color = "#e7793e";
     });
 
-    /*LOAD USER DATA*/
-    //helper function to update user info in the webpage
-    function updateUserInfoInput(elementId, value) {
-        const element = document.getElementById(elementId);
-        if (value !== null || value !== undefined) {
-            if (elementId == "user-info-nickname") {
-                // @ts-ignore
-                element.value = "@" + value;
-            } else {
-                // @ts-ignore
-                element.value = value;
-            }
-        } else {
-            element.setAttribute("hidden", "true");
-        }
-    }
+    //saves in a variable the user saved in localstorage
+    const selectedAccount = JSON.parse(localStorage.getItem("selectedAccount"));
+    //Set the tabtitle to the username
+    titleStore.setTitle(`@${selectedAccount.nickname} | VE`);
 
+    /*FETCH SELECTED USER INFO*/
     function fetchUserData() {
         fetch("http://localhost:8080/api/users/" + selectedAccount.email, {
             method: "GET",
@@ -55,6 +39,23 @@
                 });
             }
         });
+    }
+
+    //helper function to update user info in the webpage
+    function updateUserInfoInput(elementId, value) {
+        const element = document.getElementById(elementId);
+        //set the '@' in front of the username
+        if (value !== null || value !== undefined) {
+            if (elementId == "user-info-nickname") {
+                // @ts-ignore
+                element.value = "@" + value;
+            } else {
+                // @ts-ignore
+                element.value = value;
+            }
+        } else {
+            element.setAttribute("hidden", "true");
+        }
     }
 </script>
 

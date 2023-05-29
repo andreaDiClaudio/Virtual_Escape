@@ -91,6 +91,10 @@ text-align: center;
   color: #2a2a3f;
 }
 
+#copyright-year {
+  font-size: 0.8rem;
+}
+
 @media screen and (max-width:660px) {
   .documentation-section-wrapper {
     padding-left: 2em;

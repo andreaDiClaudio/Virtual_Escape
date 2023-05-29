@@ -10,6 +10,7 @@
         document.getElementById("search-icon").style.color = "#e7793e";
     });
 
+    /*SEARCH ACCOUNT*/
     function searchAccounts() {
         const searchInput = document.getElementById("search-input");
         const suggestionsContainer = document.getElementById(
@@ -65,6 +66,7 @@
                     const userInfoProfile = document.createElement("div");
                     userInfoProfile.id = "user-info-profile-search";
 
+                    // nickname
                     const nicknameInput = document.createElement("h3");
                     nicknameInput.id = "user-info-nickname-search";
                     nicknameInput.textContent = `@${account.nickname}`;
@@ -73,21 +75,25 @@
                     const extraUserInfoWrapper = document.createElement("div");
                     extraUserInfoWrapper.id = "extra-user-info-wrapper";
 
+                    // gamertag
                     const gamertagInput = document.createElement("h6");
                     gamertagInput.id = "user-info-gamertag";
                     gamertagInput.textContent = `${account.gamertag}`;
                     extraUserInfoWrapper.appendChild(gamertagInput);
 
+                    // age
                     const ageInput = document.createElement("h6");
                     ageInput.id = "user-info-age";
                     ageInput.textContent = `${account.age}`;
                     extraUserInfoWrapper.appendChild(ageInput);
 
+                    // country
                     const countryInput = document.createElement("h6");
                     countryInput.id = "user-info-country";
                     countryInput.textContent = `${account.country}`;
                     extraUserInfoWrapper.appendChild(countryInput);
 
+                    // language
                     const languageInput = document.createElement("h6");
                     languageInput.id = "user-info-language";
                     languageInput.textContent = `${account.language}`;
@@ -95,6 +101,7 @@
 
                     userInfoProfile.appendChild(extraUserInfoWrapper);
 
+                    // bio
                     const userInfoBioWrapper = document.createElement("div");
                     userInfoBioWrapper.id = "user-info-bio-wrapper";
 
@@ -117,7 +124,6 @@
 </script>
 
 <Navbar />
-
 <div class="search-container">
     <input
         type="text"

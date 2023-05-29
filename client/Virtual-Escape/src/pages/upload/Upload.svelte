@@ -4,6 +4,7 @@
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import toastr from "toastr";
 
+    //set tab title
     titleStore.setTitle("Upload | VE");
 
     onMount(() => {
@@ -46,8 +47,6 @@
 
         const form = event.target;
         const formData = new FormData(form);
-        const file = document.getElementById("image");
-
         formData.append("is_profile_img", "0");
 
         fetch("http://localhost:8080/api/images", {
@@ -61,8 +60,8 @@
         });
     }
 
-    let previewSrc = "";
     // Function to handle the preview of an image
+    let previewSrc = "";
     function previewImage(event) {
         // Hide the image input button
         document.getElementById("image-input").style.display = "none";

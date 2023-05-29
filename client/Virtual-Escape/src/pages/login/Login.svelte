@@ -1,13 +1,13 @@
 <script>
   import { useNavigate, useLocation } from "svelte-navigator";
   import { user } from "../../stores/users/users.js";
-
   import "toastr/build/toastr.min.css";
   import toastr from "toastr";
   import { onMount, onDestroy } from "svelte";
   import { titleStore } from "../../stores/tabTitle/tabTitle.js";
+  import Footer from "../../components/Footer.svelte";
 
-  // Update the document title when the component is mounted
+  //set tab title
   titleStore.setTitle("Login | VE");
 
   onMount(() => {
@@ -21,10 +21,8 @@
   });
 
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const currentYear = new Date().getFullYear();
-
+  //TODO eliminate before 1st of june
   let email = "test@gmail.com";
   let nickname = "test";
   let password = "test";
@@ -48,11 +46,9 @@
         user.set(currentUser);
         sessionStorage.setItem("user", JSON.stringify(currentUser));
 
-        const from = "/home";
-        navigate(from, { replace: true });
+        navigate("/home", { replace: true });
       } else if (response.status === 400 || response.status === 404) {
         message = "Wrong credentials";
-
         toastr.options = {
           closeButton: false,
           debug: false,
@@ -137,8 +133,5 @@
       </form>
     </div>
   </div>
-
-  <div id="copyright-year-wrapper">
-    <p id="copyright-year">Andrea Di Claudio / © {currentYear}</p>
-  </div>
+  <Footer />
 </div>
