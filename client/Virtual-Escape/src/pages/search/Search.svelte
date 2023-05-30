@@ -5,6 +5,7 @@
     import Navbar from "../../components/Navbar.svelte";
 
     let accounts = [];
+    let isFound = true;
 
     titleStore.setTitle("Search | VE");
 
@@ -17,6 +18,7 @@
 
         if (searchValue.length === 0) {
             accounts = [];
+            isFound = true;
             return;
         }
 
@@ -28,14 +30,15 @@
                 if (response.status === 200) {
                     return response.json();
                 } else {
-                    throw new Error("Failed to fetch users");
+                    isFound = false;
                 }
             })
             .then((result) => {
+                isFound = true;
                 accounts = result.data;
             })
             .catch((error) => {
-                console.error("Error fetching users:", error);
+                isFound = false;
             });
     }
 </script>
@@ -49,6 +52,9 @@
         on:input={searchAccounts}
     />
     <div id="suggestions-container">
+        {#if !isFound}
+            <h1>Sorry, couldn't find any user</h1>
+        {/if}
         {#each accounts as account}
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <div
