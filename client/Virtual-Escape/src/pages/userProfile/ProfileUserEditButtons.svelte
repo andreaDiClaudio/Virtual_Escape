@@ -1,8 +1,8 @@
 <script>
     import { createEventDispatcher } from "svelte";
+    const dispatch = createEventDispatcher();
 
     export let isEditing = false;
-    const dispatch = createEventDispatcher();
 
     function toggleEditMode() {
         isEditing = true;
