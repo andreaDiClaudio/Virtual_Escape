@@ -56,6 +56,14 @@ db.execute(`
  );
 `);
 
+db.execute(`
+CREATE TABLE IF NOT EXISTS best_games (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_nickname VARCHAR(255) NOT NULL,
+  user_opinion VARCHAR(255) NOT NULL
+);
+`);
+
 /*FOLLOWS*/
 db.execute(`
   CREATE TABLE IF NOT EXISTS follows (

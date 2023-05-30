@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import rateLimit from "express-rate-limit";
 import { join } from "path";
+import db from "./database/connection.js";
 
 const app = express();
 
@@ -60,17 +61,33 @@ const io = new Server(server, {
     }
 });
 
-const userOpinions = [];
-io.on("connection", (socket) => {
-    // Handle user opinions
-    socket.on("submit opinion", (data) => {
-        console.log(data);
-        userOpinions.push(data);
-        console.log(userOpinions);
-        io.emit("update opinions", userOpinions);
-    });
-})
 
+async function getOpinions() {
+    const [rows] = await db.execute("SELECT * FROM best_games");
+    return rows;
+}
+
+async function insertOpinion(username, opinion) {
+    const insertQuery = `
+      INSERT INTO best_games (user_nickname, user_opinion)
+      VALUES (?, ?);
+    `;
+    await db.execute(insertQuery, [username, opinion]);
+}
+
+(async () => {
+    io.on("connection", async (socket) => {
+        const opinions = await getOpinions();
+        socket.emit("update opinions", opinions);
+
+        socket.on("submit opinion", async (data) => {
+            await insertOpinion(data.username, data.opinion);
+
+            const updatedOpinions = await getOpinions();
+            io.emit("update opinions", updatedOpinions);
+        });
+    });
+})();
 
 /*Routes*/
 import userRouter from "./routers/user/userRouter.js";
@@ -86,7 +103,6 @@ import imageRouter from "./routers/image/imageRouter.js";
 app.use(imageRouter);
 
 import logoutRouter from "./routers/authentication/logoutRouter.js";
-import { log } from "console";
 app.use(logoutRouter);
 
 const PORT = process.env.PORT;

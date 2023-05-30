@@ -16,9 +16,10 @@
     const socket = io("http://localhost:8080");
     let userOpinion = "";
 
+    const user = JSON.parse(sessionStorage.getItem("user"));
     function handleSubmitOpinion() {
         socket.emit("submit opinion", {
-            username: "User",
+            username: user.nickname,
             opinion: userOpinion,
         });
     }
@@ -36,6 +37,6 @@
 
 <ul>
     {#each opinionsList as opinion}
-        <li>{opinion.username}: {opinion.opinion}</li>
+        <li>{opinion.user_nickname}: {opinion.user_opinion}</li>
     {/each}
 </ul>
