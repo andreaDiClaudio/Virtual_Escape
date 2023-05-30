@@ -1,28 +1,28 @@
 <script>
-    import Navbar from "../../components/Navbar.svelte";
-    import UserGallery from "./ProfileGallery.svelte";
-    import ProfileImageUpload from "./ProfileImageUpload.svelte";
-    import ProfileUserInfoInputs from "./ProfileUserInfoInputs.svelte";
-    import ProfileUserEditButtons from "./ProfileUserEditButtons.svelte";
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import { user } from "../../stores/users/users.js";
     import "toastr/build/toastr.min.css";
     import toastr from "toastr";
 
-    // Set the tab title
+    /*Components*/
+    import Navbar from "../../components/Navbar.svelte";
+    import UserGallery from "./ProfileGallery.svelte";
+    import ProfileImageUpload from "./ProfileImageUpload.svelte";
+    import ProfileUserInfoInputs from "./ProfileUserInfoInputs.svelte";
+    import ProfileUserEditButtons from "./ProfileUserEditButtons.svelte";
+
+    /*Set Tab Title*/
     titleStore.setTitle("Profile | VE");
 
-    // Reactive statement to update user icon color
+    /*Updates user icon and fetches user data*/
     let userIconColor = "";
     onMount(() => {
         userIconColor = "#e7793e";
-    });
-
-    onMount(() => {
         fetchUserData();
     });
 
+    /*resets the tabtitle*/
     onDestroy(() => {
         titleStore.resetTitle();
     });
@@ -38,13 +38,14 @@
     let bioValue;
     let ageValue;
 
-    //variables id
+    /*variables id*/
     let ageId = "user-info-age";
     let countryId = "user-info-country";
     let languageId = "user-info-language";
     let gamertagId = "user-info-gamertag";
     let bioId = "user-info-bio";
 
+    /*Activate edit mode: shows buttons and inputs (changes also styling)*/
     function toggleEditMode() {
         isEditing = true;
 
@@ -55,7 +56,7 @@
         bioId = "user-info-bio-edit";
     }
 
-    // Fetch user info
+    /*Fetch user info*/
     async function fetchUserData() {
         const response = await fetch(
             "http://localhost:8080/api/users/" + $user.email,
@@ -99,7 +100,7 @@
         }
     }
 
-    //Handles the profile image preview when loaded
+    /*Handles the profile image preview when loaded*/
     function previewImage(event) {
         const file = event.target.files[0];
         selectedFile = file;
@@ -113,7 +114,7 @@
         }
     }
 
-    /*SAVE BUTTON PRESSED*/
+    /*Save button triggered*/
     //reads the profile image, if new, will post it and then call the updateUser().if not new, will grab the old profile image path and call the updateUser()
     function saveChanges() {
         // Fetch the user information from the API
@@ -141,8 +142,7 @@
                         // Update user information without uploading a new image
                         updateUser(userFound, userFound.profile_img_url);
                     } else {
-                        /*POST IMAGE*/
-                        // Upload the image and update user information
+                        /*Upload the image and update user information*/
                         fetch("http://localhost:8080/api/images", {
                             method: "POST",
                             body: formData,
@@ -164,7 +164,8 @@
             });
     }
 
-    /*PATCH REQUEST*/
+    /*Patch user info*/
+    //actually peforms the patch request
     function updateUser(userFound, imagePath) {
         // Send a PATCH request to update the user information and profile image
         return fetch("http://localhost:8080/api/users/" + userFound.email, {
@@ -202,8 +203,6 @@
                     showDuration: 300,
                 };
                 toastr["error"]("Wrong input. Please enter the age as number");
-                // Add a reactive variable to handle the border style
-                let ageBorderStyle = "solid 2px red";
             } else if (response.status === 200) {
                 // Redirect to the profile page
                 window.location.href = "/profile";
@@ -211,15 +210,13 @@
         });
     }
 
-    /*DISCARD CHANGES*/
+    /*Discard changes*/
     function discardChanges() {
         window.location.href = "/profile";
     }
 </script>
 
-<!--*PAGE*-->
 <Navbar {userIconColor} />
-
 <div id="profile-page">
     <div id="right-panel">
         <div id="user-info-wrapper">
