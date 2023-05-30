@@ -8,7 +8,6 @@
     /*Components*/
     import Navbar from "../../components/Navbar.svelte";
     import UserGallery from "./gallery/ProfileGallery.svelte";
-    import ProfileImageUpload from "./ProfileImageUpload.svelte";
     import ProfileUserInfoInputs from "./ProfileUserInfoInputs.svelte";
     import ProfileUserEditButtons from "./ProfileUserEditButtons.svelte";
 
@@ -29,7 +28,7 @@
 
     /*Variables for binding values*/
     let isEditing = false;
-    let previewImageSrc = "";
+    let previewImageSrc;
     let profileImgUrl = "";
     let selectedFile;
     let countryValue;
@@ -44,6 +43,7 @@
     let languageId = "user-info-language";
     let gamertagId = "user-info-gamertag";
     let bioId = "user-info-bio";
+    let descriptionId;
 
     /*Activate edit mode: shows buttons and inputs (changes also styling)*/
     function toggleEditMode() {
@@ -54,6 +54,7 @@
         languageId = "user-info-language-edit";
         gamertagId = "user-info-gamertag-edit";
         bioId = "user-info-bio-edit";
+        descriptionId = "popup-window-description";
     }
 
     /*Fetch user info*/
@@ -103,6 +104,7 @@
     /*Handles the profile image preview when loaded*/
     function previewImage(event) {
         const file = event.target.files[0];
+        console.log(file);
         selectedFile = file;
         if (file) {
             const reader = new FileReader();
@@ -220,12 +222,34 @@
 <div id="profile-page">
     <div id="right-panel">
         <div id="user-info-wrapper">
-            <ProfileImageUpload
-                bind:previewImageSrc
-                bind:profileImgUrl
-                bind:isEditing
-                on:previewImage={previewImage}
-            />
+            <div id="user-info-profile-image-wrapper">
+                <!-- svelte-ignore a11y-img-redundant-alt -->
+                <img
+                    id="profile-image"
+                    alt="Image Preview"
+                    src={previewImageSrc || profileImgUrl}
+                />
+                <div id="label-wrapper">
+                    <label
+                        for="profile-image-input"
+                        class="button"
+                        id="label-image-upload-input"
+                        hidden={!isEditing}
+                    >
+                        Upload Image
+                        <input
+                            id="profile-image-input"
+                            type="file"
+                            name="file"
+                            accept="image/*"
+                            alt="Profile image"
+                            on:change={previewImage}
+                            disabled={!isEditing}
+                            hidden={!isEditing}
+                        />
+                    </label>
+                </div>
+            </div>
             <ProfileUserInfoInputs
                 bind:isEditing
                 bind:gamertagValue

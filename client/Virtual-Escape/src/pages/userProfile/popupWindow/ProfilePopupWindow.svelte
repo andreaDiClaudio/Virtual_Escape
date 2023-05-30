@@ -59,7 +59,12 @@
     }
 
     function toggleDropdown() {
-        isDropdownVisible = true;
+        console.log(isDropdownVisible);
+        if (isDropdownVisible) {
+            isDropdownVisible = false;
+        } else {
+            isDropdownVisible = true;
+        }
     }
 
     function discardChanges() {
@@ -78,7 +83,10 @@
             {#if isEditing}
                 <div id="popup-window-image-description">
                     <h3>Description:</h3>
-                    <input type="text" bind:value={descriptionInputValue} />
+                    <textarea
+                        id="popup-window-description"
+                        bind:value={descriptionInputValue}
+                    />
                 </div>
                 <div id="user-profile-image-game">
                     <h3 style="padding-top: 2rem;">Game:</h3>

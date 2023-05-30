@@ -14,6 +14,7 @@
     let isEditing = false;
     let descriptionInputValue = "";
     let gameInputValue = "";
+    let descriptionId = "";
 
     /*FETCH USER IMAGES*/
     //fetches user uploaded images to fill the gallery

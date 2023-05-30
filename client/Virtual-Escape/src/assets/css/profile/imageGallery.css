@@ -202,3 +202,9 @@
 #image-info-edit-confirm-wrapper {
   padding-top: 2rem;
 }
+
+#popup-window-description {
+    resize: none;
+    width: 15rem;
+    height: 3rem;
+}

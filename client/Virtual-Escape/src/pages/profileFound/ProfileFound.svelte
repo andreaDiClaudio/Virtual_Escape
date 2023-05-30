@@ -6,13 +6,13 @@
 
     let selectedAccount = JSON.parse(localStorage.getItem("selectedAccount"));
     let user = {};
-    let searcIconColor = "";
+    let searchIconColor = "";
 
     titleStore.setTitle(`@${selectedAccount.nickname} | VE`);
 
     onMount(async () => {
         await fetchUserData();
-        searcIconColor = "#e7793e";
+        searchIconColor = "#e7793e";
     });
 
     async function fetchUserData() {
@@ -35,7 +35,7 @@
     }
 </script>
 
-<Navbar />
+<Navbar {searchIconColor} />
 <div id="profile-page">
     <div id="right-panel">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
