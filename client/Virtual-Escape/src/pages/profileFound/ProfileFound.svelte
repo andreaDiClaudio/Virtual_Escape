@@ -36,6 +36,11 @@
             console.error("Error fetching user data:", error);
         }
     }
+
+    /*Follow*/
+    function follow() {
+        console.log("Follow!");
+    }
 </script>
 
 <Navbar {searchIconColor} />
@@ -113,6 +118,9 @@
                 <div id="user-info-bio-wrapper">
                     <textarea id="user-info-bio" value={user.bio} readonly />
                 </div>
+            </div>
+            <div>
+                <button class="button" on:click={follow} />
             </div>
         </div>
         <div id="hr-div">
