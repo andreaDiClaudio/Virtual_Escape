@@ -89,7 +89,9 @@
                     </div>
                     {#if account.bio}
                         <div id="user-info-bio-wrapper">
-                            <h6 id="user-info-bio">{account.bio}</h6>
+                            <textarea id="user-info-bio-search"
+                                >{account.bio}</textarea
+                            >
                         </div>
                     {/if}
                 </div>

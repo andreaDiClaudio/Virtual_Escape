@@ -24,18 +24,33 @@
     onDestroy(() => {
         titleStore.resetTitle();
     });
+
+    /*Variables for binding values*/
     let isEditing = false;
     let previewImageSrc = "";
     let profileImgUrl;
     let selectedFile;
-    let ageValue;
     let countryValue;
     let languageValue;
     let gamertagValue;
     let bioValue;
+    let ageValue;
+
+    //variables id
+    let ageId = "user-info-age";
+    let countryId = "user-info-country";
+    let languageId = "user-info-language";
+    let gamertagId = "user-info-gamertag";
+    let bioId = "user-info-bio";
 
     function toggleEditMode() {
         isEditing = !isEditing;
+
+        ageId = "user-info-age-edit";
+        countryId = "user-info-country-edit";
+        languageId = "user-info-language-edit";
+        gamertagId = "user-info-gamertag-edit";
+        bioId = "user-info-bio-edit";
     }
 
     // Fetch user info
@@ -82,6 +97,7 @@
         }
     }
 
+    //Handles the profile image preview when loaded
     function previewImage(event) {
         const file = event.target.files[0];
         selectedFile = file;
@@ -95,7 +111,8 @@
         }
     }
 
-    /*SAVE*/
+    /*SAVE BUTTON PRESSED*/
+    //reads the profile image, if new, will post it and then call the updateUser().if not new, will grab the old profile image path and call the updateUser()
     function saveChanges() {
         // Fetch the user information from the API
         fetch("http://localhost:8080/api/users/" + $user.email, {
@@ -118,7 +135,6 @@
                     formData.append("game", "");
                     formData.append("is_profile_img", "1");
 
-                    // Check if there's a file to upload
                     if (!selectedFile) {
                         // Update user information without uploading a new image
                         updateUser(userFound, userFound.profile_img_url);
@@ -146,6 +162,7 @@
             });
     }
 
+    /*PATCH REQUEST*/
     function updateUser(userFound, imagePath) {
         // Send a PATCH request to update the user information and profile image
         return fetch("http://localhost:8080/api/users/" + userFound.email, {
@@ -240,14 +257,14 @@
                 />
                 <div id="extra-user-info-wrapper">
                     <input
-                        id="user-info-gamertag"
+                        id={gamertagId}
                         readonly={!isEditing}
                         disabled={!isEditing}
                         placeholder={!isEditing ? "" : "gamertag"}
                         bind:value={gamertagValue}
                     />
                     <input
-                        id="user-info-age"
+                        id={ageId}
                         min="1"
                         max="100"
                         readonly={!isEditing}
@@ -256,14 +273,14 @@
                         bind:value={ageValue}
                     />
                     <input
-                        id="user-info-country"
+                        id={countryId}
                         bind:value={countryValue}
                         readonly={!isEditing}
                         disabled={!isEditing}
                         placeholder={!isEditing ? "" : "country"}
                     />
                     <input
-                        id="user-info-language"
+                        id={languageId}
                         bind:value={languageValue}
                         readonly={!isEditing}
                         disabled={!isEditing}
@@ -272,7 +289,8 @@
                 </div>
                 <div id="user-info-bio-wrapper">
                     <textarea
-                        id="user-info-bio"
+                        maxlength="255"
+                        id={bioId}
                         bind:value={bioValue}
                         readonly={!isEditing}
                         disabled={!isEditing}
