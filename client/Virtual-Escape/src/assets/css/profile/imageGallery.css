@@ -104,7 +104,6 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  display: none;
   z-index: 999;
 }
 
@@ -202,4 +201,10 @@
 
 #image-info-edit-confirm-wrapper {
   padding-top: 2rem;
+}
+
+#popup-window-description {
+    resize: none;
+    width: 15rem;
+    height: 3rem;
 }

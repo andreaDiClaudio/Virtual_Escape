@@ -4,21 +4,32 @@
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import Navbar from "../../components/Navbar.svelte";
 
-    //set tab title
+    // Set tab title
     titleStore.setTitle("Home | VE");
 
+    let bodyWhite = false;
+    let homeIconColor = "";
+
     onMount(() => {
-        document.body.classList.add("body-white");
-        //color the current section icon in the navbar
-        document.getElementById("home-icon").style.color = "#e7793e";
+        bodyWhite = true;
+        homeIconColor = "#e7793e";
     });
 
-    // Reset the document title when the component is unmounted
     onDestroy(() => {
         titleStore.resetTitle();
-        document.body.classList.remove("body-white");
+        bodyWhite = false;
     });
 </script>
 
-<Navbar />
+<svelte:head>
+    {#if bodyWhite}
+        <style>
+            body {
+                background-color: white;
+            }
+        </style>
+    {/if}
+</svelte:head>
+
+<Navbar {homeIconColor} />
 <h1>Welcome, {$user.nickname}!</h1>

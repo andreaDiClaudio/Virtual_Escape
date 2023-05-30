@@ -66,7 +66,7 @@ router.get("/api/search/users", isAuthenticated, async (req, res) => {
 })
 
 //*POST*//
-router.post("/api/users", isAuthenticated, async (req, res) => {
+router.post("/api/users", async (req, res) => {
     const { email, nickname, password } = req.body;
 
     // Validate the required fields
@@ -102,7 +102,6 @@ router.post("/api/users", isAuthenticated, async (req, res) => {
 
 /*PATCH*/
 router.patch("/api/users/:email", isAuthenticated, async (req, res) => {
-
     //Check if user exists
     const [users, fields] = await db.execute('SELECT gamertag, bio, age,country, language FROM users WHERE email = ?', [req.params.email]);
 
@@ -117,6 +116,7 @@ router.patch("/api/users/:email", isAuthenticated, async (req, res) => {
         if (req.body.age !== null && isNaN(parseInt(req.body.age))) {
             res.status(400).send({ message: "Wrong data, please try again filling the information correctly (Age as number)" });
         } else {
+
             // Update user info
             await db.execute("UPDATE users SET gamertag = ?, bio = ?, age = ?, country = ?, language = ?, profile_img_url = ? WHERE email = ?", [req.body.gamertag, req.body.bio, req.body.age, req.body.country, req.body.language, req.body.profile_img_url, req.params.email]);
             res.status(200).send({ message: "User info updated correctly" });
