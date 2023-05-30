@@ -6,11 +6,12 @@
 
     let accounts = [];
     let isFound = true;
+    let searchIconColor = "";
 
     titleStore.setTitle("Search | VE");
 
     onMount(() => {
-        document.getElementById("search-icon").style.color = "#e7793e";
+        searchIconColor = "#e7793e";
     });
 
     function searchAccounts(event) {
@@ -43,7 +44,7 @@
     }
 </script>
 
-<Navbar />
+<Navbar {searchIconColor} />
 <div class="search-container">
     <input
         type="text"

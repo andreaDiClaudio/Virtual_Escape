@@ -11,11 +11,10 @@
     titleStore.setTitle("Profile | VE");
 
     // Reactive statement to update user icon color
-    $: {
-        if (document.getElementById("user-icon")) {
-            document.getElementById("user-icon").style.color = "#e7793e";
-        }
-    }
+    let userIconColor = "";
+    onMount(() => {
+        userIconColor = "#e7793e";
+    });
 
     onMount(() => {
         fetchUserData();
@@ -216,7 +215,7 @@
 </script>
 
 <!--*PAGE*-->
-<Navbar />
+<Navbar {userIconColor} />
 
 <div id="profile-page">
     <div id="right-panel">
