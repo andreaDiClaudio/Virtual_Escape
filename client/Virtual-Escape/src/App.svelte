@@ -9,6 +9,8 @@
   import Profile from "./pages/userProfile/Profile.svelte";
   import Search from "./pages/search/Search.svelte";
 
+  import Test from "./pages/test/test.svelte";
+
   import { titleStore } from "./stores/tabTitle/tabTitle.js";
   import ProfileFound from "./pages/profileFound/ProfileFound.svelte";
   // Update the document title reactively
@@ -51,4 +53,8 @@
   <PrivateRoute path="/search/:nickname" let:params let:location>
     <ProfileFound />
   </PrivateRoute>
+
+  <Route path="/test">
+    <Test />
+  </Route>
 </Router>

@@ -18,7 +18,7 @@ app.use(cors({
     origin: true
 }));
 
-/*SESSION*/
+/*Session*/
 dotenv.config();//needed to read .env file
 
 app.use(session({
@@ -28,7 +28,7 @@ app.use(session({
     cookie: { secure: false } //'secure : true' expect us to use https    
 }));
 
-/*RATE LIMIT */
+/*Rate limit*/
 const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 10, // Limit each IP to 10 requests per `window` (here, per 15 minutes)
@@ -38,7 +38,7 @@ const apiLimiter = rateLimit({
 app.use("/login", apiLimiter);
 app.use("/home", apiLimiter);
 
-/* MIDDLEWARE */
+/*Middleware*/
 // To check if the user is authenticated
 export function isAuthenticated(req, res, next) {
     if (req.session && req.session.user) {
@@ -48,7 +48,25 @@ export function isAuthenticated(req, res, next) {
     }
 }
 
-/*ROUTES*/
+/*Websocket*/
+import http from "http";
+const server = http.createServer(app);
+
+import { Server } from "socket.io";
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        methods: ["*"]
+    }
+});
+
+io.on("connection", (socket) => {
+    socket.on("a client choose a color", (data) => {
+        io.emit("a new color just dropped", data);
+    });
+});
+
+/*Routes*/
 import userRouter from "./routers/user/userRouter.js";
 app.use(userRouter);
 
@@ -62,9 +80,10 @@ import imageRouter from "./routers/image/imageRouter.js";
 app.use(imageRouter);
 
 import logoutRouter from "./routers/authentication/logoutRouter.js";
+import { log } from "console";
 app.use(logoutRouter);
 
 const PORT = process.env.PORT;
-app.listen((PORT), () => {
+server.listen((PORT), () => {
     console.log("Server is running on port:", PORT)
 })
