@@ -60,11 +60,17 @@ const io = new Server(server, {
     }
 });
 
+const userOpinions = [];
 io.on("connection", (socket) => {
-    socket.on("a client choose a color", (data) => {
-        io.emit("a new color just dropped", data);
+    // Handle user opinions
+    socket.on("submit opinion", (data) => {
+        console.log(data);
+        userOpinions.push(data);
+        console.log(userOpinions);
+        io.emit("update opinions", userOpinions);
     });
-});
+})
+
 
 /*Routes*/
 import userRouter from "./routers/user/userRouter.js";

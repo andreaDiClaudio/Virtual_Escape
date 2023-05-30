@@ -5,6 +5,7 @@
     export let userIconColor = "";
     export let uploadIconColor = "";
     export let searchIconColor = "";
+    export let bestGameIconColor = "";
 
     function handleSubmit() {
         fetch("http://localhost:8080/logout", {
@@ -54,6 +55,14 @@
             id="user-icon"
             href="/profile"
             style="color: {userIconColor};"
+        />
+        <p>|</p>
+        <!-- svelte-ignore a11y-missing-content -->
+        <a
+            class="fas fa-share"
+            id="best-game-icon"
+            href="/bestgame"
+            style="color: {bestGameIconColor};"
         />
     </div>
     <div id="navbar-mid">

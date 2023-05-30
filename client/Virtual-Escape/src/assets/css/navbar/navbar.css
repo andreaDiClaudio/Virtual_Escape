@@ -67,6 +67,17 @@
     color:#e7793e
 }
 
+#best-game-icon {
+    font-size: 1.5rem;
+    color: #2a2a3f;
+}
+
+
+#best-game-icon:hover {
+    font-size: 1.5rem;
+    color:#e7793e
+}
+
 #VE-logo {
     width: 3rem;
 }

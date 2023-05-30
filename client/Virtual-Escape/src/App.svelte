@@ -8,8 +8,7 @@
   import Upload from "./pages/upload/Upload.svelte";
   import Profile from "./pages/userProfile/Profile.svelte";
   import Search from "./pages/search/Search.svelte";
-
-  import Test from "./pages/test/test.svelte";
+  import BestGame from "./pages/bestGame/BestGame.svelte";
 
   import { titleStore } from "./stores/tabTitle/tabTitle.js";
   import ProfileFound from "./pages/profileFound/ProfileFound.svelte";
@@ -54,7 +53,7 @@
     <ProfileFound />
   </PrivateRoute>
 
-  <Route path="/test">
-    <Test />
+  <Route path="/bestgame">
+    <BestGame />
   </Route>
 </Router>
