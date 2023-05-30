@@ -8,8 +8,8 @@ const tables = [
   //"folder_images",
   // "comments",
   // "likes",
-  // "follows",
   // "folders",
+  "follows",
   "images",
   "users",
 ];
@@ -56,6 +56,17 @@ db.execute(`
  );
 `);
 
+/*FOLLOWS*/
+db.execute(`
+  CREATE TABLE IF NOT EXISTS follows (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    follower_email VARCHAR(255) NOT NULL,
+    followee_email VARCHAR(255) NOT NULL,
+    FOREIGN KEY (follower_email) REFERENCES users (email) ON DELETE CASCADE,
+    FOREIGN KEY (followee_email) REFERENCES users (email) ON DELETE CASCADE
+  );
+`);
+
 /*FOLDERS
 db.execute(`
   CREATE TABLE IF NOT EXISTS folders (
@@ -99,17 +110,6 @@ db.execute(`
     image_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     FOREIGN KEY (image_id) REFERENCES images (id) ON DELETE CASCADE
-  );
-`);
-
-/*FOLLOWS
-db.execute(`
-  CREATE TABLE IF NOT EXISTS follows (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    follower_id INT NOT NULL,
-    followee_id INT NOT NULL,
-    FOREIGN KEY (follower_id) REFERENCES users (id) ON DELETE CASCADE,
-    FOREIGN KEY (followee_id) REFERENCES users (id) ON DELETE CASCADE
   );
 `);
 */

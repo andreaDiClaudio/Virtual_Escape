@@ -42,18 +42,18 @@
         <p>|</p>
         <!-- svelte-ignore a11y-missing-content -->
         <a
-            class="fas fa-user"
-            id="user-icon"
-            href="/profile"
-            style="color: {userIconColor};"
-        />
-        <p>|</p>
-        <!-- svelte-ignore a11y-missing-content -->
-        <a
             class="fas fa-search"
             id="search-icon"
             href="/search"
             style="color: {searchIconColor};"
+        />
+        <p>|</p>
+        <!-- svelte-ignore a11y-missing-content -->
+        <a
+            class="fas fa-user"
+            id="user-icon"
+            href="/profile"
+            style="color: {userIconColor};"
         />
     </div>
     <div id="navbar-mid">
