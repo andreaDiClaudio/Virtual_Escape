@@ -1,6 +1,9 @@
 <script>
     import Navbar from "../../components/Navbar.svelte";
     import UserGallery from "./ProfileGallery.svelte";
+    import ProfileImageUpload from "./ProfileImageUpload.svelte";
+    import ProfileUserInfoInputs from "./ProfileUserInfoInputs.svelte";
+    import ProfileUserEditButtons from "./ProfileUserEditButtons.svelte";
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import { user } from "../../stores/users/users.js";
@@ -27,7 +30,7 @@
     /*Variables for binding values*/
     let isEditing = false;
     let previewImageSrc = "";
-    let profileImgUrl;
+    let profileImgUrl = "";
     let selectedFile;
     let countryValue;
     let languageValue;
@@ -43,7 +46,7 @@
     let bioId = "user-info-bio";
 
     function toggleEditMode() {
-        isEditing = !isEditing;
+        isEditing = true;
 
         ageId = "user-info-age-edit";
         countryId = "user-info-country-edit";
@@ -220,96 +223,32 @@
 <div id="profile-page">
     <div id="right-panel">
         <div id="user-info-wrapper">
-            <div id="user-info-profile-image-wrapper">
-                <!-- svelte-ignore a11y-img-redundant-alt -->
-                <img
-                    id="profile-image"
-                    alt="Image Preview"
-                    src={previewImageSrc || profileImgUrl}
-                />
-                <div id="label-wrapper">
-                    <label
-                        for="profile-image-input"
-                        class="button"
-                        id="label-image-upload-input"
-                        hidden={!isEditing}
-                    >
-                        Upload Image
-                        <input
-                            id="profile-image-input"
-                            type="file"
-                            name="file"
-                            accept="image/*"
-                            alt="Profile image"
-                            on:change={previewImage}
-                            disabled={!isEditing}
-                            hidden={!isEditing}
-                        />
-                    </label>
-                </div>
-            </div>
-            <div id="user-info-profile">
-                <input
-                    id="user-info-nickname"
-                    value="@{$user.nickname}"
-                    disabled
-                />
-                <div id="extra-user-info-wrapper">
-                    <input
-                        id={gamertagId}
-                        readonly={!isEditing}
-                        disabled={!isEditing}
-                        placeholder={!isEditing ? "" : "gamertag"}
-                        bind:value={gamertagValue}
-                    />
-                    <input
-                        id={ageId}
-                        min="1"
-                        max="100"
-                        readonly={!isEditing}
-                        disabled={!isEditing}
-                        placeholder={!isEditing ? "" : "age"}
-                        bind:value={ageValue}
-                    />
-                    <input
-                        id={countryId}
-                        bind:value={countryValue}
-                        readonly={!isEditing}
-                        disabled={!isEditing}
-                        placeholder={!isEditing ? "" : "country"}
-                    />
-                    <input
-                        id={languageId}
-                        bind:value={languageValue}
-                        readonly={!isEditing}
-                        disabled={!isEditing}
-                        placeholder={!isEditing ? "" : "language"}
-                    />
-                </div>
-                <div id="user-info-bio-wrapper">
-                    <textarea
-                        maxlength="255"
-                        id={bioId}
-                        bind:value={bioValue}
-                        readonly={!isEditing}
-                        disabled={!isEditing}
-                        placeholder={!isEditing ? "" : "bio"}
-                    />
-                </div>
-            </div>
-            <div id="user-info-edit-button-wrapper">
-                <div>
-                    <button class="button" on:click={toggleEditMode}
-                        >Edit</button
-                    >
-                </div>
-                <div id="user-info-edit-confirm-wrapper" hidden={!isEditing}>
-                    <button class="button" on:click={discardChanges}>
-                        Discard
-                    </button>
-                    <button class="button" on:click={saveChanges}>Save</button>
-                </div>
-            </div>
+            <ProfileImageUpload
+                bind:previewImageSrc
+                bind:profileImgUrl
+                bind:isEditing
+                on:previewImage={previewImage}
+            />
+            <ProfileUserInfoInputs
+                bind:isEditing
+                bind:gamertagValue
+                bind:ageValue
+                bind:countryValue
+                bind:languageValue
+                bind:bioValue
+                bind:gamertagId
+                bind:ageId
+                bind:countryId
+                bind:languageId
+                bind:bioId
+                {user}
+            />
+            <ProfileUserEditButtons
+                bind:isEditing
+                on:toggleEditMode={toggleEditMode}
+                on:discardChanges={discardChanges}
+                on:saveChanges={saveChanges}
+            />
         </div>
         <div id="hr-div">
             <hr id="horizontal-line" />

@@ -6,12 +6,13 @@
 
     let selectedAccount = JSON.parse(localStorage.getItem("selectedAccount"));
     let user = {};
+    let searcIconColor = "";
 
     titleStore.setTitle(`@${selectedAccount.nickname} | VE`);
 
     onMount(async () => {
         await fetchUserData();
-        document.getElementById("search-icon").style.color = "#e7793e";
+        searcIconColor = "#e7793e";
     });
 
     async function fetchUserData() {
