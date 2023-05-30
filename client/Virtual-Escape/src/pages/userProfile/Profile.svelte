@@ -7,7 +7,7 @@
 
     /*Components*/
     import Navbar from "../../components/Navbar.svelte";
-    import UserGallery from "./ProfileGallery.svelte";
+    import UserGallery from "./gallery/ProfileGallery.svelte";
     import ProfileImageUpload from "./ProfileImageUpload.svelte";
     import ProfileUserInfoInputs from "./ProfileUserInfoInputs.svelte";
     import ProfileUserEditButtons from "./ProfileUserEditButtons.svelte";

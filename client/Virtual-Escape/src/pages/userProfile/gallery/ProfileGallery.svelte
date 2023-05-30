@@ -1,6 +1,6 @@
 <script>
     import { onMount, onDestroy } from "svelte";
-    import ProfilePopupWindow from "./ProfilePopupWindow.svelte";
+    import ProfilePopupWindow from "../popupWindow/ProfilePopupWindow.svelte";
 
     onMount(() => {
         fetchUserImages();
