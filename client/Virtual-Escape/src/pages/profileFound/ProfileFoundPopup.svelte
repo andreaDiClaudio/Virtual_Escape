@@ -2,6 +2,7 @@
     import { createEventDispatcher } from "svelte";
     const dispatch = createEventDispatcher();
 
+    /*Variables for binding values*/
     export let isVisible = false;
     export let imageSrc = "";
     export let image = {};

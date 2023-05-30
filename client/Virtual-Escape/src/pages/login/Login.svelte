@@ -7,7 +7,7 @@
   import { titleStore } from "../../stores/tabTitle/tabTitle.js";
   import Footer from "../../components/Footer.svelte";
 
-  // Set tab title
+  /*Set tab title*/
   titleStore.setTitle("Login | VE");
 
   let bodyGradient = false;
@@ -27,6 +27,7 @@
   let password = "test";
   let message = "";
 
+  /*Log in*/
   function handleSubmit() {
     fetch("http://localhost:8080/login", {
       method: "POST",

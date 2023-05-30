@@ -4,12 +4,14 @@
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import toastr from "toastr";
 
+    /*Variables for binding values*/
     let imageInputDisplay = "none";
     let uploadIconDisplay = "initial";
     let previewSrc = "";
     let uploadIconColor = "";
     let imageInput;
 
+    /*Set the tab title*/
     titleStore.setTitle("Upload | VE");
 
     onMount(() => {
@@ -61,6 +63,8 @@
         });
     }
 
+    /*Preview Image*/
+    //shows a preview of the uploaded image
     function previewImage(event) {
         imageInputDisplay = "none";
         uploadIconDisplay = "none";

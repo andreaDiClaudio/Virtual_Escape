@@ -104,7 +104,6 @@
     /*Handles the profile image preview when loaded*/
     function previewImage(event) {
         const file = event.target.files[0];
-        console.log(file);
         selectedFile = file;
         if (file) {
             const reader = new FileReader();

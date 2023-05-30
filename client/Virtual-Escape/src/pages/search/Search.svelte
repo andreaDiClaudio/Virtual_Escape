@@ -4,16 +4,20 @@
     import { navigate } from "svelte-navigator";
     import Navbar from "../../components/Navbar.svelte";
 
+    /*Variables for binding values*/
     let accounts = [];
     let isFound = true;
     let searchIconColor = "";
 
+    /*Set the tab title*/
     titleStore.setTitle("Search | VE");
 
     onMount(() => {
         searchIconColor = "#e7793e";
     });
 
+    /*Search accounts*/
+    //get method to retrieve accounts
     function searchAccounts(event) {
         const searchValue = event.target.value.toLowerCase();
 

@@ -1,7 +1,10 @@
 <script>
+    // @ts-nocheck
+
     import ProfileFoundPopup from "./ProfileFoundPopup.svelte";
     import { onMount } from "svelte";
 
+    /*Variables for binding values*/
     let selectedAccount = JSON.parse(localStorage.getItem("selectedAccount"));
     let userImages = [];
     let profileFoundPopupVisible = false;
@@ -12,6 +15,7 @@
         await fetchUserImages();
     });
 
+    /*Fetch user found images*/
     async function fetchUserImages() {
         try {
             const response = await fetch(
@@ -51,6 +55,8 @@
 />
 <div id="user-gallery-wrapper">
     {#each userImages as image}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-mouse-events-have-key-events -->
         <div
             class="user-gallery-card"
             on:mouseover={(e) => {
@@ -67,6 +73,7 @@
                     image
                 )}
         >
+            <!-- svelte-ignore a11y-img-redundant-alt -->
             <img
                 class="user-gallery-image"
                 src={`http://localhost:8080/${image.image_url}`}

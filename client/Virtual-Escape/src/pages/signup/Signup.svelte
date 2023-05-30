@@ -5,11 +5,10 @@
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import Footer from "../../components/Footer.svelte";
 
-    // Set tab title
+    /*Set tab title*/
     titleStore.setTitle("Signup | VE");
 
     let bodyGradient = false;
-
     onMount(() => {
         bodyGradient = true;
     });
@@ -19,11 +18,13 @@
         bodyGradient = false;
     });
 
+    /*Variables for binding values*/
     let email = "";
     let nickname = "";
     let password = "";
     let message = "";
 
+    /*Sign up*/
     async function handleSubmit() {
         fetch("http://localhost:8080/api/users", {
             method: "POST",

@@ -1,7 +1,5 @@
 <script>
-    import { createEventDispatcher } from "svelte";
-    const dispatch = createEventDispatcher();
-
+    /*Variables for binding values*/
     export let isEditing = false;
     export let gameInputValue = "";
     export let popupImageData = { description: "", game: "" };
@@ -10,6 +8,7 @@
     export let isPopupVisible = false;
     export let popupImageSrc = "";
 
+    /*Patch*/
     async function saveChanges(image) {
         const response = await fetch(
             "http://localhost:8080/api/images/" + image.id,
@@ -26,13 +25,12 @@
             }
         );
 
-        if (response.status === 404) {
-            // Your toastr logic
-        } else if (response.status === 200) {
+        if (response.status === 200) {
             window.location.href = "/profile";
         }
     }
 
+    /*Delete image*/
     function deleteImage(image) {
         if (!confirm("Are you sure you want to delete this image?")) {
             return;
@@ -59,7 +57,6 @@
     }
 
     function toggleDropdown() {
-        console.log(isDropdownVisible);
         if (isDropdownVisible) {
             isDropdownVisible = false;
         } else {
@@ -73,9 +70,11 @@
 </script>
 
 {#if isPopupVisible}
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div id="background-overlay" on:click={closePopup} />
     <div id="popup-window" style="display: flex;">
         <div id="popup-window-image-preview-wrapper">
+            <!-- svelte-ignore a11y-missing-attribute -->
             <img id="popup-window-image-preview" src={popupImageSrc} />
         </div>
 

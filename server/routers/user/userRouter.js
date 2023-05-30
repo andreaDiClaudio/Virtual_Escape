@@ -102,9 +102,6 @@ router.post("/api/users", async (req, res) => {
 
 /*PATCH*/
 router.patch("/api/users/:email", isAuthenticated, async (req, res) => {
-    console.log(req.body.profile_img_url);
-    console.log(req.params.email);
-
     //Check if user exists
     const [users, fields] = await db.execute('SELECT gamertag, bio, age,country, language FROM users WHERE email = ?', [req.params.email]);
 

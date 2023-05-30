@@ -6,6 +6,7 @@
         fetchUserImages();
     });
 
+    /*Variables for binding values*/
     let userImages = [];
     let isPopupVisible = false;
     let popupImageSrc = "";
@@ -16,7 +17,7 @@
     let gameInputValue = "";
     let descriptionId = "";
 
-    /*FETCH USER IMAGES*/
+    /*Fetch user images*/
     //fetches user uploaded images to fill the gallery
     function fetchUserImages() {
         fetch("http://localhost:8080/api/images", {

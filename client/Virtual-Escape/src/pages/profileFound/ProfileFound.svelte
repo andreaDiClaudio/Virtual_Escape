@@ -4,10 +4,12 @@
     import { onMount } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
 
+    /*Variables for binding values*/
     let selectedAccount = JSON.parse(localStorage.getItem("selectedAccount"));
     let user = {};
     let searchIconColor = "";
 
+    /*Set the tab title*/
     titleStore.setTitle(`@${selectedAccount.nickname} | VE`);
 
     onMount(async () => {
@@ -15,6 +17,7 @@
         searchIconColor = "#e7793e";
     });
 
+    /*Fetch user found info*/
     async function fetchUserData() {
         try {
             const response = await fetch(
