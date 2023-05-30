@@ -8,6 +8,7 @@
     let uploadIconDisplay = "initial";
     let previewSrc = "";
     let uploadIconColor = "";
+    let imageInput;
 
     titleStore.setTitle("Upload | VE");
 
@@ -20,10 +21,9 @@
     });
 
     function handleSubmit(event) {
-        const fileInput = document.getElementById("image-input");
         // Check if a file is selected
         // @ts-ignore
-        if (!fileInput.files || fileInput.files.length === 0) {
+        if (!imageInput.files || imageInput.files.length === 0) {
             toastr.options = {
                 closeButton: false,
                 debug: false,
@@ -91,6 +91,7 @@
             <div id="upload-form-image-input">
                 <input
                     id="image-input"
+                    bind:value={imageInput}
                     type="file"
                     name="file"
                     accept="image/*"
