@@ -112,6 +112,15 @@
     padding: 0.2rem;
 }
 
+#user-info-gamertag-edit {
+    width: 4rem;
+    font-weight: 550;
+    border: solid 1px #e7793e;
+    background-color: #2a2a3f;
+    color: white;
+    padding: 0.2rem;
+}
+
 #user-info-bio-wrapper {
     padding-left: 0.5rem;
     padding-top: 0.3rem;
@@ -120,8 +129,17 @@
 #user-info-bio {
     height: 3rem;
     width: 20rem;
-    border: none;
     resize: none;
+    border: none;
+    font-weight: 550;
+}
+
+#user-info-bio-edit {
+    height: 3rem;
+    width: 20rem;
+     border: solid 1px #e7793e;
+    background-color: #2a2a3f;
+    color: white;
     font-weight: 550;
 }
 

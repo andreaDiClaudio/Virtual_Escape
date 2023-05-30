@@ -1,12 +1,11 @@
 <script>
+    import Navbar from "../../components/Navbar.svelte";
+    import UserGallery from "./ProfileGallery.svelte";
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import { user } from "../../stores/users/users.js";
     import "toastr/build/toastr.min.css";
     import toastr from "toastr";
-
-    import Navbar from "../../components/Navbar.svelte";
-    import UserGallery from "./ProfileGallery.svelte";
 
     // Set the tab title
     titleStore.setTitle("Profile | VE");
@@ -121,10 +120,8 @@
 
                     // Check if there's a file to upload
                     if (!selectedFile) {
-                        const oldImageUrl =
-                            previewImageSrc || $user.profile_img_url;
                         // Update user information without uploading a new image
-                        updateUser(userFound, oldImageUrl);
+                        updateUser(userFound, userFound.profile_img_url);
                     } else {
                         /*POST IMAGE*/
                         // Upload the image and update user information
