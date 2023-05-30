@@ -6,11 +6,11 @@
   import Signup from "./pages/signup/Signup.svelte";
   import Home from "./pages/home/Home.svelte";
   import Upload from "./pages/upload/Upload.svelte";
-  import Profile from "./pages/profile/Profile.svelte";
+  import Profile from "./pages/userProfile/Profile.svelte";
   import Search from "./pages/search/Search.svelte";
 
   import { titleStore } from "./stores/tabTitle/tabTitle.js";
-  import ProfileFound from "./pages/search/ProfileFound.svelte";
+  import ProfileFound from "./pages/profileFound/ProfileFound.svelte";
   // Update the document title reactively
   $: document.title = $titleStore;
 </script>

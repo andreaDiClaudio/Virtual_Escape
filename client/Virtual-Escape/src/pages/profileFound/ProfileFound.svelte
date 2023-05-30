@@ -37,6 +37,12 @@
 <Navbar />
 <div id="profile-page">
     <div id="right-panel">
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div
+            id="go-back-arrow"
+            class="fas fa-angle-left"
+            on:click={() => (window.location.href = "/search")}
+        />
         <div id="user-info-wrapper">
             <div id="user-info-profile-image-wrapper">
                 <!-- svelte-ignore a11y-img-redundant-alt -->

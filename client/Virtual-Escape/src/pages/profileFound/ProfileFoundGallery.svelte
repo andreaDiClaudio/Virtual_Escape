@@ -1,11 +1,12 @@
 <script>
-    // @ts-nocheck
-
+    import ProfileFoundPopup from "./ProfileFoundPopup.svelte";
     import { onMount } from "svelte";
-    import showProfileFoundPopup from "../../assets/js/search/showProfileFoundPopup.js";
 
     let selectedAccount = JSON.parse(localStorage.getItem("selectedAccount"));
     let userImages = [];
+    let profileFoundPopupVisible = false;
+    let profileFoundPopupImageSrc = "";
+    let profileFoundPopupImage = {};
 
     onMount(async () => {
         await fetchUserImages();
@@ -30,12 +31,26 @@
             console.error("Error fetching user images:", error);
         }
     }
+
+    function showProfileFoundPopup(imageSrc, image) {
+        profileFoundPopupVisible = true;
+        profileFoundPopupImageSrc = imageSrc;
+        profileFoundPopupImage = image;
+    }
+
+    function closeProfileFoundPopup() {
+        profileFoundPopupVisible = false;
+    }
 </script>
 
+<ProfileFoundPopup
+    bind:isVisible={profileFoundPopupVisible}
+    bind:imageSrc={profileFoundPopupImageSrc}
+    bind:image={profileFoundPopupImage}
+    on:close={closeProfileFoundPopup}
+/>
 <div id="user-gallery-wrapper">
     {#each userImages as image}
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <!-- svelte-ignore a11y-mouse-events-have-key-events -->
         <div
             class="user-gallery-card"
             on:mouseover={(e) => {
@@ -52,7 +67,6 @@
                     image
                 )}
         >
-            <!-- svelte-ignore a11y-img-redundant-alt -->
             <img
                 class="user-gallery-image"
                 src={`http://localhost:8080/${image.image_url}`}
