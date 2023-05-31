@@ -22,6 +22,7 @@
         titleStore.resetTitle();
     });
 
+    /*Handle the submit*/
     function handleSubmit(event) {
         // Check if a file is selected
         // @ts-ignore
@@ -52,6 +53,7 @@
         const formData = new FormData(form);
         formData.append("is_profile_img", "0");
 
+        /*Post*/
         fetch("http://localhost:8080/api/images", {
             method: "POST",
             body: formData,

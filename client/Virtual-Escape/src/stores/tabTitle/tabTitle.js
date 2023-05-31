@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 
 const defaultTitle = 'Virtual Escape';
 
-//create a custom store for maniging the tabtitle
+/*create a custom store for maniging the tabtitle*/
 function createTitleStore() {
     const { subscribe, set } = writable(defaultTitle);
 

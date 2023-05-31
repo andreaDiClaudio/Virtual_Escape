@@ -1,4 +1,5 @@
 <script>
+    /*allows a component to emit events that can be listened to by its parent or other components*/
     import { createEventDispatcher } from "svelte";
     const dispatch = createEventDispatcher();
 

@@ -10,12 +10,13 @@
   /*Set tab title*/
   titleStore.setTitle("Login | VE");
 
+  /*Sets the color of the body of the page*/
   let bodyGradient = false;
-
   onMount(() => {
     bodyGradient = true;
   });
 
+  /*reset tabtitle*/
   onDestroy(() => {
     titleStore.resetTitle();
     bodyGradient = false;

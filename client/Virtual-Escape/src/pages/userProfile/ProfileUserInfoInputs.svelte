@@ -1,4 +1,5 @@
 <script>
+    /*Variables for binding values*/
     export let isEditing = false;
     export let gamertagValue = "";
     export let ageValue = "";

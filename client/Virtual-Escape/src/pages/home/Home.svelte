@@ -8,14 +8,15 @@
     /*Set tab title*/
     titleStore.setTitle("Home | VE");
 
+    /*Set icon color and body color*/
     let bodyWhite = false;
     let homeIconColor = "";
-
     onMount(() => {
         bodyWhite = true;
         homeIconColor = "#e7793e";
     });
 
+    /*Reset tabtitle*/
     onDestroy(() => {
         titleStore.resetTitle();
         bodyWhite = false;

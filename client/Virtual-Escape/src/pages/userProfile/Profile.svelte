@@ -21,7 +21,7 @@
         fetchUserData();
     });
 
-    /*resets the tabtitle*/
+    /*Resets tabtitle*/
     onDestroy(() => {
         titleStore.resetTitle();
     });
@@ -78,24 +78,21 @@
             gamertagValue = fetchedUser.gamertag;
             bioValue = fetchedUser.bio;
 
+            // Set the default profile image
             if (fetchedUser.profile_img_url == null) {
                 profileImgUrl =
                     "http://localhost:8080/public/defaultUserProfileImage/1684737647624-181908121___default_profile_image.jpg";
             } else {
-                let relativeUrl = "";
+                // Ensure the profile image URL starts with "http://localhost:8080/"
                 if (
-                    fetchedUser.profile_img_url.includes(
+                    !fetchedUser.profile_img_url.startsWith(
                         "http://localhost:8080/"
                     )
                 ) {
-                    relativeUrl = fetchedUser.profile_img_url.replace(
-                        "http://localhost:8080/",
-                        ""
-                    );
-                    profileImgUrl = "http://localhost:8080/" + relativeUrl;
-                } else {
                     profileImgUrl =
                         "http://localhost:8080/" + fetchedUser.profile_img_url;
+                } else {
+                    profileImgUrl = fetchedUser.profile_img_url;
                 }
             }
         }

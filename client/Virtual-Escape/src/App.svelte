@@ -53,7 +53,7 @@
     <ProfileFound />
   </PrivateRoute>
 
-  <Route path="/bestgame">
+  <PrivateRoute path="/bestgame">
     <BestGame />
-  </Route>
+  </PrivateRoute>
 </Router>

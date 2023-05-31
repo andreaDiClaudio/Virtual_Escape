@@ -1,6 +1,5 @@
 <script>
     import Navbar from "../../components/Navbar.svelte";
-    import bestGames from "../../stores/bestGame/bestGame";
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import io from "socket.io-client";
@@ -8,11 +7,13 @@
     /*Set tab title*/
     titleStore.setTitle("Best Game | VE");
 
+    /*Set icon color*/
     let bestGameIconColor = "";
     onMount(() => {
         bestGameIconColor = "#e7793e";
     });
 
+    /*Sends user opinion*/
     const socket = io("http://localhost:8080");
     let userOpinion = "";
 
@@ -24,8 +25,8 @@
         });
     }
 
+    /*saves the opinion in a list*/
     let opinionsList = [];
-
     socket.on("update opinions", (data) => {
         opinionsList = data;
     });

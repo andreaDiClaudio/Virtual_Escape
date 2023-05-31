@@ -9,6 +9,7 @@
     export let image = {};
     export let user = {};
 
+    /*Close popup*/
     function closePopup() {
         isVisible = false;
         dispatch("close");
