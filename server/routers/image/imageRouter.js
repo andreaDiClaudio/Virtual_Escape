@@ -1,6 +1,7 @@
 import { Router } from "express";
 import multer from "multer";
 import { isAuthenticated } from "../../app.js";
+import fs from "fs";
 import db from "../../database/connection.js";
 
 const router = Router();
@@ -90,6 +91,15 @@ router.patch("/api/images/:id", isAuthenticated, async (req, res) => {
         res.status(200).send({ message: "Image info updated correctly" });
     }
 })
+// Function to delete a file
+function deleteFile(filePath) {
+    fs.unlink(filePath, (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+    });
+}
 
 /*DELETE*/
 router.delete("/api/images/:id", isAuthenticated, async (req, res) => {
@@ -100,17 +110,24 @@ router.delete("/api/images/:id", isAuthenticated, async (req, res) => {
     }
 
     const [rows, fields] = await db.execute(
-        "SELECT description, game FROM images WHERE id = ?",
+        "SELECT image_url, description, game FROM images WHERE id = ?",
         [image_id]
     );
 
     if (rows.length === 0) {
         return res.status(404).send({ error: "image to update not found." });
     } else {
-        // Delete image
+        // Delete image from the database
         await db.execute("DELETE FROM images WHERE id = ?", [image_id]);
+
+        // Delete image file from the server
+        const filePath = rows[0].image_url;
+        if (filePath) {
+            deleteFile(filePath);
+        }
+
         res.status(200).send({ message: "Image deleted correctly" });
     }
-})
+});
 
 export default router;
