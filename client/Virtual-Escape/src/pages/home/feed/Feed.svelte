@@ -10,6 +10,7 @@
     let feedPopupVisible = false;
     let feedPopupImageSrc = "";
     let feedPopupImage = {};
+    let feedPopupUser = {};
 
     /*To shuffle the images*/
     function shuffleArray(array) {
@@ -41,6 +42,23 @@
         }
     }
 
+    async function getUser(imgSrc, image) {
+        const response = await fetch(
+            "http://localhost:8080/api/users/" + image.user_email,
+            {
+                method: "GET",
+                credentials: "include",
+            }
+        );
+        if (response.status === 200) {
+            console.log("reached");
+            const result = await response.json();
+            feedPopupUser = result.data;
+            console.log(feedPopupUser);
+        }
+        showFeedPopup(imgSrc, image);
+    }
+
     function showFeedPopup(imageSrc, image) {
         feedPopupVisible = true;
         feedPopupImageSrc = imageSrc;
@@ -48,7 +66,7 @@
     }
 
     function closeFeedPopup() {
-        profileFoundPopupVisible = false;
+        feedPopupVisible = false;
     }
 </script>
 
@@ -56,6 +74,7 @@
     <hr id="horizontal-line" />
     <h4>Discover</h4>
     <FeedPopup
+        bind:user={feedPopupUser}
         bind:isVisible={feedPopupVisible}
         bind:imageSrc={feedPopupImageSrc}
         bind:image={feedPopupImage}
@@ -76,10 +95,7 @@
                     e.currentTarget.children[2].hidden = true;
                 }}
                 on:click={() =>
-                    showFeedPopup(
-                        `http://localhost:8080/${image.image_url}`,
-                        image
-                    )}
+                    getUser(`http://localhost:8080/${image.image_url}`, image)}
             >
                 <!-- svelte-ignore a11y-img-redundant-alt -->
                 <img
