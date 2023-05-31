@@ -9,7 +9,7 @@ const router = Router();
 //All images where is_profile_img = 0;
 router.get("/api/images", isAuthenticated, async (req, res) => {
 
-    const [images, fields] = await db.execute("SELECT id, image_url, description, game FROM images WHERE is_profile_img=0;");
+    const [images, fields] = await db.execute("SELECT * FROM images WHERE is_profile_img=0;");
 
     res.status(200).json({ data: images });
 });
