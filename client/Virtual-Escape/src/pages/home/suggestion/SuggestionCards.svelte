@@ -28,8 +28,7 @@
                 VP
             </h6>
             <div class="home-page-button-wrapper">
-                <a href=""
-                    ><!--TODO-->
+                <a href="#feed">
                     <button class="button">See now!</button>
                 </a>
             </div>
