@@ -36,11 +36,6 @@
             console.error("Error fetching user data:", error);
         }
     }
-
-    /*Follow*/
-    function follow() {
-        console.log("Follow!");
-    }
 </script>
 
 <Navbar {searchIconColor} />
@@ -62,23 +57,6 @@
                         : "http://localhost:8080/public/defaultUserProfileImage/1684737647624-181908121___default_profile_image.jpg"}
                     alt="Image Preview"
                 />
-                <div id="label-wrapper">
-                    <label
-                        for="profile-image-input"
-                        id="label-image-upload-input"
-                        hidden
-                    >
-                        Upload Image
-                        <input
-                            id="profile-image-input"
-                            type="file"
-                            name="file"
-                            accept="image/*"
-                            alt="Profile image"
-                            disabled
-                        />
-                    </label>
-                </div>
             </div>
             <div id="user-info-profile">
                 <input
@@ -118,9 +96,6 @@
                 <div id="user-info-bio-wrapper">
                     <textarea id="user-info-bio" value={user.bio} readonly />
                 </div>
-            </div>
-            <div>
-                <button class="button" on:click={follow} />
             </div>
         </div>
         <div id="hr-div">

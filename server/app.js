@@ -105,9 +105,6 @@ app.use(userRouter);
 import loginRouter from "./routers/authentication/loginRouter.js";
 app.use(loginRouter);
 
-import homeRouter from "./routers/home/homeRouter.js";
-app.use(homeRouter);
-
 import imageRouter from "./routers/image/imageRouter.js";
 app.use(imageRouter);
 

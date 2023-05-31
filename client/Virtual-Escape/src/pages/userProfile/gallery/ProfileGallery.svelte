@@ -6,6 +6,7 @@
         fetchUserImages();
     });
 
+    let user = JSON.parse(localStorage.getItem("user"));
     /*Variables for binding values*/
     let userImages = [];
     let isPopupVisible = false;
@@ -20,7 +21,7 @@
     /*Fetch user images*/
     //fetches user uploaded images to fill the gallery
     function fetchUserImages() {
-        fetch("http://localhost:8080/api/images", {
+        fetch("http://localhost:8080/api/search/images/" + user.email, {
             method: "GET",
             credentials: "include",
         })
