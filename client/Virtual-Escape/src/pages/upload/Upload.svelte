@@ -85,6 +85,10 @@
             previewSrc = "";
         }
     }
+
+    function discard() {
+        window.location.href("/upload");
+    }
 </script>
 
 <Navbar {uploadIconColor} />
