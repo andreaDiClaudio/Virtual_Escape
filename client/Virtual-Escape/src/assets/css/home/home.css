@@ -7,13 +7,6 @@
     flex-direction: column;
 }
 
-#home-page-welcome-message-wrapper {
-    padding-top: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .home-page-suggestions-card-wrapper {
     display: flex;
     flex-direction: row;

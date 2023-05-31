@@ -1,9 +1,9 @@
 <script>
-    import { user } from "../../stores/users/users.js";
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import Navbar from "../../components/Navbar.svelte";
-    import SuggestionCards from "../../assets/css/home/suggestion/SuggestionCards.svelte";
+    import SuggestionCards from "./suggestion/SuggestionCards.svelte";
+    import Feed from "./feed/Feed.svelte";
 
     /*Set tab title*/
     titleStore.setTitle("Home | VE");
@@ -35,4 +35,5 @@
 <Navbar {homeIconColor} />
 <div id="home-page">
     <SuggestionCards />
+    <Feed />
 </div>
