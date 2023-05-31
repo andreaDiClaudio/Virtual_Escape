@@ -1,12 +1,14 @@
 <script>
     import { user } from "../stores/users/users.js";
 
+    /*Variables declaration for binding values*/
     export let homeIconColor = "";
     export let userIconColor = "";
     export let uploadIconColor = "";
     export let searchIconColor = "";
     export let bestGameIconColor = "";
 
+    /*Log out*/
     function handleSubmit() {
         fetch("http://localhost:8080/logout", {
             method: "POST",

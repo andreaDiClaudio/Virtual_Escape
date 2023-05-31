@@ -4,6 +4,7 @@ import db from "../../database/connection.js";
 
 const router = Router();
 
+/*POST*/
 router.post("/login", async (req, res) => {
     const { email, nickname, password } = req.body;
 

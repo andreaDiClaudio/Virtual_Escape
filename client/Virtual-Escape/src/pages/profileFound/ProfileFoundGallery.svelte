@@ -11,6 +11,7 @@
     let profileFoundPopupImageSrc = "";
     let profileFoundPopupImage = {};
 
+    /*Fetch user images*/
     onMount(async () => {
         await fetchUserImages();
     });
@@ -36,12 +37,14 @@
         }
     }
 
+    /*Shows popup*/
     function showProfileFoundPopup(imageSrc, image) {
         profileFoundPopupVisible = true;
         profileFoundPopupImageSrc = imageSrc;
         profileFoundPopupImage = image;
     }
 
+    /*Close popup*/
     function closeProfileFoundPopup() {
         profileFoundPopupVisible = false;
     }

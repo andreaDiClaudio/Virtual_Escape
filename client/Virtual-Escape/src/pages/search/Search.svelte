@@ -9,9 +9,10 @@
     let isFound = true;
     let searchIconColor = "";
 
-    /*Set the tab title*/
+    /*Set tabtitle*/
     titleStore.setTitle("Search | VE");
 
+    /*Sets icon color*/
     onMount(() => {
         searchIconColor = "#e7793e";
     });
@@ -43,6 +44,7 @@
                 accounts = result.data;
             })
             .catch((error) => {
+                console.log(error);
                 isFound = false;
             });
     }

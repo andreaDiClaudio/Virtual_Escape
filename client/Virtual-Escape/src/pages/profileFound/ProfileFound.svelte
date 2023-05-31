@@ -9,9 +9,10 @@
     let user = {};
     let searchIconColor = "";
 
-    /*Set the tab title*/
+    /*Set tabtitle*/
     titleStore.setTitle(`@${selectedAccount.nickname} | VE`);
 
+    /*Fetches the user data and seta icon color*/
     onMount(async () => {
         await fetchUserData();
         searchIconColor = "#e7793e";

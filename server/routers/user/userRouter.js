@@ -7,7 +7,8 @@ const router = Router();
 
 export let hashedPassword = "";
 
-//*GET*//
+/*GET*/
+// All
 router.get("/api/users", isAuthenticated, async (req, res) => {
     const [rows, fields] = await db.execute("SELECT id, nickname, email, bio, gamertag, age, country, language, profile_img_url FROM users;")
 
@@ -16,7 +17,7 @@ router.get("/api/users", isAuthenticated, async (req, res) => {
     });
 });
 
-// Get user by path parameter (email)
+// By path parameter (email)
 router.get("/api/users/:email", isAuthenticated, async (req, res) => {
     const email = req.params.email;
 
@@ -37,6 +38,7 @@ router.get("/api/users/:email", isAuthenticated, async (req, res) => {
     res.status(200).send({ data: userFound });
 });
 
+// By query parameter
 router.get("/api/search/users", isAuthenticated, async (req, res) => {
     const search = req.query.search;
 
@@ -44,11 +46,13 @@ router.get("/api/search/users", isAuthenticated, async (req, res) => {
         return res.status(400).send({ error: "Search query is required." });
     }
 
+    // search nicknames beginning with the query parameter
     const [rows, fields] = await db.execute(
         "SELECT nickname, email, gamertag, age, country, language, bio, profile_img_url FROM users WHERE nickname LIKE ?",
         [`${search}%`]
     );
 
+    // search nicknames containing the query parameter
     if (rows.length === 0) {
         const [rows2, fields2] = await db.execute(
             "SELECT nickname, email, gamertag, age, country, language, bio, profile_img_url FROM users WHERE nickname LIKE ?",
@@ -65,7 +69,7 @@ router.get("/api/search/users", isAuthenticated, async (req, res) => {
     }
 })
 
-//*POST*//
+/*POST*/
 router.post("/api/users", async (req, res) => {
     const { email, nickname, password } = req.body;
 

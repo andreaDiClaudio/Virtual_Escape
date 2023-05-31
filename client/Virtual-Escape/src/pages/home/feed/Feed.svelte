@@ -3,10 +3,12 @@
     import { onMount } from "svelte";
     import FeedPopup from "../feedPopup/FeedPopup.svelte";
 
+    /*fetches all images*/
     onMount(async () => {
         await fetchAllImages();
     });
 
+    /*Declaration for binding values*/
     let feedPopupVisible = false;
     let feedPopupImageSrc = "";
     let feedPopupImage = {};
@@ -21,6 +23,7 @@
         return array;
     }
 
+    /*Fetch images*/
     let images;
     let shuffledImages = [];
     /*Fetch user found images*/
@@ -42,6 +45,7 @@
         }
     }
 
+    /*Get the user to show its info in the popup*/
     async function getUser(imgSrc, image) {
         const response = await fetch(
             "http://localhost:8080/api/users/" + image.user_email,
@@ -59,12 +63,14 @@
         showFeedPopup(imgSrc, image);
     }
 
+    /*Shows popup*/
     function showFeedPopup(imageSrc, image) {
         feedPopupVisible = true;
         feedPopupImageSrc = imageSrc;
         feedPopupImage = image;
     }
 
+    /*Closes Popup*/
     function closeFeedPopup() {
         feedPopupVisible = false;
     }

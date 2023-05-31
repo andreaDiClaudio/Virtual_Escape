@@ -8,11 +8,13 @@
     /*Set tab title*/
     titleStore.setTitle("Signup | VE");
 
+    /*Set the body gradient*/
     let bodyGradient = false;
     onMount(() => {
         bodyGradient = true;
     });
 
+    /*Reset tabtitle and body gradient*/
     onDestroy(() => {
         titleStore.resetTitle();
         bodyGradient = false;
