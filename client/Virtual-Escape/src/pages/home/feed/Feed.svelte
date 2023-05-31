@@ -1,9 +1,15 @@
 <script>
+    // @ts-nocheck
     import { onMount } from "svelte";
+    import FeedPopup from "../feedPopup/FeedPopup.svelte";
 
     onMount(async () => {
         await fetchAllImages();
     });
+
+    let feedPopupVisible = false;
+    let feedPopupImageSrc = "";
+    let feedPopupImage = {};
 
     /*To shuffle the images*/
     function shuffleArray(array) {
@@ -15,6 +21,7 @@
     }
 
     let images;
+    let shuffledImages = [];
     /*Fetch user found images*/
     async function fetchAllImages() {
         try {
@@ -26,16 +33,71 @@
             if (response.status === 200) {
                 const res = await response.json();
                 images = res.data;
-                let shuffledImages = shuffleArray(images);
+                shuffledImages = shuffleArray(images);
                 console.log(shuffledImages);
             }
         } catch (error) {
             console.error("Error fetching user images:", error);
         }
     }
+
+    function showFeedPopup(imageSrc, image) {
+        feedPopupVisible = true;
+        feedPopupImageSrc = imageSrc;
+        feedPopupImage = image;
+    }
+
+    function closeFeedPopup() {
+        profileFoundPopupVisible = false;
+    }
 </script>
 
 <div id="hr-div">
     <hr id="horizontal-line" />
     <h4>Discover</h4>
+    <FeedPopup
+        bind:isVisible={feedPopupVisible}
+        bind:imageSrc={feedPopupImageSrc}
+        bind:image={feedPopupImage}
+        on:close={closeFeedPopup}
+    />
+    <div id="feed">
+        {#each shuffledImages as image}
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <!-- svelte-ignore a11y-mouse-events-have-key-events -->
+            <div
+                class="user-gallery-card"
+                on:mouseover={(e) => {
+                    e.currentTarget.children[1].style.display = "block";
+                    e.currentTarget.children[2].hidden = false;
+                }}
+                on:mouseout={(e) => {
+                    e.currentTarget.children[1].style.display = "none";
+                    e.currentTarget.children[2].hidden = true;
+                }}
+                on:click={() =>
+                    showFeedPopup(
+                        `http://localhost:8080/${image.image_url}`,
+                        image
+                    )}
+            >
+                <!-- svelte-ignore a11y-img-redundant-alt -->
+                <img
+                    class="user-gallery-image"
+                    src={`http://localhost:8080/${image.image_url}`}
+                    alt="User gallery image"
+                />
+                <div
+                    class="user-gallery-opacity-layer"
+                    style="display: none;"
+                />
+                <img
+                    class="user-gallery-zoom-in-icon"
+                    src="http://localhost:8080/public/webIcons/zoom-icon-white.png"
+                    alt="Zoom icon"
+                    hidden
+                />
+            </div>
+        {/each}
+    </div>
 </div>

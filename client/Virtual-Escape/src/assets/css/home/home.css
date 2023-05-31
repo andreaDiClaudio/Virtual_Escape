@@ -59,3 +59,9 @@
 .home-page-button-wrapper {
     padding-top: 0.8rem;
 }
+
+#feed {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
