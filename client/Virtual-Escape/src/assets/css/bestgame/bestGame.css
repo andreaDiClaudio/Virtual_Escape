@@ -1,0 +1,89 @@
+#best-game-page {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 2rem;
+}
+
+#best-game-page-left-side {
+    display: flex;
+    flex-direction: column;
+    padding-left: 2rem;
+    padding-top: 2rem;
+}
+
+#best-game-page-title {
+    font-size: 10rem;
+    font-weight: 900;
+    color: #2a2a3f;
+}
+
+#best-game-page-description {
+    font-size: 1.5rem;
+    color: #2a2a3f;
+}
+
+.bold {
+    color: #e7793e;
+}
+
+.best-game-page-input {
+    border: none;
+  border-bottom: 2px solid #2a2a3f;
+  background: none;
+  padding: 0.5rem;
+  font-weight: 700;
+  width: 10rem;
+}
+
+#best-game-page-form-wrapper {
+    padding-top: 2rem;
+}
+
+#best-game-page-button-wrapper {
+    padding-top: 0.5rem;
+}
+
+#best-game-page-right-side {
+    padding-top: 5rem;
+    margin: auto;
+  font-size: 1.2rem;
+  color: #2a2a3f;
+}
+#best-game-panel {
+  height: 30rem;
+  width: 20rem;
+  padding: 3rem;
+  background-color: #2a2a3f;
+  overflow-y: auto;
+  border-radius: 25px;
+}
+
+#best-game-page-right-side ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#best-game-page-right-side li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid white;
+}
+
+#best-game-page-right-side li:last-child {
+  border-bottom: none;
+}
+
+#best-game-user-opinion {
+  color: #e7793e;
+}
+
+#best-game-user-nickname {
+  color: white;
+}
+
+#best-game-page-right-side h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}

@@ -4,7 +4,7 @@
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import Navbar from "../../components/Navbar.svelte";
 
-    // Set tab title
+    /*Set tab title*/
     titleStore.setTitle("Home | VE");
 
     let bodyWhite = false;

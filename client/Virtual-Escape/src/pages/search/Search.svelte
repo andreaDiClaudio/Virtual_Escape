@@ -100,7 +100,7 @@
                     </div>
                     {#if account.bio}
                         <div id="user-info-bio-wrapper">
-                            <textarea id="user-info-bio-search"
+                            <textarea id="user-info-bio-search" disabled
                                 >{account.bio}</textarea
                             >
                         </div>

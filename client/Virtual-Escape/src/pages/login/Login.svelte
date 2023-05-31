@@ -22,9 +22,9 @@
   });
 
   const navigate = useNavigate();
-  let email = "test@gmail.com";
-  let nickname = "test";
-  let password = "test";
+  let email = "andrea@gmail.com";
+  let nickname = "ndreotti";
+  let password = "ndreotti";
   let message = "";
 
   /*Log in*/
