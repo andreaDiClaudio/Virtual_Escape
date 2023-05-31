@@ -91,6 +91,8 @@ router.patch("/api/images/:id", isAuthenticated, async (req, res) => {
         res.status(200).send({ message: "Image info updated correctly" });
     }
 })
+
+
 // Function to delete a file
 function deleteFile(filePath) {
     fs.unlink(filePath, (err) => {
