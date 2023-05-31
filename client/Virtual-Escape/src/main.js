@@ -6,6 +6,7 @@ import "./assets/css/profile/profile.css";
 import "./assets/css/profile/imageGallery.css";
 import "./assets/css/search/search.css";
 import "./assets/css/global.css";
+import "./assets/css/bestGame/bestGame.css";
 import App from './App.svelte';
 
 const app = new App({

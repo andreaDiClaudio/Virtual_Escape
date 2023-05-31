@@ -49,6 +49,10 @@ export function isAuthenticated(req, res, next) {
     }
 }
 
+/*TODO
+styling: home
+implement follow
+implement like
 /*Websocket*/
 import http from "http";
 const server = http.createServer(app);
@@ -61,28 +65,33 @@ const io = new Server(server, {
     }
 });
 
-
+/*Get all opinions*/
 async function getOpinions() {
     const [rows] = await db.execute("SELECT * FROM best_games");
-    return rows;
+    let sorted = rows.reverse();
+    return sorted;
 }
 
+/*Save a new opinion*/
 async function insertOpinion(username, opinion) {
     const insertQuery = `
-      INSERT INTO best_games (user_nickname, user_opinion)
-      VALUES (?, ?);
+    INSERT INTO best_games (user_nickname, user_opinion)
+    VALUES (?, ?);
     `;
     await db.execute(insertQuery, [username, opinion]);
 }
 
 (async () => {
+    // send the list of all opininons 
     io.on("connection", async (socket) => {
         const opinions = await getOpinions();
         socket.emit("update opinions", opinions);
 
+        //submit opinion
         socket.on("submit opinion", async (data) => {
             await insertOpinion(data.username, data.opinion);
 
+            // sends back all opinions
             const updatedOpinions = await getOpinions();
             io.emit("update opinions", updatedOpinions);
         });

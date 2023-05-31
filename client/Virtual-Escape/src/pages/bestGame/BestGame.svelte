@@ -32,11 +32,44 @@
 </script>
 
 <Navbar {bestGameIconColor} />
-<input type="text" bind:value={userOpinion} />
-<button on:click={handleSubmitOpinion}>Submit Opinion</button>
+<div id="best-game-page">
+    <div id="best-game-page-left-side">
+        <p id="best-game-page-title">Best Game<br /> Ever ?</p>
+        <p id="best-game-page-description">
+            Share <b class="bold">your opinion</b> with other virtual photogrpahers!
+        </p>
+        <div id="best-game-page-form-wrapper">
+            <div id="best-game-page-input">
+                <input
+                    maxlength="28"
+                    placeholder="Say it here!"
+                    class="best-game-page-input"
+                    type="text"
+                    bind:value={userOpinion}
+                />
+            </div>
+            <div id="best-game-page-button-wrapper">
+                <button class="button" on:click={handleSubmitOpinion}
+                    >Submit Opinion</button
+                >
+            </div>
+        </div>
+    </div>
 
-<ul>
-    {#each opinionsList as opinion}
-        <li>{opinion.user_nickname}: {opinion.user_opinion}</li>
-    {/each}
-</ul>
+    <div id="best-game-page-right-side">
+        <div id="best-game-panel">
+            <ul>
+                {#each opinionsList as opinion}
+                    <li>
+                        <span id="best-game-user-nickname"
+                            >{opinion.user_nickname}:</span
+                        >
+                        <span id="best-game-user-opinion"
+                            >{opinion.user_opinion}</span
+                        >
+                    </li>
+                {/each}
+            </ul>
+        </div>
+    </div>
+</div>

@@ -101,3 +101,9 @@
     font-size: 0.8em;
     cursor: pointer;
 }
+
+@media (max-width: 670px) {
+    #VE-logo {
+        display: none;
+    }
+}
