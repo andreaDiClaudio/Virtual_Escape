@@ -26,7 +26,11 @@
     function handleSubmit(event) {
         // Check if a file is selected
         // @ts-ignore
-        if (!imageInput.files || imageInput.files.length === 0) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        formData.append("is_profile_img", "0");
+        if (!previewSrc || previewSrc === "") {
             toastr.options = {
                 closeButton: false,
                 debug: false,
@@ -48,10 +52,6 @@
                 "Please select an image to upload in the left side of the window."
             );
         }
-        event.preventDefault();
-        const form = event.target;
-        const formData = new FormData(form);
-        formData.append("is_profile_img", "0");
 
         /*Post*/
         fetch("http://localhost:8080/api/images", {
@@ -84,6 +84,10 @@
         } else {
             previewSrc = "";
         }
+    }
+
+    function discard() {
+        window.location.href("/upload");
     }
 </script>
 

@@ -9,6 +9,7 @@
     let user = JSON.parse(localStorage.getItem("user"));
     /*Variables for binding values*/
     let userImages = [];
+    let userImagesReverse = [];
     let isPopupVisible = false;
     let popupImageSrc = "";
     let popupImageData = { description: "", game: "" };
@@ -33,6 +34,7 @@
             .then((res) => {
                 // Set the userImages reactive variable with the fetched images
                 userImages = res.data;
+                userImagesReverse = userImages.reverse();
             })
             .catch((error) => {
                 console.error("Error fetching user images:", error);
@@ -47,7 +49,7 @@
 </script>
 
 <div id="user-gallery-wrapper">
-    {#each userImages as image}
+    {#each userImagesReverse as image}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-mouse-events-have-key-events -->
         <div

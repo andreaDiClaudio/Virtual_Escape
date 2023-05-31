@@ -2,6 +2,7 @@ import { Router } from "express";
 import bcrypt from "bcrypt";
 import db from "../../database/connection.js";
 import { isAuthenticated } from "../../app.js";
+import fs from "fs";
 
 const router = Router();
 
@@ -104,15 +105,25 @@ router.post("/api/users", async (req, res) => {
     });
 });
 
+
+// Function to delete a file
+function deleteFile(filePath) {
+    fs.unlink(filePath, (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+    });
+}
+
 /*PATCH*/
 router.patch("/api/users/:email", isAuthenticated, async (req, res) => {
-    //Check if user exists
-    const [users, fields] = await db.execute('SELECT gamertag, bio, age,country, language FROM users WHERE email = ?', [req.params.email]);
+    // Check if user exists
+    const [users, fields] = await db.execute('SELECT gamertag, bio, age, country, language, profile_img_url FROM users WHERE email = ?', [req.params.email]);
 
     if (users.length === 0) {
         res.status(404).send({ message: "User not found" });
     } else {
-
         if (req.body.age === "") {
             req.body.age = null;
         }
@@ -120,6 +131,13 @@ router.patch("/api/users/:email", isAuthenticated, async (req, res) => {
         if (req.body.age !== null && isNaN(parseInt(req.body.age))) {
             res.status(400).send({ message: "Wrong data, please try again filling the information correctly (Age as number)" });
         } else {
+            // Take the old profile_img_url and delete it if it's different from the new one
+            const oldProfileImgUrl = users[0].profile_img_url;
+            const newProfileImgUrl = req.body.profile_img_url;
+
+            if (oldProfileImgUrl && newProfileImgUrl && oldProfileImgUrl !== newProfileImgUrl) {
+                deleteFile(oldProfileImgUrl);
+            }
 
             // Update user info
             await db.execute("UPDATE users SET gamertag = ?, bio = ?, age = ?, country = ?, language = ?, profile_img_url = ? WHERE email = ?", [req.body.gamertag, req.body.bio, req.body.age, req.body.country, req.body.language, req.body.profile_img_url, req.params.email]);
