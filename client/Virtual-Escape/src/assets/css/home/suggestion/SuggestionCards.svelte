@@ -6,12 +6,9 @@
         </div>
         <div class="home-page-suggestion-description-wrapper">
             <h6 class="home-page-description">
-                Are you ready to showcase your profile?
+                Are you ready to <b class="bold">showcase</b> your profile?
             </h6>
-            <h6 class="home-page-description">
-                No?! It's time to <b class="bold">do it.</b>
-            </h6>
-            <h6 class="home-page-description">Don't hesitate and ...</h6>
+            <h6 class="home-page-description">No?! Don't hesitate and ...</h6>
             <div class="home-page-button-wrapper">
                 <a href="/profile">
                     <button class="button">Get Ready!</button>
@@ -27,10 +24,12 @@
         </div>
         <div class="home-page-suggestion-description-wrapper">
             <h6 class="home-page-description">
-                Discover the incredible creations of the other VP
+                <b class="bold">Discover</b> the incredible creations of the other
+                VP
             </h6>
             <div class="home-page-button-wrapper">
-                <a href="/profile">
+                <a href=""
+                    ><!--TODO-->
                     <button class="button">See now!</button>
                 </a>
             </div>
@@ -44,7 +43,8 @@
         </div>
         <div class="home-page-suggestion-description-wrapper">
             <h6 class="home-page-description">
-                Share your best pictures and build an incredible profile!
+                <b class="bold">Share</b> your best pictures and build an incredible
+                profile!
             </h6>
             <div class="home-page-button-wrapper">
                 <a href="/upload">
@@ -60,10 +60,10 @@
             <h1 class="home-page-suggestion-title">Neverending Battle</h1>
         </div>
         <div class="home-page-suggestion-description-wrapper">
+            <h6 class="home-page-description">The hardest of the questions,</h6>
             <h6 class="home-page-description">
-                The hardest of the questions:,
+                What is the best game <b class="bold">ever?</b>
             </h6>
-            <h6 class="home-page-description">What is the best game ever?</h6>
             <div class="home-page-button-wrapper">
                 <a href="/bestgame">
                     <button class="button">Say yours!</button>

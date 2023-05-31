@@ -34,8 +34,5 @@
 
 <Navbar {homeIconColor} />
 <div id="home-page">
-    <div id="home-page-welcome-message-wrapper">
-        <h1 id="home-page-welcome-message">Welcome, {$user.nickname}!</h1>
-    </div>
     <SuggestionCards />
 </div>
