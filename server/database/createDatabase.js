@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS best_games (
 );
 `);
 
-/*FOLLOWS*/
+/*FOLLOWS
 db.execute(`
   CREATE TABLE IF NOT EXISTS follows (
     id INT AUTO_INCREMENT PRIMARY KEY,
