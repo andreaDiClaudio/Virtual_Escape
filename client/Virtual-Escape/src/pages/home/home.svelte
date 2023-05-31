@@ -3,6 +3,7 @@
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import Navbar from "../../components/Navbar.svelte";
+    import SuggestionCards from "../../assets/css/home/suggestion/SuggestionCards.svelte";
 
     /*Set tab title*/
     titleStore.setTitle("Home | VE");
@@ -32,4 +33,9 @@
 </svelte:head>
 
 <Navbar {homeIconColor} />
-<h1>Welcome, {$user.nickname}!</h1>
+<div id="home-page">
+    <div id="home-page-welcome-message-wrapper">
+        <h1 id="home-page-welcome-message">Welcome, {$user.nickname}!</h1>
+    </div>
+    <SuggestionCards />
+</div>

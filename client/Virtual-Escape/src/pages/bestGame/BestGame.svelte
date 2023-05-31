@@ -6,7 +6,7 @@
     import io from "socket.io-client";
 
     /*Set tab title*/
-    titleStore.setTitle("Home | VE");
+    titleStore.setTitle("Best Game | VE");
 
     let bestGameIconColor = "";
     onMount(() => {
