@@ -23,9 +23,9 @@
   });
 
   const navigate = useNavigate();
-  let email = "andrea@gmail.com";
-  let nickname = "ndreotti";
-  let password = "ndreotti";
+  let email = "";
+  let nickname = "";
+  let password = "";
   let message = "";
 
   /*Log in*/
@@ -118,6 +118,7 @@
             name="username"
             placeholder="username"
             required
+            maxlength="14"
             bind:value={nickname}
           />
         </div>

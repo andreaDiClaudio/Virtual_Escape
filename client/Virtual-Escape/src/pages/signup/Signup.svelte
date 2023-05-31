@@ -113,6 +113,7 @@
                         name="username"
                         placeholder="username"
                         required
+                        maxlength="14"
                         bind:value={nickname}
                     />
                 </div>
