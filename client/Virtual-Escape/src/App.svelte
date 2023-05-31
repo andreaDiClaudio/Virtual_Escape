@@ -4,7 +4,7 @@
 
   import Login from "./pages/login/Login.svelte";
   import Signup from "./pages/signup/Signup.svelte";
-
+  import Home from "./pages/home/Home.svelte";
   import Upload from "./pages/upload/Upload.svelte";
   import Profile from "./pages/userProfile/Profile.svelte";
   import Search from "./pages/search/Search.svelte";
@@ -33,7 +33,9 @@
     <Signup />
   </Route>
 
-  <PrivateRoute path="/home" let:location />
+  <PrivateRoute path="/home" let:location>
+    <Home />
+  </PrivateRoute>
 
   <PrivateRoute path="/upload" let:location>
     <Upload />
