@@ -38,7 +38,6 @@
                 const res = await response.json();
                 images = res.data;
                 shuffledImages = shuffleArray(images);
-                console.log(shuffledImages);
             }
         } catch (error) {
             console.error("Error fetching user images:", error);
@@ -55,10 +54,8 @@
             }
         );
         if (response.status === 200) {
-            console.log("reached");
             const result = await response.json();
             feedPopupUser = result.data;
-            console.log(feedPopupUser);
         }
         showFeedPopup(imgSrc, image);
     }
