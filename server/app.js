@@ -3,6 +3,7 @@ import session from "express-session";
 import cors from "cors";
 import dotenv from "dotenv";
 import rateLimit from "express-rate-limit";
+import helmet from "helmet";
 import { join } from "path";
 import db from "./database/connection.js";
 
@@ -42,7 +43,10 @@ const apiLimiter = rateLimit({
 app.use("/login", apiLimiter);
 app.use("/home", apiLimiter);
 
-/*Middleware*/
+/*Helment*/
+app.use(helmet());
+
+/*Custom Middleware*/
 // To check if the user is authenticated
 export function isAuthenticated(req, res, next) {
     if (req.session && req.session.user) {

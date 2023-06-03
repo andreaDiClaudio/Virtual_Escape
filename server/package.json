@@ -12,9 +12,22 @@
     "express": "^4.18.2",
     "express-rate-limit": "^6.7.0",
     "express-session": "^1.17.3",
+    "helmet": "^7.0.0",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.3.0",
     "path": "^0.12.7",
     "socket.io": "^4.6.1"
-  }
+  },
+  "name": "virtual_escape",
+  "version": "1.0.0",
+  "description": "Social media platform for Virtual Photographers",
+  "main": "app.js",
+  "keywords": [
+    "Virtual Photography",
+    "Virtual Photographers",
+    "Social Media",
+    "Videogames"
+  ],
+  "author": "Andrea Di Claudio",
+  "license": "MIT"
 }
