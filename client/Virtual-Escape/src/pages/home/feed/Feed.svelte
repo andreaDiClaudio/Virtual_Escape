@@ -75,7 +75,7 @@
 
 <div id="hr-div">
     <hr id="horizontal-line" />
-    <h4>Discover</h4>
+    <h1 id="feed-title">Discover</h1>
     <FeedPopup
         bind:user={feedPopupUser}
         bind:isVisible={feedPopupVisible}
