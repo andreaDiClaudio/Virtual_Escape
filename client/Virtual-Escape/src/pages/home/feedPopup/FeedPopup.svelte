@@ -38,10 +38,17 @@
             >
                 <!-- svelte-ignore a11y-img-redundant-alt -->
                 <div id="popup-window-user-profile-image-wrapper">
+                    {#if user.profile_img_url}
+                        <img
+                            id="popup-window-user-profile-image"
+                            alt="user profile image"
+                            src="http://localhost:8080/{user.profile_img_url}"
+                        />
+                    {/if}
                     <img
                         id="popup-window-user-profile-image"
                         alt="user profile image"
-                        src="http://localhost:8080/{user.profile_img_url}"
+                        src="http://localhost:8080/public/defaultUserProfileImage/1684737647624-181908121___default_profile_image.jpg"
                     />
                 </div>
                 <h3 id="popup-window-user-nickname">@{user.nickname}</h3>
