@@ -105,7 +105,6 @@ router.post("/api/users", async (req, res) => {
     });
 });
 
-
 // Function to delete a file
 function deleteFile(filePath) {
     fs.unlink(filePath, (err) => {
@@ -146,5 +145,16 @@ router.patch("/api/users/:email", isAuthenticated, async (req, res) => {
     }
 });
 
+/*Delete*/
+router.delete("/api/users/:email", isAuthenticated, async (req, res) => {
+    const [users, fields] = await db.execute('SELECT gamertag FROM users WHERE email = ?', [req.params.email]);
+
+    if (users.length === 0) {
+        res.status(404).send({ message: "User not found" });
+    } else {
+        await db.execute("DELETE FROM users where email = ?", [req.params.email])
+        res.status(200).send({ message: "account deleted correctly" });
+    }
+});
 
 export default router;

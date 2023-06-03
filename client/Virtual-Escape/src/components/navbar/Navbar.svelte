@@ -1,5 +1,5 @@
 <script>
-    import { user } from "../stores/users/users.js";
+    import NavbarSettingsPopup from "./NavbarSettingsPopup.svelte";
 
     /*Variables declaration for binding values*/
     export let homeIconColor = "";
@@ -8,20 +8,10 @@
     export let searchIconColor = "";
     export let bestGameIconColor = "";
 
-    /*Log out*/
-    function handleSubmit() {
-        fetch("http://localhost:8080/logout", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }).then((response) => {
-            if (response.status === 200) {
-                user.set(null);
-                localStorage.removeItem("user");
-                window.location.href = "/";
-            }
-        });
+    let isSettings = false;
+
+    function showSettingsPopup() {
+        isSettings = true;
     }
 </script>
 
@@ -75,8 +65,9 @@
         />
     </div>
     <div id="navbar-right-side">
-        <form on:submit|preventDefault={handleSubmit}>
-            <button type="submit" class="fas fa-sign-out" id="button" />
-        </form>
+        <button on:click={showSettingsPopup} class="fas fa-cog" id="button" />
     </div>
 </nav>
+{#if isSettings}
+    <NavbarSettingsPopup />
+{/if}

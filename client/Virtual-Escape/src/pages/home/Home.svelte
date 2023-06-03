@@ -1,7 +1,7 @@
 <script>
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
-    import Navbar from "../../components/Navbar.svelte";
+    import Navbar from "../../components/navbar/Navbar.svelte";
     import SuggestionCards from "./suggestion/SuggestionCards.svelte";
     import Feed from "./feed/Feed.svelte";
 
