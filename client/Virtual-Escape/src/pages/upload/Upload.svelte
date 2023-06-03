@@ -1,5 +1,5 @@
 <script>
-    import Navbar from "../../components/Navbar.svelte";
+    import Navbar from "../../components/navbar/Navbar.svelte";
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import toastr from "toastr";
@@ -84,10 +84,6 @@
         } else {
             previewSrc = "";
         }
-    }
-
-    function discard() {
-        window.location.href("/upload");
     }
 </script>
 

@@ -146,7 +146,7 @@ router.patch("/api/users/:email", isAuthenticated, async (req, res) => {
 });
 
 /*Delete*/
-router.delete("/api/users/:email", async (req, res) => {
+router.delete("/api/users/:email", isAuthenticated, async (req, res) => {
     const [users, fields] = await db.execute('SELECT gamertag FROM users WHERE email = ?', [req.params.email]);
 
     if (users.length === 0) {

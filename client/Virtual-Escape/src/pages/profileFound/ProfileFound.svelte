@@ -1,5 +1,5 @@
 <script>
-    import Navbar from "../../components/Navbar.svelte";
+    import Navbar from "../../components/navbar/Navbar.svelte";
     import ProfileFoundGallery from "./ProfileFoundGallery.svelte";
     import { onMount } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";

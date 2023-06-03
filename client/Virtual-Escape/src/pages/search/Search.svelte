@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import { navigate } from "svelte-navigator";
-    import Navbar from "../../components/Navbar.svelte";
+    import Navbar from "../../components/navbar/Navbar.svelte";
 
     /*Variables for binding values*/
     let accounts = [];

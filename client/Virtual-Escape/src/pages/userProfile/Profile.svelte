@@ -6,7 +6,7 @@
     import toastr from "toastr";
 
     /*Components*/
-    import Navbar from "../../components/Navbar.svelte";
+    import Navbar from "../../components/navbar/Navbar.svelte";
     import UserGallery from "./gallery/ProfileGallery.svelte";
     import ProfileUserInfoInputs from "./ProfileUserInfoInputs.svelte";
     import ProfileUserEditButtons from "./ProfileUserEditButtons.svelte";

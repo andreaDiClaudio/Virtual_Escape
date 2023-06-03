@@ -9,6 +9,7 @@
   import Profile from "./pages/userProfile/Profile.svelte";
   import Search from "./pages/search/Search.svelte";
   import BestGame from "./pages/bestGame/BestGame.svelte";
+  import Goodbye from "./pages/goodbye/Goodbye.svelte";
 
   import { titleStore } from "./stores/tabTitle/tabTitle.js";
   import ProfileFound from "./pages/profileFound/ProfileFound.svelte";
@@ -56,4 +57,8 @@
   <PrivateRoute path="/bestgame">
     <BestGame />
   </PrivateRoute>
+
+  <Route path="/goodbye">
+    <Goodbye />
+  </Route>
 </Router>
