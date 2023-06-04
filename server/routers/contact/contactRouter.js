@@ -1,13 +1,14 @@
 import dotenv from "dotenv";
 import { Router } from "express";
 import nodemailer from "nodemailer";
+import { isAuthenticated } from "../../app.js";
 
 //needed to read .env file
 dotenv.config();
 
 const router = Router();
 
-router.post("/contact", (req, res) => {
+router.post("/contact", isAuthenticated, (req, res) => {
     const mailTransporter = nodemailer.createTransport({
         service: "gmail",
         auth: {

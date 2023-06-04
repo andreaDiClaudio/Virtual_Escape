@@ -1,5 +1,15 @@
 <script>
     import Navbar from "../../components/navbar/Navbar.svelte";
+    import { onMount, onDestroy } from "svelte";
+    import { titleStore } from "../../stores/tabTitle/tabTitle.js";
+
+    /*Set tab title*/
+    titleStore.setTitle("Contact us | VE");
+
+    /*Reset tabtitle*/
+    onDestroy(() => {
+        titleStore.resetTitle();
+    });
 
     let subject;
     let message;
@@ -17,6 +27,7 @@
                 subject: subject,
                 message: message,
             }),
+            credentials: "include",
         }).then((response) => {
             if (response.status === 200) {
                 window.location.reload();
