@@ -1,5 +1,6 @@
 <script>
     import { user } from "../../stores/users/users.js";
+    import { navigate } from "svelte-navigator";
 
     /*Log out*/
     function handleLogOut() {
@@ -13,7 +14,7 @@
                 user.set(null);
                 localStorage.removeItem("user");
                 localStorage.removeItem("selectedAccount");
-                window.location.href = "/";
+                navigate("/");
             }
         });
     }
@@ -36,7 +37,7 @@
             if (resposnse.status === 200) {
                 localStorage.removeItem("user");
                 localStorage.removeItem("selectedAccount");
-                window.location.href = "/goodbye";
+                navigate("/goodbye");
             }
         });
     }
@@ -45,7 +46,9 @@
 <div id="background-overlay">
     <div class="settings-popup-window" style="display: flex;">
         <div id="buttons-container">
-            <button class="settings-popup-button">Contact us</button>
+            <a href="/contact" style="width: 100%;">
+                <button class="settings-popup-button">Contact us</button>
+            </a>
             <button class="settings-popup-button" on:click={handleDeleteAccount}
                 >Delete account</button
             >

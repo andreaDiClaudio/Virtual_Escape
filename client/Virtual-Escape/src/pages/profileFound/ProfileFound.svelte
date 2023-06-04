@@ -3,6 +3,7 @@
     import ProfileFoundGallery from "./ProfileFoundGallery.svelte";
     import { onMount } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
+    import { navigate } from "svelte-navigator";
 
     /*Variables for binding values*/
     let selectedAccount = JSON.parse(localStorage.getItem("selectedAccount"));
@@ -13,30 +14,20 @@
     titleStore.setTitle(`@${selectedAccount.nickname} | VE`);
 
     /*Fetches the user data and seta icon color*/
-    onMount(async () => {
-        await fetchUserData();
+    onMount(() => {
+        fetch("http://localhost:8080/api/users/" + selectedAccount.email, {
+            method: "GET",
+            credentials: "include",
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                user = data.data;
+            });
+
         searchIconColor = "#e7793e";
     });
-
-    /*Fetch user found info*/
-    async function fetchUserData() {
-        try {
-            const response = await fetch(
-                "http://localhost:8080/api/users/" + selectedAccount.email,
-                {
-                    method: "GET",
-                    credentials: "include",
-                }
-            );
-
-            if (response.status === 200) {
-                const result = await response.json();
-                user = result.data;
-            }
-        } catch (error) {
-            console.error("Error fetching user data:", error);
-        }
-    }
 </script>
 
 <Navbar {searchIconColor} />
@@ -46,7 +37,7 @@
         <div
             id="go-back-arrow"
             class="fas fa-angle-left"
-            on:click={() => (window.location.href = "/search")}
+            on:click={() => navigate("/search")}
         />
         <div id="user-info-wrapper">
             <div id="user-info-profile-image-wrapper">

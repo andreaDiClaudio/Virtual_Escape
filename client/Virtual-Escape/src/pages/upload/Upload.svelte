@@ -3,6 +3,7 @@
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import toastr from "toastr";
+    import { navigate } from "svelte-navigator";
 
     /*Variables for binding values*/
     let imageInputDisplay = "none";
@@ -60,7 +61,7 @@
             credentials: "include",
         }).then((response) => {
             if (response.status == 200) {
-                window.location.href = "/profile";
+                navigate("/profile");
             }
         });
     }

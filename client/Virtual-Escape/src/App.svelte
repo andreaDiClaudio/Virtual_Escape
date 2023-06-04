@@ -13,6 +13,8 @@
 
   import { titleStore } from "./stores/tabTitle/tabTitle.js";
   import ProfileFound from "./pages/profileFound/ProfileFound.svelte";
+  import Contact from "./pages/contact/Contact.svelte";
+
   // Update the document title reactively
   $: document.title = $titleStore;
 </script>
@@ -38,24 +40,28 @@
     <Home />
   </PrivateRoute>
 
-  <PrivateRoute path="/upload" let:location>
+  <PrivateRoute path="/upload">
     <Upload />
   </PrivateRoute>
 
-  <PrivateRoute path="/profile" let:location>
+  <PrivateRoute path="/profile">
     <Profile />
   </PrivateRoute>
 
-  <PrivateRoute path="/search" let:location>
+  <PrivateRoute path="/search">
     <Search />
   </PrivateRoute>
 
-  <PrivateRoute path="/search/:nickname" let:params let:location>
+  <PrivateRoute path="/search/:nickname">
     <ProfileFound />
   </PrivateRoute>
 
   <PrivateRoute path="/bestgame">
     <BestGame />
+  </PrivateRoute>
+
+  <PrivateRoute path="/contact">
+    <Contact />
   </PrivateRoute>
 
   <Route path="/goodbye">

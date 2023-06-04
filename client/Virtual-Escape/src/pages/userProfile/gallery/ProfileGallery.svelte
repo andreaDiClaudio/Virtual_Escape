@@ -3,25 +3,7 @@
     import ProfilePopupWindow from "../popupWindow/ProfilePopupWindow.svelte";
 
     onMount(() => {
-        fetchUserImages();
-    });
-
-    let user = JSON.parse(localStorage.getItem("user"));
-    /*Variables for binding values*/
-    let userImages = [];
-    let userImagesReverse = [];
-    let isPopupVisible = false;
-    let popupImageSrc = "";
-    let popupImageData = { description: "", game: "" };
-    let isDropdownVisible = false;
-    let isEditing = false;
-    let descriptionInputValue = "";
-    let gameInputValue = "";
-    let descriptionId = "";
-
-    /*Fetch user images*/
-    //fetches user uploaded images to fill the gallery
-    function fetchUserImages() {
+        let user = JSON.parse(localStorage.getItem("user"));
         fetch("http://localhost:8080/api/search/images/" + user.email, {
             method: "GET",
             credentials: "include",
@@ -39,7 +21,18 @@
             .catch((error) => {
                 console.error("Error fetching user images:", error);
             });
-    }
+    });
+
+    /*Variables for binding values*/
+    let userImages = [];
+    let userImagesReverse = [];
+    let isPopupVisible = false;
+    let popupImageSrc = "";
+    let popupImageData = { description: "", game: "" };
+    let isDropdownVisible = false;
+    let isEditing = false;
+    let descriptionInputValue = "";
+    let gameInputValue = "";
 
     function showPopup(imageSrc, image) {
         isPopupVisible = true;

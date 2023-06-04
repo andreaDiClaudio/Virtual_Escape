@@ -135,6 +135,7 @@
     font-size:1em;
     border: solid white 1px;
     cursor:pointer;
+    width: 100%;
 }
 
 .settings-popup-button:hover {
@@ -145,6 +146,7 @@
     border: 1px solid #e7793e ;
     font-size: 1em;
     cursor: pointer;
+    width: 100%;
 }
 
 #settings-popup-button {

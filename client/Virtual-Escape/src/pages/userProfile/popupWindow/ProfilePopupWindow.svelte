@@ -9,39 +9,36 @@
     export let popupImageSrc = "";
 
     /*Patch*/
-    async function saveChanges(image) {
-        const response = await fetch(
-            "http://localhost:8080/api/images/" + image.id,
-            {
-                method: "PATCH",
-                body: JSON.stringify({
-                    description: descriptionInputValue,
-                    game: gameInputValue,
-                }),
-                credentials: "include",
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8",
-                },
+    function saveChanges(image) {
+        fetch("http://localhost:8080/api/images/" + image.id, {
+            method: "PATCH",
+            body: JSON.stringify({
+                description: descriptionInputValue,
+                game: gameInputValue,
+            }),
+            credentials: "include",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+            },
+        }).then((response) => {
+            if (response.status === 200) {
+                window.location.reload();
             }
-        );
-
-        if (response.status === 200) {
-            window.location.href = "/profile";
-        }
+        });
     }
 
-    /*Delete image*/
+    /**/
     function deleteImage(image) {
         if (!confirm("Are you sure you want to delete this image?")) {
             return;
         }
 
-        return fetch("http://localhost:8080/api/images/" + image.id, {
+        fetch("http://localhost:8080/api/images/" + image.id, {
             method: "DELETE",
             credentials: "include",
         }).then((response) => {
             if (response.status === 200) {
-                window.location.href = "/profile";
+                window.location.reload();
             }
         });
     }

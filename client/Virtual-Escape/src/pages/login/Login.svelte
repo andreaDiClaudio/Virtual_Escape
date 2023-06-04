@@ -23,9 +23,9 @@
   });
 
   const navigate = useNavigate();
-  let email = "postman@gmail.com";
-  let nickname = "postman";
-  let password = "postman";
+  let email = "andreadicla@gmail.com";
+  let nickname = "andreadicla";
+  let password = "andreadicla";
   let message = "";
 
   /*Log in*/
