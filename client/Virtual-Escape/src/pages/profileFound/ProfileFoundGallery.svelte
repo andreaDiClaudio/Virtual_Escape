@@ -5,7 +5,6 @@
     import { onMount } from "svelte";
 
     /*Variables for binding values*/
-    let selectedAccount = JSON.parse(localStorage.getItem("selectedAccount"));
     let userImages = [];
     let profileFoundPopupVisible = false;
     let profileFoundPopupImageSrc = "";
@@ -18,6 +17,9 @@
 
     /*Fetch user found images*/
     async function fetchUserImages() {
+        let selectedAccount = JSON.parse(
+            localStorage.getItem("selectedAccount")
+        );
         try {
             const response = await fetch(
                 "http://localhost:8080/api/search/images/" +

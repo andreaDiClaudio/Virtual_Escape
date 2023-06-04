@@ -204,14 +204,14 @@
                 toastr["error"]("Wrong input. Please enter the age as number");
             } else if (response.status === 200) {
                 // Redirect to the profile page
-                navigate("/profile");
+                window.location.reload();
             }
         });
     }
 
     /*Discard changes*/
     function discardChanges() {
-        navigate("/profile");
+        window.location.reload();
     }
 </script>
 

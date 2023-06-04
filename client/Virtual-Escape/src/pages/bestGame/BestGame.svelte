@@ -17,8 +17,9 @@
     const socket = io("http://localhost:8080");
     let userOpinion = "";
 
-    const user = JSON.parse(sessionStorage.getItem("user"));
     function handleSubmitOpinion() {
+        const user = JSON.parse(sessionStorage.getItem("user"));
+
         socket.emit("submit opinion", {
             username: user.nickname,
             opinion: userOpinion,
