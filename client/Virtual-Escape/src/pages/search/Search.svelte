@@ -39,9 +39,9 @@
                     isFound = false;
                 }
             })
-            .then((result) => {
+            .then((data) => {
                 isFound = true;
-                accounts = result.data;
+                accounts = data.data;
             })
             .catch((error) => {
                 console.error(error);

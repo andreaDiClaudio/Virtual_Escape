@@ -4,8 +4,20 @@
     import FeedPopup from "../feedPopup/FeedPopup.svelte";
 
     /*fetches all images*/
-    onMount(async () => {
-        await fetchAllImages();
+    let images;
+    let shuffledImages = [];
+    onMount(() => {
+        fetch("http://localhost:8080/api/images/", {
+            method: "GET",
+            credentials: "include",
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                images = data.data;
+                shuffledImages = shuffleArray(images);
+            });
     });
 
     /*Declaration for binding values*/
@@ -23,41 +35,19 @@
         return array;
     }
 
-    /*Fetch images*/
-    let images;
-    let shuffledImages = [];
-    /*Fetch user found images*/
-    async function fetchAllImages() {
-        try {
-            const response = await fetch("http://localhost:8080/api/images/", {
-                method: "GET",
-                credentials: "include",
+    /*Get user who posted the picture*/
+    function getUser(imgSrc, image) {
+        fetch("http://localhost:8080/api/users/" + image.user_email, {
+            method: "GET",
+            credentials: "include",
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                feedPopupUser = data.data;
+                showFeedPopup(imgSrc, image);
             });
-
-            if (response.status === 200) {
-                const res = await response.json();
-                images = res.data;
-                shuffledImages = shuffleArray(images);
-            }
-        } catch (error) {
-            console.error("Error fetching user images:", error);
-        }
-    }
-
-    /*Get the user to show its info in the popup*/
-    async function getUser(imgSrc, image) {
-        const response = await fetch(
-            "http://localhost:8080/api/users/" + image.user_email,
-            {
-                method: "GET",
-                credentials: "include",
-            }
-        );
-        if (response.status === 200) {
-            const result = await response.json();
-            feedPopupUser = result.data;
-        }
-        showFeedPopup(imgSrc, image);
     }
 
     /*Shows popup*/

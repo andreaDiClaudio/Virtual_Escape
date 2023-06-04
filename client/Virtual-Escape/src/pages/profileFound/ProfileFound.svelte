@@ -14,30 +14,20 @@
     titleStore.setTitle(`@${selectedAccount.nickname} | VE`);
 
     /*Fetches the user data and seta icon color*/
-    onMount(async () => {
-        await fetchUserData();
+    onMount(() => {
+        fetch("http://localhost:8080/api/users/" + selectedAccount.email, {
+            method: "GET",
+            credentials: "include",
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                user = data.data;
+            });
+
         searchIconColor = "#e7793e";
     });
-
-    /*Fetch user found info*/
-    async function fetchUserData() {
-        try {
-            const response = await fetch(
-                "http://localhost:8080/api/users/" + selectedAccount.email,
-                {
-                    method: "GET",
-                    credentials: "include",
-                }
-            );
-
-            if (response.status === 200) {
-                const result = await response.json();
-                user = result.data;
-            }
-        } catch (error) {
-            console.error("Error fetching user data:", error);
-        }
-    }
 </script>
 
 <Navbar {searchIconColor} />

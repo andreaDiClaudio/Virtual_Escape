@@ -19,7 +19,44 @@
     let userIconColor = "";
     onMount(() => {
         userIconColor = "#e7793e";
-        fetchUserData();
+
+        fetch("http://localhost:8080/api/users/" + $user.email, {
+            method: "GET",
+            credentials: "include",
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    return response.json();
+                }
+            })
+            .then((data) => {
+                const fetchedUser = data.data;
+                // Set the reactive variables with the fetched user data
+                ageValue = fetchedUser.age;
+                countryValue = fetchedUser.country;
+                languageValue = fetchedUser.language;
+                gamertagValue = fetchedUser.gamertag;
+                bioValue = fetchedUser.bio;
+
+                // Set the default profile image
+                if (fetchedUser.profile_img_url == null) {
+                    profileImgUrl =
+                        "http://localhost:8080/public/defaultUserProfileImage/1684737647624-181908121___default_profile_image.jpg";
+                } else {
+                    // Ensure the profile image URL starts with "http://localhost:8080/"
+                    if (
+                        !fetchedUser.profile_img_url.startsWith(
+                            "http://localhost:8080/"
+                        )
+                    ) {
+                        profileImgUrl =
+                            "http://localhost:8080/" +
+                            fetchedUser.profile_img_url;
+                    } else {
+                        profileImgUrl = fetchedUser.profile_img_url;
+                    }
+                }
+            });
     });
 
     /*Resets tabtitle*/
@@ -56,47 +93,6 @@
         gamertagId = "user-info-gamertag-edit";
         bioId = "user-info-bio-edit";
         descriptionId = "popup-window-description";
-    }
-
-    /*Fetch user info*/
-    async function fetchUserData() {
-        const response = await fetch(
-            "http://localhost:8080/api/users/" + $user.email,
-            {
-                method: "GET",
-                credentials: "include",
-            }
-        );
-
-        if (response.status == 200) {
-            const result = await response.json();
-            const fetchedUser = result.data;
-
-            // Set the reactive variables with the fetched user data
-            ageValue = fetchedUser.age;
-            countryValue = fetchedUser.country;
-            languageValue = fetchedUser.language;
-            gamertagValue = fetchedUser.gamertag;
-            bioValue = fetchedUser.bio;
-
-            // Set the default profile image
-            if (fetchedUser.profile_img_url == null) {
-                profileImgUrl =
-                    "http://localhost:8080/public/defaultUserProfileImage/1684737647624-181908121___default_profile_image.jpg";
-            } else {
-                // Ensure the profile image URL starts with "http://localhost:8080/"
-                if (
-                    !fetchedUser.profile_img_url.startsWith(
-                        "http://localhost:8080/"
-                    )
-                ) {
-                    profileImgUrl =
-                        "http://localhost:8080/" + fetchedUser.profile_img_url;
-                } else {
-                    profileImgUrl = fetchedUser.profile_img_url;
-                }
-            }
-        }
     }
 
     /*Handles the profile image preview when loaded*/

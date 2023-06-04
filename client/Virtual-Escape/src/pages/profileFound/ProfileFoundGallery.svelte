@@ -12,32 +12,24 @@
 
     /*Fetch user images*/
     onMount(async () => {
-        await fetchUserImages();
-    });
-
-    /*Fetch user found images*/
-    async function fetchUserImages() {
         let selectedAccount = JSON.parse(
             localStorage.getItem("selectedAccount")
         );
-        try {
-            const response = await fetch(
-                "http://localhost:8080/api/search/images/" +
-                    selectedAccount.email,
-                {
-                    method: "GET",
-                    credentials: "include",
-                }
-            );
 
-            if (response.status === 200) {
-                const res = await response.json();
-                userImages = res.data;
+        fetch(
+            "http://localhost:8080/api/search/images/" + selectedAccount.email,
+            {
+                method: "GET",
+                credentials: "include",
             }
-        } catch (error) {
-            console.error("Error fetching user images:", error);
-        }
-    }
+        )
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                userImages = data.data;
+            });
+    });
 
     /*Shows popup*/
     function showProfileFoundPopup(imageSrc, image) {
