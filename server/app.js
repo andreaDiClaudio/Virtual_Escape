@@ -112,6 +112,9 @@ app.use(loginRouter);
 import imageRouter from "./routers/image/imageRouter.js";
 app.use(imageRouter);
 
+import contactRouter from "./routers/contact/contactRouter.js";
+app.use(contactRouter);
+
 import logoutRouter from "./routers/authentication/logoutRouter.js";
 app.use(logoutRouter);
 

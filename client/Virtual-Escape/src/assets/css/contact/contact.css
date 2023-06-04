@@ -1,0 +1,48 @@
+#contact-page {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+#contact-page-content {
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+}
+
+.contact-page-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#contact-page-title {
+    font-size: 10rem;
+    font-weight: 900;
+    color: #2a2a3f;
+}
+
+.contact-page-input {
+    border: none;
+    border-bottom: 2px solid #2a2a3f;
+    background: none;
+    padding: 0.5rem;
+    font-weight: 700;
+    width: 100%;
+    margin-bottom: 1rem;
+    resize: none;
+}
+
+#contact-page-form-wrapper {
+    padding-top: 2rem;
+}
+
+#contact-page-button-wrapper {
+    padding-top: 0.5rem;
+    display: flex;
+    justify-content: end;
+}
