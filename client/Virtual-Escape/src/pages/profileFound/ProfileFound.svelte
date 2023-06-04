@@ -3,6 +3,7 @@
     import ProfileFoundGallery from "./ProfileFoundGallery.svelte";
     import { onMount } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
+    import { navigate } from "svelte-navigator";
 
     /*Variables for binding values*/
     let selectedAccount = JSON.parse(localStorage.getItem("selectedAccount"));
@@ -46,7 +47,7 @@
         <div
             id="go-back-arrow"
             class="fas fa-angle-left"
-            on:click={() => (window.location.href = "/search")}
+            on:click={() => navigate("/search")}
         />
         <div id="user-info-wrapper">
             <div id="user-info-profile-image-wrapper">

@@ -10,6 +10,7 @@
     import UserGallery from "./gallery/ProfileGallery.svelte";
     import ProfileUserInfoInputs from "./ProfileUserInfoInputs.svelte";
     import ProfileUserEditButtons from "./ProfileUserEditButtons.svelte";
+    import { navigate } from "svelte-navigator";
 
     /*Set Tab Title*/
     titleStore.setTitle("Profile | VE");
@@ -203,14 +204,14 @@
                 toastr["error"]("Wrong input. Please enter the age as number");
             } else if (response.status === 200) {
                 // Redirect to the profile page
-                window.location.href = "/profile";
+                navigate("/profile");
             }
         });
     }
 
     /*Discard changes*/
     function discardChanges() {
-        window.location.href = "/profile";
+        navigate("/profile");
     }
 </script>
 

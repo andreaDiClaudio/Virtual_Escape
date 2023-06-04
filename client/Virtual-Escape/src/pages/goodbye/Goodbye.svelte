@@ -1,6 +1,7 @@
 <script>
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
+    import { navigate } from "svelte-navigator";
 
     /*Set tab title*/
     titleStore.setTitle("Goodbye | VE");
@@ -27,11 +28,11 @@
 
     /*button to redirect*/
     function handleRedirection() {
-        window.location.href = "/signup";
+        navigate("/signup");
     }
 
     /*Timeout for redirecting*/
-    setTimeout(() => (window.location.href = "/signup"), 10000);
+    setTimeout(() => navigate("/signup"), 10000);
 </script>
 
 <svelte:head>

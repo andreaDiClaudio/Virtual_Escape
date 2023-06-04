@@ -4,6 +4,7 @@
     import { onMount, onDestroy } from "svelte";
     import { titleStore } from "../../stores/tabTitle/tabTitle.js";
     import Footer from "../../components/Footer.svelte";
+    import { navigate } from "svelte-navigator";
 
     /*Set tab title*/
     titleStore.setTitle("Signup | VE");
@@ -41,7 +42,7 @@
             credentials: "include",
         }).then((response) => {
             if (response.status === 201) {
-                window.location.href = "/";
+                navigate("/");
             } else if (response.status === 400) {
                 message = "User already exists";
                 toastr.options = {

@@ -1,4 +1,6 @@
 <script>
+    import { navigate } from "svelte-navigator";
+
     /*Variables for binding values*/
     export let isEditing = false;
     export let gameInputValue = "";
@@ -26,7 +28,7 @@
         );
 
         if (response.status === 200) {
-            window.location.href = "/profile";
+            window.location.reload();
         }
     }
 
@@ -41,7 +43,7 @@
             credentials: "include",
         }).then((response) => {
             if (response.status === 200) {
-                window.location.href = "/profile";
+                window.location.reload();
             }
         });
     }
