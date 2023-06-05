@@ -28,6 +28,7 @@
             id={ageId}
             min="1"
             max="100"
+            type="number"
             readonly={!isEditing}
             disabled={!isEditing}
             placeholder={!isEditing ? "" : "age"}
