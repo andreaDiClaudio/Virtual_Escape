@@ -13,6 +13,10 @@
     function showSettingsPopup() {
         isSettings = true;
     }
+
+    function closePopup() {
+        isSettings = false;
+    }
 </script>
 
 <nav id="navbar">
@@ -69,5 +73,5 @@
     </div>
 </nav>
 {#if isSettings}
-    <NavbarSettingsPopup />
+    <NavbarSettingsPopup on:closePopup={closePopup} />
 {/if}

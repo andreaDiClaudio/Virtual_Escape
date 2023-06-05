@@ -1,6 +1,8 @@
 <script>
+    import { createEventDispatcher } from "svelte";
     import { user } from "../../stores/users/users.js";
     import { navigate } from "svelte-navigator";
+    const dispatch = createEventDispatcher();
 
     /*Log out*/
     function handleLogOut() {
@@ -41,9 +43,14 @@
             }
         });
     }
+
+    function closePopup() {
+        dispatch("closePopup");
+    }
 </script>
 
-<div id="background-overlay">
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div id="background-overlay" on:click={closePopup}>
     <div class="settings-popup-window" style="display: flex;">
         <div id="buttons-container">
             <a href="/contact" style="width: 100%;">
