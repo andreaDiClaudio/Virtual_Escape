@@ -24,6 +24,8 @@
             username: user.nickname,
             opinion: userOpinion,
         });
+
+        userOpinion = "";
     }
 
     /*saves the opinion in a list*/
@@ -43,6 +45,7 @@
         <div id="best-game-page-form-wrapper">
             <div id="best-game-page-input">
                 <input
+                    required
                     maxlength="28"
                     placeholder="Say it here!"
                     class="best-game-page-input"
